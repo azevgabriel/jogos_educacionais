@@ -27,8 +27,6 @@ export const ImageWrapper = styled.div`
   img {
     height: 70%;
     width: 70%;
-
-    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 1));
   }
 `;
 
@@ -48,7 +46,7 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
 
   .nameContent {
     width: 100%;
-    height: 30%;
+    height: 35%;
 
     border: 4px solid #aeb0b5;
     border-radius: 10px;
@@ -69,7 +67,7 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
 
   .modelContent {
     width: 100%;
-    height: 30%;
+    height: 25%;
 
     display: flex;
     flex-direction: row;
@@ -96,6 +94,24 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
 
   .emptyContent {
     width: 100%;
-    height: 30%;
+    height: 25%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    .emptyHouse {
+      height: 70%;
+      width: calc(90% / ${(props) => props.numberOfLetters});
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      border: 2px solid #aeb0b5;
+      border-radius: 10px;
+    }
   }
 `;

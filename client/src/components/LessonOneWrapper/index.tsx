@@ -27,6 +27,16 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     return houses;
   }
 
+  function renderEmptyHouses() {
+    const emptyHouses = [];
+
+    for (let i = 0; i < animal.length; i++) {
+      emptyHouses.push(<div className="emptyHouse" key={i} />);
+    }
+
+    return emptyHouses;
+  }
+
   return (
     <Container>
       <ImageWrapper>
@@ -40,7 +50,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
           <h1>{animal.toUpperCase()}</h1>
         </div>
         <div className="modelContent">{renderHouses()}</div>
-        <div className="emptyContent"></div>
+        <div className="emptyContent">{renderEmptyHouses()}</div>
       </LessonLettersContentWrapper>
     </Container>
   );
