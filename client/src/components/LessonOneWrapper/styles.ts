@@ -65,7 +65,7 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
     }
   }
 
-  .modelContent {
+  .line {
     width: 100%;
     height: 25%;
 
@@ -74,7 +74,7 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
     justify-content: space-evenly;
     align-items: center;
 
-    .house {
+    .dropzone {
       height: 70%;
       width: calc(90% / ${(props) => props.numberOfLetters});
 
@@ -86,32 +86,32 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
       border: 2px solid #aeb0b5;
       border-radius: 10px;
 
-      span {
-        font-size: 10vh;
+      .letter {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        font-size: 7vh;
+        font-weight: bold;
+      }
+
+      .is-dragging {
+        cursor: move;
+        opacity: 0.3;
       }
     }
-  }
 
-  .emptyContent {
-    width: 100%;
-    height: 25%;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-
-    .emptyHouse {
-      height: 70%;
-      width: calc(90% / ${(props) => props.numberOfLetters});
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
+    .not-over {
       border: 2px solid #aeb0b5;
-      border-radius: 10px;
+    }
+
+    .over {
+      border: 2px solid #589e4a;
     }
   }
 `;
