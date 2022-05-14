@@ -1,6 +1,7 @@
 import { Container, ImageWrapper, LessonLettersContentWrapper } from './styles';
 import { words } from '../../assets/words';
 import { useEffect, useState } from 'react';
+import { Dropzone } from './Dropzone';
 
 export type WordsKey = keyof typeof words;
 
@@ -25,11 +26,11 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     for (let i = 0; i < length; i++) {
       let position = Math.floor(Math.random() * animalArray.length);
       houses.push(
-        <div className="dropzone" key={i}>
+        <Dropzone key={`initialFull-${i}}`} numberOfLetters={length}>
           <div className="letter" draggable="true">
             {animalArray[position].toUpperCase()}
           </div>
-        </div>
+        </Dropzone>
       );
       animalArray.splice(position, 1);
     }
@@ -41,7 +42,9 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     const emptyHouses = [];
 
     for (let i = 0; i < animal.length; i++) {
-      emptyHouses.push(<div className="dropzone" key={i} />);
+      emptyHouses.push(
+        <Dropzone key={`empty-${i}}`} numberOfLetters={animal.length} />
+      );
     }
 
     return emptyHouses;
