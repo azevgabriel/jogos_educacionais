@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/node": "^17.0.33",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "styled-components": "^5.3.5"
