@@ -1,6 +1,7 @@
 import { Container, ImageWrapper, LessonLettersContentWrapper } from './styles';
 import { words } from '../../assets/words';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { EmptyHouse } from './EmptyHouse';
 
 export type WordsKey = keyof typeof words;
 
@@ -9,14 +10,7 @@ interface LessonOneWrapperProps {
 }
 
 export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
-  const [allLetters, setAllLetters] = useState<NodeListOf<Element> | null>(
-    null
-  );
-  const [allDropzones, setAllDropzones] = useState<NodeListOf<Element> | null>(
-    null
-  );
-
-  function renderHouses() {
+  const renderHouses = useCallback(() => {
     const houses = [];
 
     let animalArray = animal.split('');
@@ -25,9 +19,9 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     for (let i = 0; i < length; i++) {
       let position = Math.floor(Math.random() * animalArray.length);
       houses.push(
-        <div className="dropzone" key={i}>
-          <div className="letter" draggable="true">
-            {animalArray[position].toUpperCase()}
+        <div className="dropzone initialFullHouse" key={`${animal}-${i}`}>
+          <div className={`letter`} draggable="true">
+            <p>{animalArray[position].toUpperCase()}</p>
           </div>
         </div>
       );
@@ -35,32 +29,40 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     }
 
     return houses;
-  }
+  }, [animal]);
 
-  function renderEmptyHouses() {
+  const renderEmptyHouses = useCallback(() => {
     const emptyHouses = [];
 
+    let animalArray = animal.split('');
+
     for (let i = 0; i < animal.length; i++) {
-      emptyHouses.push(<div className="dropzone" key={i} />);
+      console.log(animalArray[i].toUpperCase());
+      emptyHouses.push(
+        <EmptyHouse
+          key={`emptyHouse-${animal}-${i}`}
+          secondClass={`emptyHouse-${animal}-${i}`}
+          solution={animalArray[i].toUpperCase()}
+        />
+      );
     }
 
     return emptyHouses;
-  }
+  }, [animal]);
 
-  function dragstart(this: Element) {
+  function dragStart(this: Element) {
     this.classList.add('is-dragging');
     this.parentElement?.classList.add('last-zone');
+    this.parentElement?.classList.add('empty');
   }
 
-  function dragend(this: Element) {
+  function dragEnd(this: Element) {
     this.classList.remove('is-dragging');
   }
 
-  function dragover(this: Element) {
+  function dragOver(this: Element) {
     const cardBeingDragged = document.querySelector('.is-dragging');
     const lastZone = document.querySelector('.last-zone');
-
-    console.log();
 
     if (this.children[0] && this.children[0] !== cardBeingDragged) {
       this.classList.add('not-over');
@@ -73,7 +75,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     }
   }
 
-  function dragleave(this: Element) {
+  function dragLeave(this: Element) {
     this.classList.remove('over');
     this.classList.remove('not-over');
 
@@ -89,27 +91,26 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
   }
 
   useEffect(() => {
-    const letter = document.querySelectorAll('.letter');
-    const dropzone = document.querySelectorAll('.dropzone');
+    renderHouses();
+    renderEmptyHouses();
 
-    if (letter) setAllLetters(letter);
-    if (dropzone) setAllDropzones(dropzone);
-  }, []);
+    const allLetters = document.querySelectorAll('.letter');
+    const allDropzones = document.querySelectorAll('.dropzone');
 
-  useEffect(() => {
-    if (allLetters)
+    if (allLetters) {
       allLetters.forEach((letter) => {
-        letter.addEventListener('dragstart', dragstart);
-        letter.addEventListener('dragend', dragend);
+        letter.addEventListener('dragstart', dragStart);
+        letter.addEventListener('dragend', dragEnd);
       });
+    }
 
     if (allDropzones)
       allDropzones.forEach((dropzone) => {
-        dropzone.addEventListener('dragover', dragover);
-        dropzone.addEventListener('dragleave', dragleave);
+        dropzone.addEventListener('dragover', dragOver);
+        dropzone.addEventListener('dragleave', dragLeave);
         dropzone.addEventListener('drop', drop);
       });
-  }, [allLetters, allDropzones]);
+  }, [animal]);
 
   return (
     <Container>

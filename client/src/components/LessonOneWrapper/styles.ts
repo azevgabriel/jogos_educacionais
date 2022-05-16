@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -45,13 +45,13 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
   width: 80vh;
 
   .nameContent {
-    width: 100%;
+    width: 97%;
     height: 35%;
 
     border: 4px solid #aeb0b5;
     border-radius: 10px;
 
-    background-color: #dce4ef;
+    background-color: #fefefe;
 
     display: flex;
     flex-direction: column;
@@ -73,6 +73,10 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+
+    .initialFullHouse {
+      background-color: #fefefe;
+    }
 
     .dropzone {
       height: 70%;
@@ -96,8 +100,9 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
         justify-content: center;
         align-items: center;
 
-        font-size: 7vh;
-        font-weight: bold;
+        p {
+          font-size: 7vh;
+        }
       }
 
       .is-dragging {
@@ -107,7 +112,7 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
     }
 
     .not-over {
-      border: 2px solid #aeb0b5;
+      border: 2px solid #bb0000;
     }
 
     .over {
