@@ -115,7 +115,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     <Container>
       <ImageWrapper>
         <img
-          src={`public/assets/images/${words[animal].src}`}
+          src={`https://hamburgueria.s3.us-east-2.amazonaws.com/educacao-especial/${words[animal].src}`}
           alt={words[animal].alt}
         />
       </ImageWrapper>
