@@ -37,7 +37,6 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     let animalArray = animal.split('');
 
     for (let i = 0; i < animal.length; i++) {
-      console.log(animalArray[i].toUpperCase());
       emptyHouses.push(
         <EmptyHouse
           key={`emptyHouse-${animal}-${i}`}
@@ -116,7 +115,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     <Container>
       <ImageWrapper>
         <img
-          src={process.env.PUBLIC_URL + `/assets/images/${words[animal].src}`}
+          src={`public/assets/images/${words[animal].src}`}
           alt={words[animal].alt}
         />
       </ImageWrapper>
