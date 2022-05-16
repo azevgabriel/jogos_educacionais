@@ -116,7 +116,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     <Container>
       <ImageWrapper>
         <img
-          src={`/src/assets/images/${words[animal].src}`}
+          src={process.env.PUBLIC_URL + `/assets/images/${words[animal].src}`}
           alt={words[animal].alt}
         />
       </ImageWrapper>
