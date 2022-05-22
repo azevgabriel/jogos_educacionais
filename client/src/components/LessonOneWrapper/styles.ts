@@ -91,14 +91,15 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
       border-radius: 10px;
 
       .letter {
-        width: 100%;
-        height: 100%;
+        width: max-content;
+        height: max-content;
 
         display: flex;
         flex-direction: column;
 
         justify-content: center;
         align-items: center;
+        cursor: move;
 
         p {
           font-size: 7vh;

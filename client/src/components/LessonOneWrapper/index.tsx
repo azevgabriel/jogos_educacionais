@@ -19,7 +19,10 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     for (let i = 0; i < length; i++) {
       let position = Math.floor(Math.random() * animalArray.length);
       houses.push(
-        <div className="dropzone initialFullHouse" key={`${animal}-${i}`}>
+        <div
+          className={`dropzone initialFullHouse ${animal}-${i}`}
+          key={`${animal}-${i}`}
+        >
           <div className={`letter`} draggable="true">
             <p>{animalArray[position].toUpperCase()}</p>
           </div>
@@ -59,19 +62,24 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     this.classList.remove('is-dragging');
   }
 
-  function dragOver(this: Element) {
+  function dragOver(e: Event, el: Element) {
+    e.preventDefault();
     const cardBeingDragged = document.querySelector('.is-dragging');
     const lastZone = document.querySelector('.last-zone');
 
-    if (this.children[0] && this.children[0] !== cardBeingDragged) {
-      this.classList.add('not-over');
+    console.log('dragOver', el);
+
+    if (el.children[0] && el.children[0] !== cardBeingDragged) {
+      el.classList.add('not-over');
       if (cardBeingDragged && lastZone) {
         lastZone.appendChild(cardBeingDragged);
       }
     } else {
-      this.classList.add('over');
-      if (cardBeingDragged) this.appendChild(cardBeingDragged);
+      el.classList.add('over');
+      if (cardBeingDragged) el.appendChild(cardBeingDragged);
     }
+
+    return false;
   }
 
   function dragLeave(this: Element) {
@@ -89,6 +97,76 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     if (lastZone) lastZone.classList.remove('last-zone');
   }
 
+  /************************* DRAG & DROP TOUCH FUNCTIONS *************************/
+
+  var currentX: number;
+  var currentY: number;
+  var initialX: number;
+  var initialY: number;
+  var xOffset = 0;
+  var yOffset = 0;
+
+  const dragStartTouch = useCallback((e: Event, el: Element) => {
+    el.classList.add('is-dragging');
+
+    let touchEvent = e as TouchEvent;
+    initialX = touchEvent.touches[0].clientX - xOffset;
+    initialY = touchEvent.touches[0].clientY - yOffset;
+  }, []);
+
+  const dragTouch = useCallback((e: Event, el: Element) => {
+    e.preventDefault();
+    let touchEvent = e as TouchEvent;
+    currentX = touchEvent.touches[0].clientX - initialX;
+    currentY = touchEvent.touches[0].clientY - initialY;
+    xOffset = currentX;
+    yOffset = currentY;
+    setTranslate(currentX, currentY, el);
+  }, []);
+
+  function dragEndTouch(el: Element) {
+    const allDropzones = document.querySelectorAll('.dropzone');
+    const cardBeingDraggedSize = el.getBoundingClientRect();
+    let over = false;
+
+    for (let i = 0; i < allDropzones.length; i++) {
+      const dropzone = allDropzones[i];
+      const dropzoneSize = dropzone.getBoundingClientRect();
+
+      if (el.parentElement && el.parentElement.className !== dropzone.className)
+        if (
+          cardBeingDraggedSize.left >= dropzoneSize.left &&
+          cardBeingDraggedSize.right <= dropzoneSize.right &&
+          cardBeingDraggedSize.top <= dropzoneSize.top &&
+          cardBeingDraggedSize.bottom >= dropzoneSize.bottom
+        ) {
+          over = true;
+          dropzone.appendChild(el);
+          return;
+        }
+    }
+
+    if (over === false) {
+      setTranslate(0, 0, el);
+    }
+
+    currentX = 0;
+    currentY = 0;
+    initialX = 0;
+    initialY = 0;
+    xOffset = 0;
+    yOffset = 0;
+
+    el.classList.remove('is-dragging');
+  }
+
+  function setTranslate(xPos: number, yPos: number, el: Element) {
+    //Im not sure what this does but it dosnt work without it
+    let htmlElement = el as HTMLElement;
+    htmlElement.style.transform =
+      'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)';
+  }
+
   useEffect(() => {
     renderHouses();
     renderEmptyHouses();
@@ -100,12 +178,15 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
       allLetters.forEach((letter) => {
         letter.addEventListener('dragstart', dragStart);
         letter.addEventListener('dragend', dragEnd);
+        letter.addEventListener('touchstart', (e) => dragStartTouch(e, letter));
+        letter.addEventListener('touchmove', (e) => dragTouch(e, letter));
+        letter.addEventListener('touchend', () => dragEndTouch(letter));
       });
     }
 
     if (allDropzones)
       allDropzones.forEach((dropzone) => {
-        dropzone.addEventListener('dragover', dragOver);
+        dropzone.addEventListener('dragover', (e) => dragOver(e, dropzone));
         dropzone.addEventListener('dragleave', dragLeave);
         dropzone.addEventListener('drop', drop);
       });
