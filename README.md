@@ -1,5 +1,5 @@
 <h1 align="center">
-   Jogos para estudo de TE (tremor essencial).
+   Jogos para estudo inclusivos.
 </h1>
 
 <p align="center">
