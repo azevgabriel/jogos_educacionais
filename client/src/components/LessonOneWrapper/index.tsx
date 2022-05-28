@@ -110,6 +110,10 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     el.classList.add('is-dragging');
 
     let touchEvent = e as TouchEvent;
+    xOffset = 0;
+    yOffset = 0;
+    currentX = 0;
+    currentY = 0;
     initialX = touchEvent.touches[0].clientX - xOffset;
     initialY = touchEvent.touches[0].clientY - yOffset;
   }, []);
@@ -127,35 +131,28 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
   function dragEndTouch(el: Element) {
     const allDropzones = document.querySelectorAll('.dropzone');
     const cardBeingDraggedSize = el.getBoundingClientRect();
-    let over = false;
 
     for (let i = 0; i < allDropzones.length; i++) {
       const dropzone = allDropzones[i];
       const dropzoneSize = dropzone.getBoundingClientRect();
 
-      if (el.parentElement && el.parentElement.className !== dropzone.className)
+      if (dropzone.children.length === 0)
         if (
-          cardBeingDraggedSize.left >= dropzoneSize.left &&
-          cardBeingDraggedSize.right <= dropzoneSize.right &&
-          cardBeingDraggedSize.top <= dropzoneSize.top &&
-          cardBeingDraggedSize.bottom >= dropzoneSize.bottom
-        ) {
-          over = true;
-          dropzone.appendChild(el);
-          return;
-        }
+          el.parentElement &&
+          el.parentElement.className !== dropzone.className
+        )
+          if (
+            cardBeingDraggedSize.left >= dropzoneSize.left &&
+            cardBeingDraggedSize.right <= dropzoneSize.right &&
+            cardBeingDraggedSize.top <= dropzoneSize.top &&
+            cardBeingDraggedSize.bottom >= dropzoneSize.bottom
+          ) {
+            dropzone.appendChild(el);
+            break;
+          }
     }
 
-    if (over === false) {
-      setTranslate(0, 0, el);
-    }
-
-    currentX = 0;
-    currentY = 0;
-    initialX = 0;
-    initialY = 0;
-    xOffset = 0;
-    yOffset = 0;
+    setTranslate(0, 0, el);
 
     el.classList.remove('is-dragging');
   }
