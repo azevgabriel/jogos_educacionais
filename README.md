@@ -1,5 +1,5 @@
 <h1 align="center">
-   Jogos para estudo inclusivos.
+   Jogos inclusivos.
 </h1>
 
 <p align="center">
