@@ -11,7 +11,7 @@ interface LessonOneWrapperProps {
 }
 
 export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
-  const { catchDropzoneModifier } = useLessonOne();
+  const { catchDropzoneModifier, nextAnimal, previousAnimal } = useLessonOne();
   const [housesWithLetters, setHousesWithLetters] = useState<
     JSX.Element[] | null
   >(null);
@@ -214,6 +214,10 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
           src={`https://hamburgueria.s3.us-east-2.amazonaws.com/educacao-especial/${words[animal].src}`}
           alt={words[animal].alt}
         />
+        <div className="buttons">
+          <button onClick={previousAnimal}>{'<'}</button>
+          <button onClick={nextAnimal}>{'>'}</button>
+        </div>
       </ImageWrapper>
       <LessonLettersContentWrapper numberOfLetters={animal.length}>
         <div className="nameContent">

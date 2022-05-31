@@ -24,15 +24,15 @@ export const words = {
     alt: 'Imagem de um galo',
     syllable: ['Ga', 'lo'],
   },
-  Gato: {
-    src: 'Gato.png',
-    alt: 'Imagem de um gato',
-    syllable: ['Ga', 'to'],
-  },
   Ovelha: {
     src: 'Ovelha.png',
     alt: 'Imagem de uma ovelha',
     syllable: ['O', 've', 'lha'],
+  },
+  Gato: {
+    src: 'Gato.png',
+    alt: 'Imagem de um gato',
+    syllable: ['Ga', 'to'],
   },
   Porco: {
     src: 'Porco.png',
