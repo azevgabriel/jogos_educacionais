@@ -17,8 +17,11 @@
 
 ### 🤩 Features
 
- - [x] Em breve ...
-
+ - [] Tela inicial com multi jogos.
+ - [] Implementar o Lesson One versão silábas.
+ - [] Implementar o Liga Ponto.
+ - [] Implementar o jogo da memória.
+ 
 ### 🗻 Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
