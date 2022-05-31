@@ -1,16 +1,14 @@
-import { useState } from 'react';
 import { LessonOneWrapper } from './components/LessonOneWrapper';
-import { WordsKey } from './components/LessonOneWrapper';
 
-import { words } from './assets/words';
+import AppProvider from './hooks';
 
 function App() {
-  const [animal, setAnimal] = useState<WordsKey>('Bode');
-
   return (
-    <main className="containerMother">
-      <LessonOneWrapper animal={animal} />
-    </main>
+    <AppProvider>
+      <main className="containerMother">
+        <LessonOneWrapper animal="Bode" />
+      </main>
+    </AppProvider>
   );
 }
 

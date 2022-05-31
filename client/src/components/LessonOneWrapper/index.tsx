@@ -2,6 +2,7 @@ import { Container, ImageWrapper, LessonLettersContentWrapper } from './styles';
 import { words } from '../../assets/words';
 import { useCallback, useEffect, useState } from 'react';
 import { EmptyHouse } from './EmptyHouse';
+import { useLessonOne } from '../../hooks/UseLessonOne';
 
 export type WordsKey = keyof typeof words;
 
@@ -10,7 +11,17 @@ interface LessonOneWrapperProps {
 }
 
 export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
+  const { catchDropzoneModifier } = useLessonOne();
+  const [housesWithLetters, setHousesWithLetters] = useState<
+    JSX.Element[] | null
+  >(null);
+  const [freeHouses, setFreeHouses] = useState<JSX.Element[] | null>(null);
+
   const renderHouses = useCallback(() => {
+    if (animal.length === housesWithLetters?.length) {
+      return housesWithLetters;
+    }
+
     const houses = [];
 
     let animalArray = animal.split('');
@@ -31,10 +42,15 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
       animalArray.splice(position, 1);
     }
 
+    setHousesWithLetters(houses);
     return houses;
-  }, [animal]);
+  }, [animal, housesWithLetters]);
 
   const renderEmptyHouses = useCallback(() => {
+    if (animal.length === freeHouses?.length) {
+      return freeHouses;
+    }
+
     const emptyHouses = [];
 
     let animalArray = animal.split('');
@@ -49,8 +65,9 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
       );
     }
 
+    setFreeHouses(emptyHouses);
     return emptyHouses;
-  }, [animal]);
+  }, [animal, freeHouses]);
 
   function dragStart(this: Element) {
     this.classList.add('is-dragging');
@@ -148,6 +165,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
             cardBeingDraggedSize.bottom >= dropzoneSize.bottom
           ) {
             dropzone.appendChild(el);
+            catchDropzoneModifier(dropzone.className);
             break;
           }
     }
