@@ -3,6 +3,10 @@ body {
   padding: 0;
 }
 
+button {
+  cursor: pointer;
+}
+
 .containerMother {
   width: 100vw;
   height: 100vh;

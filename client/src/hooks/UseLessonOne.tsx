@@ -20,6 +20,8 @@ interface LessonOneContextData {
     className: string,
     isCorrect: 'true' | 'false' | 'null'
   ) => void;
+  modalOpen: boolean;
+  closeMenu: () => void;
 }
 
 interface LessonOneProviderProps {
@@ -40,6 +42,12 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   const [animal, setAnimal] = useState<WordsKey>('Bode');
   const [index, setIndex] = useState<number>(0);
   const [housesStats, setHousesStats] = useState<HouseState[]>([]);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  const closeMenu = () => {
+    setModalOpen(false);
+    setHousesStats([]);
+  };
 
   const catchDropzoneModifier = useCallback((className: string) => {
     setDropzoneModifier(className);
@@ -102,10 +110,8 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
       (house) => house.isCorrect === 'true'
     ).length;
 
-    console.log(housesStats);
-
     if (countCorrectsHouses === animal.length) {
-      console.log('You win');
+      setModalOpen(true);
     }
   }, [housesStats, animal]);
 
@@ -118,6 +124,8 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
         previousAnimal,
         animal,
         saveDropzoneStats,
+        modalOpen,
+        closeMenu,
       }}
     >
       {children}
