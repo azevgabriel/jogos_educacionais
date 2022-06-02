@@ -4,6 +4,7 @@ import {
   useContext,
   ReactNode,
   useState,
+  useEffect,
 } from 'react';
 
 import { words } from '../assets/words';
@@ -15,6 +16,12 @@ interface LessonOneContextData {
   nextAnimal: () => void;
   previousAnimal: () => void;
   animal: WordsKey;
+  saveDropzoneStats: (
+    className: string,
+    isCorrect: 'true' | 'false' | 'null'
+  ) => void;
+  modalOpen: boolean;
+  closeMenu: () => void;
 }
 
 interface LessonOneProviderProps {
@@ -25,13 +32,24 @@ const LessonOneContext = createContext<LessonOneContextData>(
   {} as LessonOneContextData
 );
 
+interface HouseState {
+  className: string;
+  isCorrect: 'true' | 'false' | 'null';
+}
+
 const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   const [dropzoneModifier, setDropzoneModifier] = useState<string | null>(null);
   const [animal, setAnimal] = useState<WordsKey>('Bode');
   const [index, setIndex] = useState<number>(0);
+  const [housesStats, setHousesStats] = useState<HouseState[]>([]);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  const closeMenu = () => {
+    setModalOpen(false);
+    setHousesStats([]);
+  };
 
   const catchDropzoneModifier = useCallback((className: string) => {
-    console.log('catchDropzoneModifier', className);
     setDropzoneModifier(className);
   }, []);
 
@@ -56,6 +74,47 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
     }
   }, [index]);
 
+  const saveDropzoneStats = useCallback(
+    (className: string, isCorrect: 'true' | 'false' | 'null') => {
+      let aux = housesStats;
+
+      const ifExistsSameClass = aux.find(
+        (house) => house.className === className
+      );
+
+      if (ifExistsSameClass) {
+        const newHousesStates = aux.map((house) => {
+          if (house.className === className) {
+            return {
+              className,
+              isCorrect,
+            };
+          }
+          return house;
+        });
+
+        setHousesStats(newHousesStates);
+      } else {
+        aux.push({
+          className,
+          isCorrect,
+        });
+        setHousesStats(aux);
+      }
+    },
+    [housesStats]
+  );
+
+  useEffect(() => {
+    const countCorrectsHouses = housesStats.filter(
+      (house) => house.isCorrect === 'true'
+    ).length;
+
+    if (countCorrectsHouses === animal.length) {
+      setModalOpen(true);
+    }
+  }, [housesStats, animal]);
+
   return (
     <LessonOneContext.Provider
       value={{
@@ -64,6 +123,9 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
         nextAnimal,
         previousAnimal,
         animal,
+        saveDropzoneStats,
+        modalOpen,
+        closeMenu,
       }}
     >
       {children}

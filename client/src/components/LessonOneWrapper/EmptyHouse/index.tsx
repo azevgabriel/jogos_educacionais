@@ -11,7 +11,7 @@ export const EmptyHouse = ({ secondClass, solution }: EmptyHouseProps) => {
   const [emptyzone, setEmptyzone] = useState<Element | null>(null);
   const [isCorrect, setIsCorrect] = useState<'true' | 'false' | 'null'>('null');
 
-  const { dropzoneModifier } = useLessonOne();
+  const { dropzoneModifier, saveDropzoneStats } = useLessonOne();
 
   const checkHouse = useCallback(
     (el: Element, solution: string) => {
@@ -20,13 +20,19 @@ export const EmptyHouse = ({ secondClass, solution }: EmptyHouseProps) => {
           setIsCorrect('null');
           return;
         }
-        if (el.children[0]?.children[0]?.innerHTML === solution)
+        if (el.children[0]?.children[0]?.innerHTML === solution) {
           setIsCorrect('true');
-        else setIsCorrect('false');
+        } else {
+          setIsCorrect('false');
+        }
       }, 1000);
     },
     [emptyzone]
   );
+
+  useEffect(() => {
+    saveDropzoneStats(secondClass, isCorrect);
+  }, [isCorrect]);
 
   useEffect(() => {
     let emptyzoneData = document.querySelector(`.${secondClass}`);

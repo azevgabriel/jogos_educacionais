@@ -3,6 +3,7 @@ import { words } from '../../assets/words';
 import { useCallback, useEffect, useState } from 'react';
 import { EmptyHouse } from './EmptyHouse';
 import { useLessonOne } from '../../hooks/UseLessonOne';
+import { Modal } from './Modal';
 
 export type WordsKey = keyof typeof words;
 
@@ -208,24 +209,23 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
   }, [animal]);
 
   return (
-    <Container>
-      <ImageWrapper>
-        <img
-          src={`https://hamburgueria.s3.us-east-2.amazonaws.com/educacao-especial/${words[animal].src}`}
-          alt={words[animal].alt}
-        />
-        <div className="buttons">
-          <button onClick={previousAnimal}>{'<'}</button>
-          <button onClick={nextAnimal}>{'>'}</button>
-        </div>
-      </ImageWrapper>
-      <LessonLettersContentWrapper numberOfLetters={animal.length}>
-        <div className="nameContent">
-          <h1>{animal.toUpperCase()}</h1>
-        </div>
-        <div className="line">{renderHouses()}</div>
-        <div className="line">{renderEmptyHouses()}</div>
-      </LessonLettersContentWrapper>
-    </Container>
+    <>
+      <Modal />
+      <Container>
+        <ImageWrapper>
+          <img
+            src={`https://hamburgueria.s3.us-east-2.amazonaws.com/educacao-especial/${words[animal].src}`}
+            alt={words[animal].alt}
+          />
+        </ImageWrapper>
+        <LessonLettersContentWrapper numberOfLetters={animal.length}>
+          <div className="nameContent">
+            <h1>{animal.toUpperCase()}</h1>
+          </div>
+          <div className="line">{renderHouses()}</div>
+          <div className="line">{renderEmptyHouses()}</div>
+        </LessonLettersContentWrapper>
+      </Container>
+    </>
   );
 };
