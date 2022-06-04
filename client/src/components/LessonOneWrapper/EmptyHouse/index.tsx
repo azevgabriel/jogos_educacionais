@@ -15,17 +15,15 @@ export const EmptyHouse = ({ secondClass, solution }: EmptyHouseProps) => {
 
   const checkHouse = useCallback(
     (el: Element, solution: string) => {
-      setTimeout(() => {
-        if (!el.children[0]?.children[0]?.innerHTML) {
-          setIsCorrect('null');
-          return;
-        }
-        if (el.children[0]?.children[0]?.innerHTML === solution) {
-          setIsCorrect('true');
-        } else {
-          setIsCorrect('false');
-        }
-      }, 1000);
+      if (!el.children[0]?.children[0]?.innerHTML) {
+        setIsCorrect('null');
+        return;
+      }
+      if (el.children[0]?.children[0]?.innerHTML === solution) {
+        setIsCorrect('true');
+      } else {
+        setIsCorrect('false');
+      }
     },
     [emptyzone]
   );
@@ -40,22 +38,26 @@ export const EmptyHouse = ({ secondClass, solution }: EmptyHouseProps) => {
   }, [secondClass]);
 
   useEffect(() => {
-    if (dropzoneModifier === emptyzone?.className) {
+    if (!emptyzone) return;
+
+    let lastZone = document.querySelector('.last-zone');
+
+    if (lastZone?.classList.contains('initialFullHouse')) {
+      lastZone.classList.remove('last-zone');
+    }
+
+    console.log('lastZone', lastZone);
+
+    if (dropzoneModifier === emptyzone.className) {
       setEmptyzone(emptyzone);
       checkHouse(emptyzone, solution);
     }
-  }, [dropzoneModifier]);
 
-  useEffect(() => {
-    if (emptyzone) {
-      emptyzone.addEventListener('dragleave', () =>
-        checkHouse(emptyzone, solution)
-      );
-      emptyzone.addEventListener('touchend', () =>
-        checkHouse(emptyzone, solution)
-      );
+    if (lastZone?.className === emptyzone.className) {
+      checkHouse(emptyzone, solution);
+      lastZone?.classList.remove('last-zone');
     }
-  }, [secondClass, solution, checkHouse]);
+  }, [dropzoneModifier]);
 
   return (
     <Container className={`dropzone ${secondClass}`} isCorrect={isCorrect} />

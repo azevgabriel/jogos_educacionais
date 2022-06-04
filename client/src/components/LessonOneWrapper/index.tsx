@@ -85,8 +85,6 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     const cardBeingDragged = document.querySelector('.is-dragging');
     const lastZone = document.querySelector('.last-zone');
 
-    console.log('dragOver', el);
-
     if (el.children[0] && el.children[0] !== cardBeingDragged) {
       el.classList.add('not-over');
       if (cardBeingDragged && lastZone) {
@@ -94,7 +92,6 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
       }
     } else {
       el.classList.add('over');
-      if (cardBeingDragged) el.appendChild(cardBeingDragged);
     }
 
     return false;
@@ -103,16 +100,19 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
   function dragLeave(this: Element) {
     this.classList.remove('over');
     this.classList.remove('not-over');
-
-    const lastZone = document.querySelector('.last-zone');
-    if (lastZone) lastZone.classList.remove('last-zone');
   }
 
   function drop(this: Element) {
-    this.classList.remove('over');
+    if (this.classList.contains('over')) {
+      const cardBeingDragged = document.querySelector('.is-dragging');
+      if (!cardBeingDragged) return;
+      this.appendChild(cardBeingDragged);
+      this.classList.remove('over');
 
-    const lastZone = document.querySelector('.last-zone');
-    if (lastZone) lastZone.classList.remove('last-zone');
+      catchDropzoneModifier(this.className);
+    }
+
+    this.classList.remove('not-over');
   }
 
   /************************* DRAG & DROP TOUCH FUNCTIONS *************************/
@@ -126,6 +126,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
 
   const dragStartTouch = useCallback((e: Event, el: Element) => {
     el.classList.add('is-dragging');
+    el.parentElement?.classList.add('last-zone');
 
     let touchEvent = e as TouchEvent;
     xOffset = 0;
