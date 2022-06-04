@@ -4,6 +4,11 @@ export const words = {
     alt: 'Imagem de um bode',
     syllable: ['Bo', 'de'],
   },
+  Gato: {
+    src: 'Gato.png',
+    alt: 'Imagem de um gato',
+    syllable: ['Ga', 'to'],
+  },
   Cão: {
     src: 'Cão.png',
     alt: 'Imagem de um cão',
@@ -28,11 +33,6 @@ export const words = {
     src: 'Ovelha.png',
     alt: 'Imagem de uma ovelha',
     syllable: ['O', 've', 'lha'],
-  },
-  Gato: {
-    src: 'Gato.png',
-    alt: 'Imagem de um gato',
-    syllable: ['Ga', 'to'],
   },
   Porco: {
     src: 'Porco.png',

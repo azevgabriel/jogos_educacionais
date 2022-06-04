@@ -12,18 +12,20 @@ interface LessonOneWrapperProps {
 }
 
 export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
-  const { catchDropzoneModifier, nextAnimal, previousAnimal } = useLessonOne();
+  const { catchDropzoneModifier } = useLessonOne();
   const [housesWithLetters, setHousesWithLetters] = useState<
     JSX.Element[] | null
   >(null);
   const [freeHouses, setFreeHouses] = useState<JSX.Element[] | null>(null);
+  const [auxAnimal, setAuxAnimal] = useState<WordsKey | null>(null);
 
   const renderHouses = useCallback(() => {
-    if (animal.length === housesWithLetters?.length) {
+    if (animal === auxAnimal) {
       return housesWithLetters;
     }
 
     const houses = [];
+    setAuxAnimal(animal);
 
     let animalArray = animal.split('');
     let length = animalArray.length;
@@ -45,13 +47,14 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
 
     setHousesWithLetters(houses);
     return houses;
-  }, [animal, housesWithLetters]);
+  }, [animal, housesWithLetters, auxAnimal]);
 
   const renderEmptyHouses = useCallback(() => {
-    if (animal.length === freeHouses?.length) {
+    if (animal === auxAnimal) {
       return freeHouses;
     }
 
+    setAuxAnimal(animal);
     const emptyHouses = [];
 
     let animalArray = animal.split('');
@@ -68,7 +71,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
 
     setFreeHouses(emptyHouses);
     return emptyHouses;
-  }, [animal, freeHouses]);
+  }, [animal, freeHouses, auxAnimal]);
 
   function dragStart(this: Element) {
     this.classList.add('is-dragging');
