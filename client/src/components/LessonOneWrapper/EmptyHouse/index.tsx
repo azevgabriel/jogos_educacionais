@@ -46,8 +46,6 @@ export const EmptyHouse = ({ secondClass, solution }: EmptyHouseProps) => {
       lastZone.classList.remove('last-zone');
     }
 
-    console.log('lastZone', lastZone);
-
     if (dropzoneModifier === emptyzone.className) {
       setEmptyzone(emptyzone);
       checkHouse(emptyzone, solution);
