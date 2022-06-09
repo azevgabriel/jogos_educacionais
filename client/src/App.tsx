@@ -1,12 +1,10 @@
 import AppProvider from './hooks';
-import { LessonOne } from './pages/LessonOne';
+import { AppRoutes } from './routes/index.routes';
 
 function App() {
   return (
     <AppProvider>
-      <main className="containerMother">
-        <LessonOne />
-      </main>
+      <AppRoutes />
     </AppProvider>
   );
 }
