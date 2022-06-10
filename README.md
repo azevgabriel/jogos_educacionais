@@ -3,12 +3,11 @@
 </h1>
 
 <p align="center">
-  <br>
   <img src="https://img.shields.io/github/languages/top/azevgabriel/educacao_especial">
   <img src="https://img.shields.io/github/issues/azevgabriel/educacao_especial">
   <img src="https://img.shields.io/github/forks/azevgabriel/educacao_especial">
   <img src="https://img.shields.io/github/stars/azevgabriel/educacao_especial">
-  <img src="https://img.shields.io/static/v1?label=license&message=MIT&color=E51C44">
+  <img src="https://img.shields.io/static/v1?label=license&message=GPL&color=E51C44">
 </p>
 
 <h4 align="center">
