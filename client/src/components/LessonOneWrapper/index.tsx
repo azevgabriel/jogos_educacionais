@@ -217,10 +217,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
       <Modal />
       <Container>
         <ImageWrapper>
-          <img
-            src={`https://hamburgueria.s3.us-east-2.amazonaws.com/educacao-especial/${words[animal].src}`}
-            alt={words[animal].alt}
-          />
+          <img src={words[animal].src} alt={words[animal].alt} />
         </ImageWrapper>
         <LessonLettersContentWrapper numberOfLetters={animal.length}>
           <div className="nameContent">
