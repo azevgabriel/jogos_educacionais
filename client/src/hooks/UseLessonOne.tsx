@@ -22,6 +22,8 @@ interface LessonOneContextData {
   ) => void;
   modalOpen: boolean;
   closeMenu: () => void;
+  index: number;
+  restart: () => void;
 }
 
 interface LessonOneProviderProps {
@@ -73,6 +75,11 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
       setIndex(previousIndex);
     }
   }, [index]);
+
+  const restart = useCallback(() => {
+    setAnimal('Bode');
+    setIndex(0);
+  }, []);
 
   const saveDropzoneStats = useCallback(
     (className: string, isCorrect: 'true' | 'false' | 'null') => {
@@ -126,6 +133,8 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
         saveDropzoneStats,
         modalOpen,
         closeMenu,
+        index,
+        restart,
       }}
     >
       {children}

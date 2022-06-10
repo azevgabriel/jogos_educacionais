@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 interface IContainer {
   isVisibility: boolean;
@@ -64,5 +65,26 @@ export const Container = styled.div<IContainer>`
         filter: brightness(0.9);
       }
     }
+  }
+`;
+
+export const ButtonLink = styled(Link)`
+  width: 80%;
+  height: 4rem;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  border: none;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s;
+
+  text-decoration: none;
+  text-align: center;
+  color: #000;
+
+  &:hover {
+    filter: brightness(0.9);
   }
 `;

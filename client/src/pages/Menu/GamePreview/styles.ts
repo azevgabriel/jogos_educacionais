@@ -34,10 +34,10 @@ export const ImageWrapper = styled.div<ImageWrapperStyleProps>`
   height: 60%;
 
   background-image: url(${(props) => props.source});
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #bec4c8;
 
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;

@@ -1,17 +1,19 @@
-import { Container } from './styles';
+import { useCallback } from 'react';
+
+import { Container, ButtonLink } from './styles';
 
 import trophyImage from '../../../assets/images/trophy.png';
+
 import { useLessonOne } from '../../../hooks/UseLessonOne';
-import { useCallback, useState } from 'react';
+import {} from 'react-router-dom';
 
-interface ModalProps {}
+export const Modal = () => {
+  const { nextAnimal, modalOpen, closeMenu, index, restart } = useLessonOne();
 
-export const Modal = ({}: ModalProps) => {
-  const { nextAnimal, modalOpen, closeMenu } = useLessonOne();
-
-  // const handleBackMenu = useCallback(() => {
-  //   setIsModalOpen(false);
-  // }, []);
+  const restartLesson = useCallback(() => {
+    closeMenu();
+    restart();
+  }, [closeMenu, restart]);
 
   const handleNextAnimal = useCallback(() => {
     closeMenu();
@@ -23,12 +25,18 @@ export const Modal = ({}: ModalProps) => {
       <img src={trophyImage} alt="Imagem de um troféu" />
       <div className="rightWrapper">
         <h1>Parabéns, você completou a palavra!</h1>
-        <button disabled={true}>
+        <ButtonLink to="/jogos">
           <p>Voltar para a página inicial</p>
-        </button>
-        <button onClick={handleNextAnimal}>
-          <p>Próxima palavra!</p>
-        </button>
+        </ButtonLink>
+        {index === 10 ? (
+          <button onClick={restartLesson}>
+            <p>Recomeçar!</p>
+          </button>
+        ) : (
+          <button onClick={handleNextAnimal}>
+            <p>Próxima palavra!</p>
+          </button>
+        )}
       </div>
     </Container>
   );
