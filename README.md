@@ -17,11 +17,15 @@
 
 ### 🤩 Features
 
- - [ ] Tela inicial com multi jogos.
+ - [x] Tela inicial com multi jogos.
  - [ ] Implementar o Lesson One versão silábas.
  - [ ] Implementar o Liga Ponto.
  - [ ] Implementar o jogo da memória.
- 
+ - [ ] Criar um login para o aluno.
+ - [ ] Criar um login para o professor.
+ - [ ] Criar uma forma de ver a taxa de acertabilidade do aluno.
+ - [ ] Adicionar um progresso do aluno.
+
 ### 🗻 Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
@@ -48,11 +52,30 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 - [Typescript](https://www.typescriptlang.org/)
 - [Yarn](https://yarnpkg.com/)
-- [Express](https://expressjs.com/pt-br/)
+- [React](https://pt-br.reactjs.org/)
+- [Styled-Components](https://styled-components.com/)
+- [React-Router](https://reactrouter.com/)
+- [Vite](https://vitejs.dev/)
 
-### Autor do projeto
+### Contribuidores
 
-Foto   | Descrição
-:---: | :---:
-<img src="https://github.com/azevgabriel.png" width="200" height="200"/>| <strong>Gabriel Azevedo</strong>, 1999 </br> Estudante de Engenharia de Computação </br>IFSULDEMINAS - Poços de Caldas</br></br>[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white&link=https://github.com/azevgabriel)](https://github.com/azevgabriel)[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/azevgabriel/)](https://www.linkedin.com/in/azevgabriel/)[![Vercel Badge](https://img.shields.io/badge/-Vercel-blueviolet?style=flat-square&logo=Vercel&link=https://https://vercel.com/azevgabriel/)](https://vercel.com/azevgabriel/)
-
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/azevgabriel">
+        <img src="https://github.com/azevgabriel.png" width="100px;" alt="Foto do Gabriel Azevedo no GitHub"/><br>
+        <sub>
+          <b>Gabriel Azevedo</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/leoalmelin">
+        <img src="https://github.com/leoalmelin.png" width="100px;" alt="Foto do Leonardo Almelin no GitHub"/><br>
+        <sub>
+          <b>Leonardo Almelin</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
