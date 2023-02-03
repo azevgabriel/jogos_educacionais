@@ -5,7 +5,7 @@ import { Container, ButtonLink } from './styles';
 import trophyImage from '../../../assets/images/trophy.png';
 
 import { useLessonOne } from '../../../hooks/UseLessonOne';
-
+import { convertToCsv } from '../../../utils/csv';
 
 export const Modal = () => {
   const { nextAnimal, modalOpen, closeMenu, index, restart, animal, getReport } = useLessonOne();
@@ -19,32 +19,13 @@ export const Modal = () => {
     closeMenu();
     nextAnimal();
   }, [nextAnimal]); 
-
-  const saveAs = (blob: Blob, fileName: string) => {
-    const link = document.createElement('a');
-    link.style.display = 'none';
-    link.href = window.URL.createObjectURL(blob);
-    link.download = fileName;
-    link.click();
-  }
-
-  const handlePrint = useCallback(()=> {
-    const reports = getReport()
-    const breakLine = '\n'
-    let text = `RELATÓRIO DO USUÁRIO\n\nAnimal:; ${animal}` + breakLine
-
-    reports.forEach((report) => {
-      text = text + breakLine + `Letra:; ${report.letter}` + breakLine + breakLine + 'x:; y:' + breakLine
-        report.positions.forEach((position, index) => {
-          text = text + `${position.x};${position.y}` + breakLine 
-        })
-        text = text + `Tempo:; ${report.time}` + breakLine + breakLine 
-      })
-
-    var blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "dados.txt");
-  }, [animal])
   
+  const handlePrint = useCallback(() => {
+    const reports = getReport();
+    convertToCsv(reports, animal)
+  }, [animal])
+
+
   return (
     <Container isVisibility={modalOpen}>
       <img src={trophyImage} alt="Imagem de um troféu" />

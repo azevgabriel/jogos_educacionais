@@ -9,6 +9,7 @@ import {
 
 import { words } from '../assets/words';
 import { WordsKey } from '../components/LessonOneWrapper';
+import { ReportProps } from '../interfaces/reports';
 
 interface LessonOneContextData {
   dropzoneModifier: string | null;
@@ -41,19 +42,6 @@ interface HouseState {
   isCorrect: 'true' | 'false' | 'null';
 }
 
-interface PositionProps {
-  x: number;
-  y: number;
-}
- 
-interface ReportProps {
-  letter: string;
-  positions: PositionProps[]
-  time: number
-  isCorrect?: 'true' | 'false'
-}
-
-
 const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   const wordList = Object.keys(words) as WordsKey[];
   const word = wordList[Math.floor(Math.random() * wordList.length)];
@@ -78,6 +66,9 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
       reports.push(report)
       report = undefined
     }
+
+    console.log(reports)
+
     return reports
   }
 
@@ -93,7 +84,6 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
       x = Number(e.clientX);
       y = Number(e.clientY);
     }
-
     
     if(!report) {
       startTime = Date.now()
@@ -177,7 +167,6 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
       (house) => house.isCorrect === 'true'
     )
     if (countCorrectsHouses.length === animal.length) {
-      
       setModalOpen(true);  
     }
   }, [housesStats, animal]);
