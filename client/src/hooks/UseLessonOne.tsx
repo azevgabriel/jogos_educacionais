@@ -31,21 +31,14 @@ const LessonOneContext = createContext<LessonOneContextData>(
   {} as LessonOneContextData
 );
 
-interface HouseState {
-  className: string;
-  isCorrect: 'true' | 'false' | 'null';
-}
-
 const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   const [dropzoneModifier, setDropzoneModifier] = useState<string | null>(null);
   const [animal, setAnimal] = useState<WordsKey>('Bode');
   const [index, setIndex] = useState<number>(0);
-  const [housesStats, setHousesStats] = useState<HouseState[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const closeMenu = () => {
     setModalOpen(false);
-    setHousesStats([]);
   };
 
   const nameProps = useMemo(() => {
@@ -102,8 +95,6 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
         countFullHouses += 1;
       }
     });
-
-    console.log(countFullHouses, length);
 
     if (countFullHouses === length) {
       let countCorrectsHouses = 0;
