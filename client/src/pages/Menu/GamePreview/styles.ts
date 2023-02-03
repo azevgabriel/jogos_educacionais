@@ -16,7 +16,7 @@ export const StyledLink = styled(Link)`
   background-color: rgba(255, 255, 255, 0.8);
 
   margin: 20px;
-  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.5);
 
   transition: all 0.3s;
 
@@ -37,7 +37,7 @@ export const ImageWrapper = styled.div<ImageWrapperStyleProps>`
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #bec4c8;
+  background-color: #abdbe3;
 
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;

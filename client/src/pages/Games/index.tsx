@@ -1,5 +1,5 @@
 import { useParams, Navigate } from 'react-router-dom';
-import EmBreve from "../../assets/images/trophy.png"
+import EmBreve from "../../assets/images/Em breve.png"
 import { LessonOneWrapper } from '../../components/LessonOneWrapper';
 import { useLessonOne } from '../../hooks/UseLessonOne';
 import { Container } from './styles';
@@ -18,11 +18,11 @@ export const Game = ({}: GamesProps) => {
         </Container>
       );
     case 'ligar':
-      return <Container><img src={EmBreve}/></Container>;
+      return <Container><img className='DevScreen' src={EmBreve}/></Container>;
     case 'silabas':
-      return <Container><img src={EmBreve}/></Container>;
+      return <Container><img className='DevScreen' src={EmBreve}/></Container>;
     case 'memoria':
-      return <Container><img src={EmBreve}/></Container>;
+      return <Container><img className='DevScreen' src={EmBreve}/></Container>;
     default:
       return <Navigate to="/" replace={true} />;
   }

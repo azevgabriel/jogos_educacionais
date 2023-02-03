@@ -20,9 +20,9 @@ export const Container = styled.div`
 
   background-color: #5b616b;
 
-  img{
+  .DevScreen{
 
-    width: 16%;
+    width: 45%;
     height: auto;
   }
 

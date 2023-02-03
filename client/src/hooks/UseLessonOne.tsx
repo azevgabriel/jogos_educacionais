@@ -10,12 +10,14 @@ import {
 import { words } from '../assets/words';
 import { WordsKey } from '../components/LessonOneWrapper';
 
+import { jsPDF } from 'jspdf';
+
 interface LessonOneContextData {
   dropzoneModifier: string | null;
   catchDropzoneModifier: (className: string) => void;
   nextAnimal: () => void;
   previousAnimal: () => void;
-  animal: WordsKey;
+  animal: string;
   saveDropzoneStats: (
     className: string,
     isCorrect: 'true' | 'false' | 'null'
@@ -40,8 +42,11 @@ interface HouseState {
 }
 
 const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
+  // var palavras = ["Bode", "Gato", "Cão", "Cavalo", "Galinha", "Galo", "Ovelha", "Porco", "Rato", "Touro", "Vaca"];
+  const wordList = Object.keys(words);
+  var palavra = wordList[Math.floor(Math.random() * wordList.length)];
   const [dropzoneModifier, setDropzoneModifier] = useState<string | null>(null);
-  const [animal, setAnimal] = useState<WordsKey>('Bode');
+  const [animal, setAnimal] = useState(palavra);
   const [index, setIndex] = useState<number>(0);
   const [housesStats, setHousesStats] = useState<HouseState[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -77,7 +82,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   }, [index]);
 
   const restart = useCallback(() => {
-    setAnimal('Bode');
+       setAnimal(palavra);
     setIndex(0);
   }, []);
 
@@ -144,7 +149,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
 
 function useLessonOne(): LessonOneContextData {
   const context = useContext(LessonOneContext);
-
+ 
   if (!context) {
     throw new Error('useLessonOne must be used within an LessonOneProvider');
   }
@@ -152,4 +157,9 @@ function useLessonOne(): LessonOneContextData {
   return context;
 }
 
-export { LessonOneProvider, useLessonOne };
+
+export { LessonOneProvider, useLessonOne};
+
+
+
+

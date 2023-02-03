@@ -12,5 +12,19 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- <script>
+      function clickImprimir()
+      {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const { animal } = useLessonOne();
+        doc.setFont("helvetica");
+        doc.setFontSize(11);
+        doc.text("Nome do animal: " + setAnimal, 20, 15);
+        // doc.save("dados_usuario.pdf");
+        doc.output("dataurlnewwindow");
+      }
+    </script> -->
   </body>
 </html>
