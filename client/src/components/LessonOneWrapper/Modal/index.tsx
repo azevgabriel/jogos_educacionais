@@ -31,14 +31,14 @@ export const Modal = () => {
   const handlePrint = useCallback(()=> {
     const reports = getReport()
     const breakLine = '\n'
-    let text = `Nome do animal: ${animal}` + breakLine
+    let text = `RELATÓRIO DO USUÁRIO\n\nAnimal:; ${animal}` + breakLine
 
     reports.forEach((report) => {
-      text = text + `Letra: ${report.letter}` + breakLine + breakLine
+      text = text + breakLine + `Letra:; ${report.letter}` + breakLine + breakLine + 'x:; y:' + breakLine
         report.positions.forEach((position, index) => {
-          text = text + `x: ${position.x} y: ${position.y}` + breakLine 
+          text = text + `${position.x};${position.y}` + breakLine 
         })
-        text = text + `Tempo: ${report.time}` + breakLine + breakLine 
+        text = text + `Tempo:; ${report.time}` + breakLine + breakLine 
       })
 
     var blob = new Blob([text], { type: "text/plain;charset=utf-8" });
