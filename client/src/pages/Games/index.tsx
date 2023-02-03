@@ -1,7 +1,8 @@
-import { useParams, Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import { LessonOneWrapper } from '../../components/LessonOneWrapper';
 import { useLessonOne } from '../../hooks/UseLessonOne';
+import { checkDevice } from '../../utils/device';
 import { Container } from './styles';
 
 interface GamesProps {}
@@ -10,11 +11,13 @@ export const Game = ({}: GamesProps) => {
   const { animal } = useLessonOne();
   const { nome } = useParams();
 
+  const typeOfEvent = checkDevice();
+
   switch (nome) {
     case 'letras':
       return (
         <Container>
-          <LessonOneWrapper animal={animal} />
+          <LessonOneWrapper animal={animal} typeOfEvent={typeOfEvent} />
         </Container>
       );
     case 'ligar':

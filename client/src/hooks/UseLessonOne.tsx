@@ -1,10 +1,10 @@
 import {
   createContext,
+  ReactNode,
   useCallback,
   useContext,
-  ReactNode,
+  useMemo,
   useState,
-  useEffect,
 } from 'react';
 
 import { words } from '../assets/words';
@@ -16,14 +16,11 @@ interface LessonOneContextData {
   nextAnimal: () => void;
   previousAnimal: () => void;
   animal: WordsKey;
-  saveDropzoneStats: (
-    className: string,
-    isCorrect: 'true' | 'false' | 'null'
-  ) => void;
   modalOpen: boolean;
   closeMenu: () => void;
   index: number;
   restart: () => void;
+  verifyIfAllHousesAreFilled: () => void;
 }
 
 interface LessonOneProviderProps {
@@ -50,6 +47,19 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
     setModalOpen(false);
     setHousesStats([]);
   };
+
+  const nameProps = useMemo(() => {
+    const dropzoneClassnames = animal
+      .split('')
+      .map((letter, index) => `emptyHouse-${animal}-${index}`);
+
+    const solutions = animal.toUpperCase().split('');
+
+    return {
+      dropzoneClassnames,
+      solutions,
+    };
+  }, [animal]);
 
   const catchDropzoneModifier = useCallback((className: string) => {
     setDropzoneModifier(className);
@@ -81,46 +91,39 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
     setIndex(0);
   }, []);
 
-  const saveDropzoneStats = useCallback(
-    (className: string, isCorrect: 'true' | 'false' | 'null') => {
-      let aux = housesStats;
+  const verifyIfAllHousesAreFilled = useCallback(() => {
+    const classNames = nameProps.dropzoneClassnames;
+    const length = classNames.length;
+    let countFullHouses = 0;
 
-      const ifExistsSameClass = aux.find(
-        (house) => house.className === className
-      );
-
-      if (ifExistsSameClass) {
-        const newHousesStates = aux.map((house) => {
-          if (house.className === className) {
-            return {
-              className,
-              isCorrect,
-            };
-          }
-          return house;
-        });
-
-        setHousesStats(newHousesStates);
-      } else {
-        aux.push({
-          className,
-          isCorrect,
-        });
-        setHousesStats(aux);
+    classNames.forEach((className) => {
+      const dropzone = document.querySelector(`.${className}`) as HTMLElement;
+      if (dropzone?.children[0]?.textContent) {
+        countFullHouses += 1;
       }
-    },
-    [housesStats]
-  );
+    });
 
-  useEffect(() => {
-    const countCorrectsHouses = housesStats.filter(
-      (house) => house.isCorrect === 'true'
-    ).length;
+    console.log(countFullHouses, length);
 
-    if (countCorrectsHouses === animal.length) {
-      setModalOpen(true);
+    if (countFullHouses === length) {
+      let countCorrectsHouses = 0;
+
+      classNames.forEach((className, index) => {
+        const dropzone = document.querySelector(`.${className}`) as HTMLElement;
+        const letter = dropzone?.children[0]?.textContent;
+
+        console.log(letter, nameProps.solutions[index]);
+
+        if (letter === nameProps.solutions[index]) {
+          countCorrectsHouses += 1;
+        }
+      });
+
+      if (countCorrectsHouses === animal.length) {
+        setModalOpen(true);
+      }
     }
-  }, [housesStats, animal]);
+  }, [animal]);
 
   return (
     <LessonOneContext.Provider
@@ -130,7 +133,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
         nextAnimal,
         previousAnimal,
         animal,
-        saveDropzoneStats,
+        verifyIfAllHousesAreFilled,
         modalOpen,
         closeMenu,
         index,
