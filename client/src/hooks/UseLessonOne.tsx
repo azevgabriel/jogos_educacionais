@@ -10,14 +10,12 @@ import {
 import { words } from '../assets/words';
 import { WordsKey } from '../components/LessonOneWrapper';
 
-import { jsPDF } from 'jspdf';
-
 interface LessonOneContextData {
   dropzoneModifier: string | null;
   catchDropzoneModifier: (className: string) => void;
   nextAnimal: () => void;
   previousAnimal: () => void;
-  animal: string;
+  animal: WordsKey;
   saveDropzoneStats: (
     className: string,
     isCorrect: 'true' | 'false' | 'null'
@@ -26,6 +24,8 @@ interface LessonOneContextData {
   closeMenu: () => void;
   index: number;
   restart: () => void;
+  catchMousePosition: (e: DragEvent | TouchEvent, element: Element | null) => void;
+  getReport: () => ReportProps[]
 }
 
 interface LessonOneProviderProps {
@@ -41,20 +41,75 @@ interface HouseState {
   isCorrect: 'true' | 'false' | 'null';
 }
 
+interface PositionProps {
+  x: number;
+  y: number;
+}
+ 
+interface ReportProps {
+  letter: string;
+  positions: PositionProps[]
+  time: number
+  isCorrect?: 'true' | 'false'
+}
+
+
 const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
-  // var palavras = ["Bode", "Gato", "Cão", "Cavalo", "Galinha", "Galo", "Ovelha", "Porco", "Rato", "Touro", "Vaca"];
-  const wordList = Object.keys(words);
-  var palavra = wordList[Math.floor(Math.random() * wordList.length)];
+  const wordList = Object.keys(words) as WordsKey[];
+  const word = wordList[Math.floor(Math.random() * wordList.length)];
+
   const [dropzoneModifier, setDropzoneModifier] = useState<string | null>(null);
-  const [animal, setAnimal] = useState(palavra);
+  const [animal, setAnimal] = useState(word);
   const [index, setIndex] = useState<number>(0);
   const [housesStats, setHousesStats] = useState<HouseState[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  var report: ReportProps | undefined
+  var reports: ReportProps[] = []
+  var startTime: number
 
   const closeMenu = () => {
     setModalOpen(false);
     setHousesStats([]);
   };
+
+  const getReport = () => {
+    if(report) {
+      reports.push(report)
+      report = undefined
+    }
+    return reports
+  }
+
+  const catchMousePosition = (e: DragEvent | TouchEvent, element: Element | null) => {
+    const letter = element?.children[0].textContent ?? ''
+    let x: number
+    let y: number
+
+    if (e instanceof TouchEvent) {
+      x = Number(e.touches[0].clientX);
+      y = Number(e.touches[0].clientY);
+    } else {
+      x = Number(e.clientX);
+      y = Number(e.clientY);
+    }
+
+    
+    if(!report) {
+      startTime = Date.now()
+      report = {
+        letter: letter,
+        positions: [{x, y}],
+        time: startTime,
+      }
+    } else if(report?.letter === letter) {
+      report.positions.push({x, y})
+      report.time = Date.now() - startTime
+    } else {
+      reports.push(report)
+      report = undefined
+    }
+  }
 
   const catchDropzoneModifier = useCallback((className: string) => {
     setDropzoneModifier(className);
@@ -82,7 +137,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   }, [index]);
 
   const restart = useCallback(() => {
-       setAnimal(palavra);
+    setAnimal(word);
     setIndex(0);
   }, []);
 
@@ -120,10 +175,10 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   useEffect(() => {
     const countCorrectsHouses = housesStats.filter(
       (house) => house.isCorrect === 'true'
-    ).length;
-
-    if (countCorrectsHouses === animal.length) {
-      setModalOpen(true);
+    )
+    if (countCorrectsHouses.length === animal.length) {
+      
+      setModalOpen(true);  
     }
   }, [housesStats, animal]);
 
@@ -140,6 +195,8 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
         closeMenu,
         index,
         restart,
+        catchMousePosition,
+        getReport
       }}
     >
       {children}
@@ -157,9 +214,5 @@ function useLessonOne(): LessonOneContextData {
   return context;
 }
 
-
-export { LessonOneProvider, useLessonOne};
-
-
-
+export { LessonOneProvider, useLessonOne }
 

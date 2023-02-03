@@ -7,10 +7,10 @@ interface IContainer {
 
 export const Container = styled.div<IContainer>`
   position: fixed;
-  top: -100%;
+  top: -150%;
   left: calc(50% - 350px);
   width: 700px;
-  height: 400px;
+  height: 500px;
   background-color: rgb(253, 255, 239);
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -21,7 +21,7 @@ export const Container = styled.div<IContainer>`
   ${({ isVisibility }) =>
     isVisibility &&
     css`
-      top: calc(50% - 200px);
+      top: calc(50% - 250px);
     `}
 
   display: flex;

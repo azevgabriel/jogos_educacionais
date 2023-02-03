@@ -20,6 +20,7 @@ export const EmptyHouse = ({ secondClass, solution }: EmptyHouseProps) => {
         return;
       }
       if (el.children[0]?.children[0]?.innerHTML === solution) {
+        
         setIsCorrect('true');
       } else {
         setIsCorrect('false');
