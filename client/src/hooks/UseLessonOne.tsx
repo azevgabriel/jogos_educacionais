@@ -55,6 +55,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   var report: ReportProps | undefined
   var reports: ReportProps[] = []
   var startTime: number
+  var positionIndex: number
 
   const closeMenu = () => {
     setModalOpen(false);
@@ -66,9 +67,6 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
       reports.push(report)
       report = undefined
     }
-
-    console.log(reports)
-
     return reports
   }
 
@@ -84,18 +82,22 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
       x = Number(e.clientX);
       y = Number(e.clientY);
     }
-    
+
     if(!report) {
       startTime = Date.now()
+      positionIndex = 0 
       report = {
         letter: letter,
-        positions: [{x, y}],
-        time: startTime,
+        positions: [{index: positionIndex, x, y, time: 0}],
       }
     } else if(report?.letter === letter) {
-      report.positions.push({x, y})
-      report.time = Date.now() - startTime
+      const time = Date.now() - startTime
+      if(report.positions[positionIndex].time !== time) {
+        positionIndex++
+        report.positions.push({index: positionIndex, x, y, time})
+      }
     } else {
+      report.totalTime = report.positions[report.positions.length - 1].time - report.positions[0].time,
       reports.push(report)
       report = undefined
     }

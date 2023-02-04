@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const StyledLink = styled(Link)`
+interface StyledLinkProps {
+  available: boolean;
+}
+
+export const StyledLink = styled(Link)<StyledLinkProps>`
   text-decoration: none;
 
   display: flex;
@@ -9,20 +13,30 @@ export const StyledLink = styled(Link)`
   align-items: center;
   justify-content: center;
 
-  width: 300px;
-  height: 250px;
+  width: 370px;
+  height: 320px;
 
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.8);
 
   margin: 20px;
-  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
 
   transition: all 0.3s;
 
   &:hover {
     filter: brightness(0.9);
   }
+
+  ${(props) =>
+    !props.available &&
+    `
+    filter: brightness(0.7);
+    cursor: not-allowed;
+    &:hover {
+      filter: brightness(0.7);
+    }
+  `}
 `;
 
 interface ImageWrapperStyleProps {
@@ -34,7 +48,7 @@ export const ImageWrapper = styled.div<ImageWrapperStyleProps>`
   height: 60%;
 
   background-image: url(${(props) => props.source});
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-color: #abdbe3;
@@ -44,20 +58,22 @@ export const ImageWrapper = styled.div<ImageWrapperStyleProps>`
 `;
 
 export const ContentGame = styled.div`
-  width: calc(100% - 20px);
-  height: calc(40% - 20px);
+  width: calc(100% - 30px);
+  height: calc(40% - 30px);
 
   display: flex;
   flex-direction: column;
 
-  padding: 10px;
+  padding: 15px;
 
-  border-top: 1px solid rgba(0, 0, 0, 0.4);
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     line-height: 1.6rem;
+    font-family: 'Patrick Hand SC', cursive;
     margin: 0;
+    margin-bottom: 8px;
+    color: #000
   }
 
   p {
@@ -66,5 +82,6 @@ export const ContentGame = styled.div`
     line-height: 1.2rem;
     font-weight: bold;
     margin: 0;
+     font-family: cursive;
   }
 `;

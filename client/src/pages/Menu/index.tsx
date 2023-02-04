@@ -2,11 +2,6 @@ import { Container } from './styles';
 import { games } from '../../assets/games';
 import { GamePreview } from './GamePreview';
 
-import NoImage from '../../assets/images/no-image.png';
-
-
-
-
 export const Menu = () => {
   return (
     <Container>
@@ -15,8 +10,9 @@ export const Menu = () => {
           key={`game-${key}`}
           title={value.name}
           description={value.description}
-          src={value.src ? value.src : NoImage}
+          src={value.src}
           link={value.link}
+          available={value.available}
         />
       ))}
     </Container>

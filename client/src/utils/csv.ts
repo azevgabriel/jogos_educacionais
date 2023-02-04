@@ -13,37 +13,30 @@ const convertToCsv = (reports: ReportProps[], animal: WordsKey)=> {
     const delimiter = ';'
     const breakLine = '\n'
 
-    const header = ['Animal', delimiter, 'Letra', delimiter, 'x', delimiter, 'y', delimiter, 'Tempo', breakLine]
-    const body: string[] = []
+    let allText: string = ''
 
     const animalStr = animal as string
 
-    console.log(animalStr);
-    console.log(reports);
-
     reports.forEach((report) => {
-        report.positions.forEach((position, index) => {
-            const line = [
-                animalStr, 
-                delimiter, 
-                report.letter,
-                delimiter, 
+        const headerOne = [`Animal: ${animal}`, delimiter, `Letra: ${report.letter}`, delimiter, report.totalTime, breakLine]
+        const headerTwo = [`Eixo X`, delimiter, `Eixo Y`, delimiter, 'Tempo', breakLine]
+        const body = report.positions.map((position, index) => {
+            return [
                 String(position.x),
                 delimiter, 
                 String(position.y), 
                 delimiter, 
-                String(report.time), 
+                String(position.time), 
                 breakLine
             ]
-            body.push(line.join(''))
         })
+        const bodyFlat = body.flat()
+        const text = [...headerOne, ...headerTwo, ...bodyFlat].join('')
+        allText += text
     })
 
-    const text = [...header, ...body].join('')
-    console.log(text, body)
-
-    var blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "dados.csv");
+    var blob = new Blob([allText], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, `${animalStr}.csv`);
 }
 
 export { convertToCsv }

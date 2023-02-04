@@ -19,6 +19,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
   const [freeHouses, setFreeHouses] = useState<JSX.Element[] | null>(null);
   const [auxAnimal, setAuxAnimal] = useState<WordsKey | null>(null);
 
+  
   const renderHouses = useCallback(() => {
     if (animal === auxAnimal) {
       return housesWithLetters;

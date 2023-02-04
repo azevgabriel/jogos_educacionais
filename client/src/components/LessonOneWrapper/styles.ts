@@ -59,9 +59,11 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
     align-items: center;
 
     h1 {
-      font-size: 13vh;
-      letter-spacing: 0.5vh;
+      font-family: 'Patrick Hand SC', cursive;
+      font-size: 16vh;
+      letter-spacing: .75vh;
       line-height: 13.5vh;
+      user-select: none;
     }
   }
 
@@ -103,6 +105,8 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
 
         p {
           font-size: 7vh;
+          font-family: 'Patrick Hand SC', cursive;
+          user-select: none;
         }
       }
 
@@ -113,7 +117,7 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
     }
 
     .not-over {
-      border: 2px solid #bb0000;
+      border: 5px solid #bb0000;
     }
 
     .over {
