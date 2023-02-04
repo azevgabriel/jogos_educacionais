@@ -5,9 +5,8 @@
 <p align="center">
   <img src="https://img.shields.io/github/languages/top/azevgabriel/educacao_especial">
   <img src="https://img.shields.io/github/issues/azevgabriel/educacao_especial">
-  <img src="https://img.shields.io/github/forks/azevgabriel/educacao_especial">
-  <img src="https://img.shields.io/github/stars/azevgabriel/educacao_especial">
   <img src="https://img.shields.io/static/v1?label=license&message=GPL&color=E51C44">
+  <img src="https://img.shields.io/github/stars/azevgabriel/educacao_especial?style=social">
 </p>
 
 <img src="./client/src/assets/images/screenshot.png">
