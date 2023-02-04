@@ -1,30 +1,38 @@
+import notAvailableCard from './images/notAvailableCard.png';
+import letterLesson from './images/screenshot.png';
+
 export const games = {
   letras: {
-    name: 'Jogo das letras',
-    description: 'Jogo de letras',
-    src: 'https://hamburgueria.s3.us-east-2.amazonaws.com/educacao-especial/GameViews/letras.png',
+    name: 'Escreva o nome do animal!',
+    description:
+      'Nos ajude a completar o nome de cada um dos animais, conforme a imagem que aparece no jogo.',
+    src: letterLesson,
     alt: 'Imagem do jogo das letras',
     link: '/jogos/letras',
+    available: true,
   },
   silabas: {
-    name: 'Jogo das silabas',
-    description: 'Jogo de silabas',
-    src: null,
+    name: 'Separando por sílabas',
+    description: 'Em breve!',
+    src: notAvailableCard,
     alt: 'Imagem do jogo das silabas',
     link: '/jogos/silabas',
+    available: false,
   },
   ligar: {
-    name: 'Jogo da ligação',
-    description: 'Jogo da ligação',
-    src: null,
+    name: 'Relacione os animais',
+    description: 'Em breve!',
+    src: notAvailableCard,
     alt: 'Imagem do jogo da ligação',
     link: '/jogos/ligar',
+    available: false,
   },
   memoria: {
     name: 'Jogo da memória',
-    description: 'Jogo da memória',
-    src: null,
+    description: 'Em breve!',
+    src: notAvailableCard,
     alt: 'Imagem do jogo da memória',
     link: '/jogos/memoria',
+    available: false,
   },
 };

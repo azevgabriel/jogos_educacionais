@@ -7,8 +7,9 @@ import {
   useState,
 } from 'react';
 
-import { words } from '../assets/words';
-import { WordsKey } from '../components/LessonOneWrapper';
+import { words } from '@assets/words';
+import { WordsKey } from '@components/LessonOneWrapper';
+import { ReportProps } from '@interfaces/reports';
 
 interface LessonOneContextData {
   dropzoneModifier: string | null;
@@ -21,6 +22,11 @@ interface LessonOneContextData {
   index: number;
   restart: () => void;
   verifyIfAllHousesAreFilled: () => void;
+  catchMousePosition: (
+    e: DragEvent | TouchEvent,
+    element: Element | null
+  ) => void;
+  getReport: () => ReportProps[];
 }
 
 interface LessonOneProviderProps {
@@ -32,10 +38,18 @@ const LessonOneContext = createContext<LessonOneContextData>(
 );
 
 const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
+  const wordList = Object.keys(words) as WordsKey[];
+  const word = wordList[Math.floor(Math.random() * wordList.length)];
+
   const [dropzoneModifier, setDropzoneModifier] = useState<string | null>(null);
-  const [animal, setAnimal] = useState<WordsKey>('Bode');
+  const [animal, setAnimal] = useState(word);
   const [index, setIndex] = useState<number>(0);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  var report: ReportProps | undefined;
+  var reports: ReportProps[] = [];
+  var startTime: number;
+  var positionIndex: number;
 
   const closeMenu = () => {
     setModalOpen(false);
@@ -53,6 +67,52 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
       solutions,
     };
   }, [animal]);
+
+  const getReport = () => {
+    if (report) {
+      reports.push(report);
+      report = undefined;
+    }
+    return reports;
+  };
+
+  const catchMousePosition = (
+    e: DragEvent | TouchEvent,
+    element: Element | null
+  ) => {
+    const letter = element?.children[0].textContent ?? '';
+    let x: number;
+    let y: number;
+
+    if (e instanceof TouchEvent) {
+      x = Number(e.touches[0].clientX);
+      y = Number(e.touches[0].clientY);
+    } else {
+      x = Number(e.clientX);
+      y = Number(e.clientY);
+    }
+
+    if (!report) {
+      startTime = Date.now();
+      positionIndex = 0;
+      report = {
+        letter: letter,
+        positions: [{ index: positionIndex, x, y, time: 0 }],
+      };
+    } else if (report?.letter === letter) {
+      const time = Date.now() - startTime;
+      if (report.positions[positionIndex].time !== time) {
+        positionIndex++;
+        report.positions.push({ index: positionIndex, x, y, time });
+      }
+    } else {
+      (report.totalTime =
+        report.positions[report.positions.length - 1].time -
+        report.positions[0].time),
+        reports.push(report);
+      report = undefined;
+    }
+  };
 
   const catchDropzoneModifier = useCallback((className: string) => {
     setDropzoneModifier(className);
@@ -80,7 +140,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   }, [index]);
 
   const restart = useCallback(() => {
-    setAnimal('Bode');
+    setAnimal(word);
     setIndex(0);
   }, []);
 
@@ -129,6 +189,8 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
         closeMenu,
         index,
         restart,
+        catchMousePosition,
+        getReport,
       }}
     >
       {children}

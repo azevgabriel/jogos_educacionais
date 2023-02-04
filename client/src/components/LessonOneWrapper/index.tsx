@@ -1,14 +1,10 @@
+import { words } from '@assets/words';
+import { useLessonOne } from '@hooks/UseLessonOne';
+import { EventTypes } from '@interfaces/device';
+import { dragEnd, dragStart } from '@utils/dragEvents';
+import { dragLeave, dragOver, drop } from '@utils/dropzoneEvents';
+import { dragEndTouch, dragStartTouch, dragTouch } from '@utils/touchEvents';
 import { useEffect, useMemo, useState } from 'react';
-import { words } from '../../assets/words';
-import { useLessonOne } from '../../hooks/UseLessonOne';
-import { EventTypes } from '../../interfaces/device';
-import { dragEnd, dragStart } from '../../utils/dragEvents';
-import { dragLeave, dragOver, drop } from '../../utils/dropzoneEvents';
-import {
-  dragEndTouch,
-  dragStartTouch,
-  dragTouch,
-} from '../../utils/touchEvents';
 import { EmptyHouse } from './EmptyHouse';
 import { Modal } from './Modal';
 import { Container, ImageWrapper, LessonLettersContentWrapper } from './styles';
@@ -24,7 +20,7 @@ export const LessonOneWrapper = ({
   animal,
   typeOfEvent,
 }: LessonOneWrapperProps) => {
-  const { catchDropzoneModifier } = useLessonOne();
+  const { catchDropzoneModifier, catchMousePosition } = useLessonOne();
   const [housesWithLetters, setHousesWithLetters] = useState<
     JSX.Element[] | null
   >(null);
@@ -98,11 +94,16 @@ export const LessonOneWrapper = ({
         if (typeOfEvent === EventTypes.MOUSE) {
           letter.addEventListener('dragstart', () => dragStart(letter));
           letter.addEventListener('dragend', () => dragEnd(letter));
+          letter.addEventListener('drag', function (event) {
+            catchMousePosition(event, letter);
+          });
         } else {
           letter.addEventListener('touchstart', (e) =>
             dragStartTouch(e, letter)
           );
-          letter.addEventListener('touchmove', (e) => dragTouch(e, letter));
+          letter.addEventListener('touchmove', (e) =>
+            dragTouch(e, letter, catchMousePosition)
+          );
           letter.addEventListener('touchend', () =>
             dragEndTouch(letter, catchDropzoneModifier)
           );

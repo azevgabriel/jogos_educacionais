@@ -1,5 +1,5 @@
+import { useLessonOne } from '@hooks/UseLessonOne';
 import { useCallback, useEffect, useState } from 'react';
-import { useLessonOne } from '../../../hooks/UseLessonOne';
 import { Container } from './styles';
 
 interface EmptyHouseProps {

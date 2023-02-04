@@ -18,7 +18,12 @@ const dragStartTouch = (e: Event, el: HTMLElement) => {
   initialY = touchEvent.touches[0].clientY - yOffset;
 };
 
-const dragTouch = (e: Event, el: HTMLElement) => {
+const dragTouch = (
+  e: TouchEvent,
+  el: HTMLElement,
+  catchMousePosition: (e: TouchEvent, el: HTMLElement) => void
+) => {
+  catchMousePosition(e, el);
   e.preventDefault();
   let touchEvent = e as TouchEvent;
   currentX = touchEvent.touches[0].clientX - initialX;

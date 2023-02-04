@@ -1,13 +1,8 @@
+import { games } from '@assets/games';
+import { GamePreview } from './GamePreview';
 import { Container } from './styles';
 
-import { games } from '../../assets/games';
-import { GamePreview } from './GamePreview';
-
-import NoImage from '../../assets/images/no-image.png';
-
-interface MenuProps {}
-
-export const Menu = ({}: MenuProps) => {
+export const Menu = () => {
   return (
     <Container>
       {Object.entries(games).map(([key, value]) => (
@@ -15,8 +10,9 @@ export const Menu = ({}: MenuProps) => {
           key={`game-${key}`}
           title={value.name}
           description={value.description}
-          src={value.src ? value.src : NoImage}
+          src={value.src}
           link={value.link}
+          available={value.available}
         />
       ))}
     </Container>
