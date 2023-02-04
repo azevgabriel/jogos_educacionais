@@ -19,15 +19,9 @@
 ### 🤩 Features
 
 - [x] Tela inicial com multi jogos.
-  - [] PDF
-    -
-
-
 - [ ] Implementar o Lesson One versão silábas.
 - [ ] Implementar o Liga Ponto.
 - [ ] Implementar o jogo da memória.
-- [ ] Criar um login para o aluno.
-- [ ] Criar um login para o professor.
 - [ ] Criar uma forma de ver a taxa de acertabilidade do aluno.
 - [ ] Adicionar um progresso do aluno.
 
