@@ -6,7 +6,7 @@ interface IContainer {
 
 export const Container = styled.div<IContainer>`
   position: fixed;
-  top: -150%;
+  top: -200%;
   left: calc(50% - 400px);
   width: 800px;
   height: 500px;
@@ -31,8 +31,6 @@ export const Container = styled.div<IContainer>`
   img {
     width: auto;
     height: 70%;
-    margin-left: 1rem;
-    margin-top: 2rem;
   }
 
   .rightWrapper {
@@ -47,7 +45,7 @@ export const Container = styled.div<IContainer>`
       font-size: 3rem;
       line-height: 3.5rem;
       text-align: center;
-      margin-top: 1rem;
+      margin: 0;
       margin-bottom: 2rem;
       font-family: 'Patrick Hand SC', cursive;
     }

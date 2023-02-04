@@ -89,7 +89,7 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
       justify-content: center;
       align-items: center;
 
-      border: 2px solid #aeb0b5;
+      border: 4px solid #aeb0b5;
       border-radius: 10px;
 
       .letter {
@@ -117,11 +117,11 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
     }
 
     .not-over {
-      border: 5px solid #bb0000;
+      border: 4px solid #bb0000;
     }
 
     .over {
-      border: 2px solid #589e4a;
+      border: 4px solid #589e4a;
     }
   }
 `;
