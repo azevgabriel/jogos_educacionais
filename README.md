@@ -16,9 +16,9 @@
   <i>"Site de jogos simples voltados para educação especial. Esse trabalho faz parte de um TCC que visa estudar o movimento de crianças com distúrbio do movimento nas mãos."</i>
 </h4>
 
-## FRONT-END `.\client`
+### FRONT-END `.\client`
 
-### 🤩 Features
+#### 🤩 Features
 
 - [x] Tela inicial com multi jogos.
 - [ ] LGPD e criação de um termo de condição.
@@ -35,7 +35,7 @@
   - [ ] Histórico do aluno
   - [ ] Link para Impressão dos jogos jogados no dia.
 
-### 🗻 Pré-requisitos
+#### 🗻 Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com) e o [Node.js](https://nodejs.org/en/).
@@ -55,9 +55,9 @@ $ yarn
 $ yarn dev
 ```
 
-## INFORMAÇÕES GERAIS
+### INFORMAÇÕES GERAIS
 
-### ✨ Tecnologias
+#### ✨ Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
@@ -68,7 +68,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [React-Router](https://reactrouter.com/)
 - [Vite](https://vitejs.dev/)
 
-### Contribuidores
+#### Contribuidores
 
 <table>
   <tr>
