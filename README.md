@@ -13,17 +13,27 @@
 <img src="./client/src/assets/images/screenshot.png">
 
 <h4 align="center">
-<i>"Site de jogos simples voltados para educação especial. Esse trabalho faz parte de um TCC que visa estudar o movimento de crianças com distúrbio do movimento nas mãos."</i>
+  <i>"Site de jogos simples voltados para educação especial. Esse trabalho faz parte de um TCC que visa estudar o movimento de crianças com distúrbio do movimento nas mãos."</i>
 </h4>
+
+## FRONT-END `.\client`
 
 ### 🤩 Features
 
 - [x] Tela inicial com multi jogos.
-- [ ] Implementar o Lesson One versão silábas.
-- [ ] Implementar o Liga Ponto.
-- [ ] Implementar o jogo da memória.
-- [ ] Criar uma forma de ver a taxa de acertabilidade do aluno.
-- [ ] Adicionar um progresso do aluno.
+- [ ] LGPD e criação de um termo de condição.
+- [ ] Um login super simplista, paga coletar a idade e o apelido do usuário.
+- [ ] Jogo #01 - Jogo das Letras.
+  - [x] Relátorio
+  - [x] Funcionalidades
+  - [ ] Acessibilidade
+    - [ ] Libras
+- [ ] Jogo #02 - Jogo das Sílabas.
+- [ ] Jogo #03 - Jogo de ligar o ponto.
+- [ ] Jogo #04 - Jogo da Memória.
+- [ ] Área de relatórios
+  - [ ] Histórico do aluno
+  - [ ] Link para Impressão dos jogos jogados no dia.
 
 ### 🗻 Pré-requisitos
 
@@ -36,7 +46,7 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 $ git clone https://github.com/azevgabriel/educacao_especial.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd educacao_especial
+$ cd educacao_especial/client
 
 # Instale as dependências
 $ yarn
@@ -44,6 +54,8 @@ $ yarn
 # Inicie o serviço
 $ yarn dev
 ```
+
+## INFORMAÇÕES GERAIS
 
 ### ✨ Tecnologias
 
