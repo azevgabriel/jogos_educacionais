@@ -1,6 +1,6 @@
-import { Container } from './styles';
-import { games } from '../../assets/games';
+import { games } from '@assets/games';
 import { GamePreview } from './GamePreview';
+import { Container } from './styles';
 
 export const Menu = () => {
   return (
@@ -17,4 +17,4 @@ export const Menu = () => {
       ))}
     </Container>
   );
-}
+};

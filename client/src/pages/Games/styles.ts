@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import farmBackground from '../../assets/images/background.jpg';
+import farmBackground from '@assets/images/background.jpg';
 
 export const Container = styled.div`
   width: 100vw;
@@ -20,7 +20,7 @@ export const Container = styled.div`
 
   background-color: #5b616b;
 
-  .notAvailable{
+  .notAvailable {
     width: 45%;
     height: auto;
   }

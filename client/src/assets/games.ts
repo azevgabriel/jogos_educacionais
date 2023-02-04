@@ -4,7 +4,8 @@ import letterLesson from './images/screenshot.png';
 export const games = {
   letras: {
     name: 'Escreva o nome do animal!',
-    description: 'Nos ajude a completar o nome de cada um dos animais, conforme a imagem que aparece no jogo.',
+    description:
+      'Nos ajude a completar o nome de cada um dos animais, conforme a imagem que aparece no jogo.',
     src: letterLesson,
     alt: 'Imagem do jogo das letras',
     link: '/jogos/letras',

@@ -1,4 +1,4 @@
-import { StyledLink, ImageWrapper, ContentGame } from './styles';
+import { ContentGame, ImageWrapper, StyledLink } from './styles';
 
 interface GamePreviewProps {
   title: string;
@@ -13,10 +13,10 @@ export const GamePreview = ({
   description,
   src,
   link,
-  available
+  available,
 }: GamePreviewProps) => {
   return (
-    <StyledLink to={available ? link : ''} available={available}  >
+    <StyledLink to={available ? link : ''} available={available}>
       <ImageWrapper source={src} />
       <ContentGame>
         <h2>{title}</h2>

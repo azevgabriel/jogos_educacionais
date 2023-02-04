@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import menuBackground from '../../assets/images/background_menu.png';
+import menuBackground from '@assets/images/background_menu.png';
 
 export const Container = styled.div`
   width: 100vw;

@@ -1,15 +1,15 @@
 import {
   createContext,
+  ReactNode,
   useCallback,
   useContext,
-  ReactNode,
+  useMemo,
   useState,
-  useEffect,
 } from 'react';
 
-import { words } from '../assets/words';
-import { WordsKey } from '../components/LessonOneWrapper';
-import { ReportProps } from '../interfaces/reports';
+import { words } from '@assets/words';
+import { WordsKey } from '@components/LessonOneWrapper';
+import { ReportProps } from '@interfaces/reports';
 
 interface LessonOneContextData {
   dropzoneModifier: string | null;
@@ -17,16 +17,16 @@ interface LessonOneContextData {
   nextAnimal: () => void;
   previousAnimal: () => void;
   animal: WordsKey;
-  saveDropzoneStats: (
-    className: string,
-    isCorrect: 'true' | 'false' | 'null'
-  ) => void;
   modalOpen: boolean;
   closeMenu: () => void;
   index: number;
   restart: () => void;
-  catchMousePosition: (e: DragEvent | TouchEvent, element: Element | null) => void;
-  getReport: () => ReportProps[]
+  verifyIfAllHousesAreFilled: () => void;
+  catchMousePosition: (
+    e: DragEvent | TouchEvent,
+    element: Element | null
+  ) => void;
+  getReport: () => ReportProps[];
 }
 
 interface LessonOneProviderProps {
@@ -37,11 +37,6 @@ const LessonOneContext = createContext<LessonOneContextData>(
   {} as LessonOneContextData
 );
 
-interface HouseState {
-  className: string;
-  isCorrect: 'true' | 'false' | 'null';
-}
-
 const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   const wordList = Object.keys(words) as WordsKey[];
   const word = wordList[Math.floor(Math.random() * wordList.length)];
@@ -49,31 +44,45 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   const [dropzoneModifier, setDropzoneModifier] = useState<string | null>(null);
   const [animal, setAnimal] = useState(word);
   const [index, setIndex] = useState<number>(0);
-  const [housesStats, setHousesStats] = useState<HouseState[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  var report: ReportProps | undefined
-  var reports: ReportProps[] = []
-  var startTime: number
-  var positionIndex: number
+  var report: ReportProps | undefined;
+  var reports: ReportProps[] = [];
+  var startTime: number;
+  var positionIndex: number;
 
   const closeMenu = () => {
     setModalOpen(false);
-    setHousesStats([]);
   };
 
-  const getReport = () => {
-    if(report) {
-      reports.push(report)
-      report = undefined
-    }
-    return reports
-  }
+  const nameProps = useMemo(() => {
+    const dropzoneClassnames = animal
+      .split('')
+      .map((letter, index) => `emptyHouse-${animal}-${index}`);
 
-  const catchMousePosition = (e: DragEvent | TouchEvent, element: Element | null) => {
-    const letter = element?.children[0].textContent ?? ''
-    let x: number
-    let y: number
+    const solutions = animal.toUpperCase().split('');
+
+    return {
+      dropzoneClassnames,
+      solutions,
+    };
+  }, [animal]);
+
+  const getReport = () => {
+    if (report) {
+      reports.push(report);
+      report = undefined;
+    }
+    return reports;
+  };
+
+  const catchMousePosition = (
+    e: DragEvent | TouchEvent,
+    element: Element | null
+  ) => {
+    const letter = element?.children[0].textContent ?? '';
+    let x: number;
+    let y: number;
 
     if (e instanceof TouchEvent) {
       x = Number(e.touches[0].clientX);
@@ -83,25 +92,27 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
       y = Number(e.clientY);
     }
 
-    if(!report) {
-      startTime = Date.now()
-      positionIndex = 0 
+    if (!report) {
+      startTime = Date.now();
+      positionIndex = 0;
       report = {
         letter: letter,
-        positions: [{index: positionIndex, x, y, time: 0}],
-      }
-    } else if(report?.letter === letter) {
-      const time = Date.now() - startTime
-      if(report.positions[positionIndex].time !== time) {
-        positionIndex++
-        report.positions.push({index: positionIndex, x, y, time})
+        positions: [{ index: positionIndex, x, y, time: 0 }],
+      };
+    } else if (report?.letter === letter) {
+      const time = Date.now() - startTime;
+      if (report.positions[positionIndex].time !== time) {
+        positionIndex++;
+        report.positions.push({ index: positionIndex, x, y, time });
       }
     } else {
-      report.totalTime = report.positions[report.positions.length - 1].time - report.positions[0].time,
-      reports.push(report)
-      report = undefined
+      (report.totalTime =
+        report.positions[report.positions.length - 1].time -
+        report.positions[0].time),
+        reports.push(report);
+      report = undefined;
     }
-  }
+  };
 
   const catchDropzoneModifier = useCallback((className: string) => {
     setDropzoneModifier(className);
@@ -133,45 +144,37 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
     setIndex(0);
   }, []);
 
-  const saveDropzoneStats = useCallback(
-    (className: string, isCorrect: 'true' | 'false' | 'null') => {
-      let aux = housesStats;
+  const verifyIfAllHousesAreFilled = useCallback(() => {
+    const classNames = nameProps.dropzoneClassnames;
+    const length = classNames.length;
+    let countFullHouses = 0;
 
-      const ifExistsSameClass = aux.find(
-        (house) => house.className === className
-      );
-
-      if (ifExistsSameClass) {
-        const newHousesStates = aux.map((house) => {
-          if (house.className === className) {
-            return {
-              className,
-              isCorrect,
-            };
-          }
-          return house;
-        });
-
-        setHousesStats(newHousesStates);
-      } else {
-        aux.push({
-          className,
-          isCorrect,
-        });
-        setHousesStats(aux);
+    classNames.forEach((className) => {
+      const dropzone = document.querySelector(`.${className}`) as HTMLElement;
+      if (dropzone?.children[0]?.textContent) {
+        countFullHouses += 1;
       }
-    },
-    [housesStats]
-  );
+    });
 
-  useEffect(() => {
-    const countCorrectsHouses = housesStats.filter(
-      (house) => house.isCorrect === 'true'
-    )
-    if (countCorrectsHouses.length === animal.length) {
-      setModalOpen(true);  
+    if (countFullHouses === length) {
+      let countCorrectsHouses = 0;
+
+      classNames.forEach((className, index) => {
+        const dropzone = document.querySelector(`.${className}`) as HTMLElement;
+        const letter = dropzone?.children[0]?.textContent;
+
+        console.log(letter, nameProps.solutions[index]);
+
+        if (letter === nameProps.solutions[index]) {
+          countCorrectsHouses += 1;
+        }
+      });
+
+      if (countCorrectsHouses === animal.length) {
+        setModalOpen(true);
+      }
     }
-  }, [housesStats, animal]);
+  }, [animal]);
 
   return (
     <LessonOneContext.Provider
@@ -181,13 +184,13 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
         nextAnimal,
         previousAnimal,
         animal,
-        saveDropzoneStats,
+        verifyIfAllHousesAreFilled,
         modalOpen,
         closeMenu,
         index,
         restart,
         catchMousePosition,
-        getReport
+        getReport,
       }}
     >
       {children}
@@ -197,7 +200,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
 
 function useLessonOne(): LessonOneContextData {
   const context = useContext(LessonOneContext);
- 
+
   if (!context) {
     throw new Error('useLessonOne must be used within an LessonOneProvider');
   }
@@ -205,5 +208,4 @@ function useLessonOne(): LessonOneContextData {
   return context;
 }
 
-export { LessonOneProvider, useLessonOne }
-
+export { LessonOneProvider, useLessonOne };

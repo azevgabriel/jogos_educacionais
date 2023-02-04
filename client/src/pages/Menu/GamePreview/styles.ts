@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 interface StyledLinkProps {
   available: boolean;
@@ -66,14 +66,13 @@ export const ContentGame = styled.div`
 
   padding: 15px;
 
-
   h2 {
     font-size: 1.8rem;
     line-height: 1.6rem;
     font-family: 'Patrick Hand SC', cursive;
     margin: 0;
     margin-bottom: 8px;
-    color: #000
+    color: #000;
   }
 
   p {
@@ -82,6 +81,6 @@ export const ContentGame = styled.div`
     line-height: 1.2rem;
     font-weight: bold;
     margin: 0;
-     font-family: cursive;
+    font-family: cursive;
   }
 `;

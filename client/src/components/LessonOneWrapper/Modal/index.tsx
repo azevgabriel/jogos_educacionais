@@ -7,11 +7,19 @@ import trophyImage from '../../../assets/images/trophy.png';
 import { useLessonOne } from '../../../hooks/UseLessonOne';
 import { convertToCsv } from '../../../utils/csv';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export const Modal = () => {
   const navigate = useNavigate();
-  const { nextAnimal, modalOpen, closeMenu, index, restart, animal, getReport } = useLessonOne();
+  const {
+    nextAnimal,
+    modalOpen,
+    closeMenu,
+    index,
+    restart,
+    animal,
+    getReport,
+  } = useLessonOne();
 
   const restartLesson = useCallback(() => {
     closeMenu();
@@ -21,22 +29,24 @@ export const Modal = () => {
   const handleNextAnimal = useCallback(() => {
     closeMenu();
     nextAnimal();
-  }, [nextAnimal]); 
-  
+  }, [nextAnimal]);
+
   const handlePrint = useCallback(() => {
     const reports = getReport();
-    convertToCsv(reports, animal)
-  }, [animal])
+    convertToCsv(reports, animal);
+  }, [animal]);
 
   return (
     <Container isVisibility={modalOpen}>
       <img src={trophyImage} alt="Imagem de um troféu" />
       <div className="rightWrapper">
         <h1>Parabéns, você completou a palavra!</h1>
-        <button onClick={() => {
-          closeMenu()
-          navigate('/')
-        }}>
+        <button
+          onClick={() => {
+            closeMenu();
+            navigate('/');
+          }}
+        >
           <p>Voltar para a página inicial</p>
         </button>
         {index === 10 ? (

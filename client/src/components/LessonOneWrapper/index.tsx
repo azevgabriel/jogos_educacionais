@@ -1,17 +1,25 @@
-import { Container, ImageWrapper, LessonLettersContentWrapper } from './styles';
-import { words } from '../../assets/words';
-import { useCallback, useEffect, useState } from 'react';
+import { words } from '@assets/words';
+import { useLessonOne } from '@hooks/UseLessonOne';
+import { EventTypes } from '@interfaces/device';
+import { dragEnd, dragStart } from '@utils/dragEvents';
+import { dragLeave, dragOver, drop } from '@utils/dropzoneEvents';
+import { dragEndTouch, dragStartTouch, dragTouch } from '@utils/touchEvents';
+import { useEffect, useMemo, useState } from 'react';
 import { EmptyHouse } from './EmptyHouse';
-import { useLessonOne } from '../../hooks/UseLessonOne';
 import { Modal } from './Modal';
+import { Container, ImageWrapper, LessonLettersContentWrapper } from './styles';
 
 export type WordsKey = keyof typeof words;
 
 interface LessonOneWrapperProps {
   animal: WordsKey;
+  typeOfEvent: EventTypes;
 }
 
-export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
+export const LessonOneWrapper = ({
+  animal,
+  typeOfEvent,
+}: LessonOneWrapperProps) => {
   const { catchDropzoneModifier, catchMousePosition } = useLessonOne();
   const [housesWithLetters, setHousesWithLetters] = useState<
     JSX.Element[] | null
@@ -19,8 +27,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
   const [freeHouses, setFreeHouses] = useState<JSX.Element[] | null>(null);
   const [auxAnimal, setAuxAnimal] = useState<WordsKey | null>(null);
 
-  
-  const renderHouses = useCallback(() => {
+  const houses = useMemo(() => {
     if (animal === auxAnimal) {
       return housesWithLetters;
     }
@@ -38,7 +45,7 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
           className={`dropzone initialFullHouse ${animal}-${i}`}
           key={`${animal}-${i}`}
         >
-          <div className={`letter`} draggable="true">
+          <div className={`letter ${animal}-${i}`} draggable="true">
             <p>{animalArray[position].toUpperCase()}</p>
           </div>
         </div>
@@ -48,9 +55,9 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
 
     setHousesWithLetters(houses);
     return houses;
-  }, [animal, housesWithLetters, auxAnimal]);
+  }, [animal, auxAnimal]);
 
-  const renderEmptyHouses = useCallback(() => {
+  const emptyHouses = useMemo(() => {
     if (animal === auxAnimal) {
       return freeHouses;
     }
@@ -72,148 +79,44 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
 
     setFreeHouses(emptyHouses);
     return emptyHouses;
-  }, [animal, freeHouses, auxAnimal]);
-
-  function dragStart(this: Element) {
-    this.classList.add('is-dragging');
-    this.parentElement?.classList.add('last-zone');
-    this.parentElement?.classList.add('empty');
-  }
-
-  function dragEnd(this: Element) {
-    this.classList.remove('is-dragging');
-  }
-
-  function dragOver(e: Event, el: Element) {
-    e.preventDefault();
-    const cardBeingDragged = document.querySelector('.is-dragging');
-    const lastZone = document.querySelector('.last-zone');
-
-    if (el.children[0] && el.children[0] !== cardBeingDragged) {
-      el.classList.add('not-over');
-      if (cardBeingDragged && lastZone) {
-        lastZone.appendChild(cardBeingDragged);
-      }
-    } else {
-      el.classList.add('over');
-    }
-
-    return false;
-  }
-
-  function dragLeave(this: Element) {
-    this.classList.remove('over');
-    this.classList.remove('not-over');
-  }
-
-  function drop(this: Element) {
-    if (this.classList.contains('over')) {
-      const cardBeingDragged = document.querySelector('.is-dragging');
-      if (!cardBeingDragged) return;
-      this.appendChild(cardBeingDragged);
-      this.classList.remove('over');
-
-      catchDropzoneModifier(this.className);
-    }
-
-    this.classList.remove('not-over');
-  }
-
-  /************************* DRAG & DROP TOUCH FUNCTIONS *************************/
-
-  var currentX: number;
-  var currentY: number;
-  var initialX: number;
-  var initialY: number;
-  var xOffset = 0;
-  var yOffset = 0;
-
-  const dragStartTouch = useCallback((e: Event, el: Element) => {
-    el.classList.add('is-dragging');
-    el.parentElement?.classList.add('last-zone');
-
-    let touchEvent = e as TouchEvent;
-    xOffset = 0;
-    yOffset = 0;
-    currentX = 0;
-    currentY = 0;
-    initialX = touchEvent.touches[0].clientX - xOffset;
-    initialY = touchEvent.touches[0].clientY - yOffset;
-  }, []);
-
-  const dragTouch = useCallback((e: TouchEvent, el: Element) => {
-    catchMousePosition(e, el)
-    e.preventDefault();
-    let touchEvent = e as TouchEvent;
-    currentX = touchEvent.touches[0].clientX - initialX;
-    currentY = touchEvent.touches[0].clientY - initialY;
-    xOffset = currentX;
-    yOffset = currentY;
-    setTranslate(currentX, currentY, el);
-  }, []);
-
-  function dragEndTouch(el: Element) {
-    const allDropzones = document.querySelectorAll('.dropzone');
-    const cardBeingDraggedSize = el.getBoundingClientRect();
-
-    for (let i = 0; i < allDropzones.length; i++) {
-      const dropzone = allDropzones[i];
-      const dropzoneSize = dropzone.getBoundingClientRect();
-
-      if (dropzone.children.length === 0)
-        if (
-          el.parentElement &&
-          el.parentElement.className !== dropzone.className
-        )
-          if (
-            cardBeingDraggedSize.left >= dropzoneSize.left &&
-            cardBeingDraggedSize.right <= dropzoneSize.right &&
-            cardBeingDraggedSize.top <= dropzoneSize.top &&
-            cardBeingDraggedSize.bottom >= dropzoneSize.bottom
-          ) {
-            dropzone.appendChild(el);
-            catchDropzoneModifier(dropzone.className);
-            break;
-          }
-    }
-
-    setTranslate(0, 0, el);
-
-    el.classList.remove('is-dragging');
-  }
-
-  function setTranslate(xPos: number, yPos: number, el: Element) {
-    //Im not sure what this does but it dosnt work without it
-    let htmlElement = el as HTMLElement;
-    htmlElement.style.transform =
-      'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)';
-  }
+  }, [animal, auxAnimal]);
 
   useEffect(() => {
-    renderHouses();
-    renderEmptyHouses();
+    const allLetters = document.querySelectorAll(
+      '.letter'
+    ) as NodeListOf<HTMLElement>;
+    const allDropzones = document.querySelectorAll(
+      '.dropzone'
+    ) as NodeListOf<HTMLElement>;
 
-    const allLetters = document.querySelectorAll('.letter') as NodeListOf<HTMLElement>;
-    const allDropzones = document.querySelectorAll('.dropzone');
-
-    if (allLetters) {
+    if (allLetters)
       allLetters.forEach((letter) => {
-        letter.addEventListener('dragstart', dragStart);
-        letter.addEventListener('dragend', dragEnd);
-        letter.addEventListener("drag", function(event) {
-          catchMousePosition(event, letter)
-        });
-        letter.addEventListener('touchstart', (e) => dragStartTouch(e, letter));
-        letter.addEventListener('touchmove', (e) => dragTouch(e, letter));
-        letter.addEventListener('touchend', () => dragEndTouch(letter));
+        if (typeOfEvent === EventTypes.MOUSE) {
+          letter.addEventListener('dragstart', () => dragStart(letter));
+          letter.addEventListener('dragend', () => dragEnd(letter));
+          letter.addEventListener('drag', function (event) {
+            catchMousePosition(event, letter);
+          });
+        } else {
+          letter.addEventListener('touchstart', (e) =>
+            dragStartTouch(e, letter)
+          );
+          letter.addEventListener('touchmove', (e) =>
+            dragTouch(e, letter, catchMousePosition)
+          );
+          letter.addEventListener('touchend', () =>
+            dragEndTouch(letter, catchDropzoneModifier)
+          );
+        }
       });
-    }
 
     if (allDropzones)
       allDropzones.forEach((dropzone) => {
         dropzone.addEventListener('dragover', (e) => dragOver(e, dropzone));
-        dropzone.addEventListener('dragleave', dragLeave);
-        dropzone.addEventListener('drop', drop);
+        dropzone.addEventListener('dragleave', () => dragLeave(dropzone));
+        dropzone.addEventListener('drop', () =>
+          drop(dropzone, catchDropzoneModifier)
+        );
       });
   }, [animal]);
 
@@ -228,8 +131,8 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
           <div className="nameContent">
             <h1>{animal.toUpperCase()}</h1>
           </div>
-          <div className="line">{renderHouses()}</div>
-          <div className="line">{renderEmptyHouses()}</div>
+          <div className="line">{houses}</div>
+          <div className="line">{emptyHouses}</div>
         </LessonLettersContentWrapper>
       </Container>
     </>
