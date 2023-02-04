@@ -1,3 +1,5 @@
+<img src="./client/src/assets/images/screenshot.png">
+
 <h1 align="center">
    Jogos inclusivos.
 </h1>
@@ -9,8 +11,6 @@
   <img src="https://img.shields.io/static/v1?label=license&message=GPL&color=E51C44">
   <img src="https://img.shields.io/github/stars/azevgabriel/educacao_especial?style=social">
 </p>
-
-<img src="./client/src/assets/images/screenshot.png">
 
 <h4 align="center">
   <i>"Site de jogos simples voltados para educação especial. Esse trabalho faz parte de um TCC que visa estudar o movimento de crianças com distúrbio do movimento nas mãos."</i>
