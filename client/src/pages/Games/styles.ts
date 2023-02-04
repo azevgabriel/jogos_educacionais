@@ -19,4 +19,9 @@ export const Container = styled.div`
   overflow: hidden;
 
   background-color: #5b616b;
+
+  .notAvailable{
+    width: 45%;
+    height: auto;
+  }
 `;

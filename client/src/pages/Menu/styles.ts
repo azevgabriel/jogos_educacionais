@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
+import menuBackground from '../../assets/images/background_menu.png';
+
 export const Container = styled.div`
   width: 100vw;
   height: 100vh;
 
+  background-image: url(${menuBackground});
   background-size: cover;
   background-position: center;
 
@@ -16,6 +19,4 @@ export const Container = styled.div`
   align-items: center;
 
   overflow: hidden;
-
-  background: linear-gradient(to right, #ea8c55, #c69c72);
 `;

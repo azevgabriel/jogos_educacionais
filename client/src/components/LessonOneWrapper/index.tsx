@@ -12,13 +12,14 @@ interface LessonOneWrapperProps {
 }
 
 export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
-  const { catchDropzoneModifier } = useLessonOne();
+  const { catchDropzoneModifier, catchMousePosition } = useLessonOne();
   const [housesWithLetters, setHousesWithLetters] = useState<
     JSX.Element[] | null
   >(null);
   const [freeHouses, setFreeHouses] = useState<JSX.Element[] | null>(null);
   const [auxAnimal, setAuxAnimal] = useState<WordsKey | null>(null);
 
+  
   const renderHouses = useCallback(() => {
     if (animal === auxAnimal) {
       return housesWithLetters;
@@ -140,7 +141,8 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     initialY = touchEvent.touches[0].clientY - yOffset;
   }, []);
 
-  const dragTouch = useCallback((e: Event, el: Element) => {
+  const dragTouch = useCallback((e: TouchEvent, el: Element) => {
+    catchMousePosition(e, el)
     e.preventDefault();
     let touchEvent = e as TouchEvent;
     currentX = touchEvent.touches[0].clientX - initialX;
@@ -191,13 +193,16 @@ export const LessonOneWrapper = ({ animal }: LessonOneWrapperProps) => {
     renderHouses();
     renderEmptyHouses();
 
-    const allLetters = document.querySelectorAll('.letter');
+    const allLetters = document.querySelectorAll('.letter') as NodeListOf<HTMLElement>;
     const allDropzones = document.querySelectorAll('.dropzone');
 
     if (allLetters) {
       allLetters.forEach((letter) => {
         letter.addEventListener('dragstart', dragStart);
         letter.addEventListener('dragend', dragEnd);
+        letter.addEventListener("drag", function(event) {
+          catchMousePosition(event, letter)
+        });
         letter.addEventListener('touchstart', (e) => dragStartTouch(e, letter));
         letter.addEventListener('touchmove', (e) => dragTouch(e, letter));
         letter.addEventListener('touchend', () => dragEndTouch(letter));
