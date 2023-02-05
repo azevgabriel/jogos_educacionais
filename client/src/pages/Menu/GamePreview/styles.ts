@@ -13,19 +13,20 @@ export const StyledLink = styled(Link)<StyledLinkProps>`
   align-items: center;
   justify-content: center;
 
-  width: 370px;
-  height: 320px;
+  width: 400px;
+  height: 350px;
 
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  background-color: #fdfdfd;
 
-  margin: 20px;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  margin: 30px;
 
-  transition: all 0.3s;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+
+  transition: all 0.4s;
 
   &:hover {
-    filter: brightness(0.9);
+    filter: brightness(0.95);
   }
 
   ${(props) =>
@@ -53,8 +54,8 @@ export const ImageWrapper = styled.div<ImageWrapperStyleProps>`
   background-repeat: no-repeat;
   background-color: #abdbe3;
 
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 `;
 
 export const ContentGame = styled.div`
@@ -78,7 +79,7 @@ export const ContentGame = styled.div`
   p {
     color: rgba(0, 0, 0, 0.6);
     font-size: 1.1rem;
-    line-height: 1.2rem;
+    line-height: 1.5rem;
     font-weight: bold;
     margin: 0;
     font-family: cursive;

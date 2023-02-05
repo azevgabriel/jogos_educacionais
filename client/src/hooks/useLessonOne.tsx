@@ -80,7 +80,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
     e: DragEvent | TouchEvent,
     element: Element | null
   ) => {
-    const letter = element?.children[0].textContent ?? '';
+    const letter = element?.children[0].className ?? '';
     let x: number;
     let y: number;
 
@@ -151,7 +151,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
 
     classNames.forEach((className) => {
       const dropzone = document.querySelector(`.${className}`) as HTMLElement;
-      if (dropzone?.children[0]?.textContent) {
+      if (dropzone?.children[0]) {
         countFullHouses += 1;
       }
     });
@@ -161,7 +161,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
 
       classNames.forEach((className, index) => {
         const dropzone = document.querySelector(`.${className}`) as HTMLElement;
-        const letter = dropzone?.children[0]?.textContent;
+        const letter = dropzone?.children[0]?.children[0].className;
 
         console.log(letter, nameProps.solutions[index]);
 
@@ -169,6 +169,8 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
           countCorrectsHouses += 1;
         }
       });
+
+      console.log(countCorrectsHouses, animal.length);
 
       if (countCorrectsHouses === animal.length) {
         setModalOpen(true);

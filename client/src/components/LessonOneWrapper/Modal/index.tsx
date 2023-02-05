@@ -4,7 +4,7 @@ import { Container } from './styles';
 
 import trophyImage from '../../../assets/images/trophy.png';
 
-import { useLessonOne } from '../../../hooks/UseLessonOne';
+import { useLessonOne } from '../../../hooks/useLessonOne';
 import { convertToCsv } from '../../../utils/csv';
 
 import { useNavigate } from 'react-router-dom';

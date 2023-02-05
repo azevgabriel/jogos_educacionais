@@ -1,11 +1,13 @@
 import { words } from '@assets/words';
-import { useLessonOne } from '@hooks/UseLessonOne';
+import { useConfig } from '@hooks/useConfig';
+import { useLessonOne } from '@hooks/useLessonOne';
 import { EventTypes } from '@interfaces/device';
 import { dragEnd, dragStart } from '@utils/dragEvents';
 import { dragLeave, dragOver, drop } from '@utils/dropzoneEvents';
 import { dragEndTouch, dragStartTouch, dragTouch } from '@utils/touchEvents';
 import { useEffect, useMemo, useState } from 'react';
 import { EmptyHouse } from './EmptyHouse';
+import { getCorrectLetterImage } from './getCorrextLetterImage';
 import { Modal } from './Modal';
 import { Container, ImageWrapper, LessonLettersContentWrapper } from './styles';
 
@@ -21,11 +23,15 @@ export const LessonOneWrapper = ({
   typeOfEvent,
 }: LessonOneWrapperProps) => {
   const { catchDropzoneModifier, catchMousePosition } = useLessonOne();
+  const { getAcessibility } = useConfig();
+
   const [housesWithLetters, setHousesWithLetters] = useState<
     JSX.Element[] | null
   >(null);
   const [freeHouses, setFreeHouses] = useState<JSX.Element[] | null>(null);
   const [auxAnimal, setAuxAnimal] = useState<WordsKey | null>(null);
+
+  const libras = getAcessibility().libras;
 
   const houses = useMemo(() => {
     if (animal === auxAnimal) {
@@ -40,13 +46,21 @@ export const LessonOneWrapper = ({
 
     for (let i = 0; i < length; i++) {
       let position = Math.floor(Math.random() * animalArray.length);
+
+      const letter = animalArray[position].toUpperCase();
+      const libraImage = getCorrectLetterImage(letter);
+
       houses.push(
         <div
           className={`dropzone initialFullHouse ${animal}-${i}`}
           key={`${animal}-${i}`}
         >
           <div className={`letter ${animal}-${i}`} draggable="true">
-            <p>{animalArray[position].toUpperCase()}</p>
+            {libras ? (
+              <img className={letter} src={libraImage} alt="Letra" />
+            ) : (
+              <p className={letter}>{letter}</p>
+            )}
           </div>
         </div>
       );

@@ -7,9 +7,9 @@ interface IContainer {
 export const Container = styled.div<IContainer>`
   position: fixed;
   top: -200%;
-  left: calc(50% - 400px);
-  width: 800px;
-  height: 500px;
+  left: calc(50% - 350px);
+  width: 700px;
+  height: 400px;
   background-color: rgb(249, 253, 223);
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -20,7 +20,7 @@ export const Container = styled.div<IContainer>`
   ${({ isVisibility }) =>
     isVisibility &&
     css`
-      top: calc(50% - 250px);
+      top: calc(50% - 200px);
     `}
 
   display: flex;
@@ -42,7 +42,7 @@ export const Container = styled.div<IContainer>`
     align-items: center;
 
     h1 {
-      font-size: 3rem;
+      font-size: 2.5rem;
       line-height: 3.5rem;
       text-align: center;
       margin: 0;
@@ -52,7 +52,7 @@ export const Container = styled.div<IContainer>`
 
     button {
       width: 80%;
-      height: 4rem;
+      height: 3.5rem;
       border-radius: 10px;
       background-color: #f5f5f5;
       border: none;
@@ -67,7 +67,7 @@ export const Container = styled.div<IContainer>`
 
       p {
         font-family: cursive;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
       }
 
       &:hover {

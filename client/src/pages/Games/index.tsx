@@ -2,7 +2,7 @@ import { Navigate, useParams } from 'react-router-dom';
 
 import notAvailable from '@assets/images/notAvailable.png';
 import { LessonOneWrapper } from '@components/LessonOneWrapper';
-import { useLessonOne } from '@hooks/UseLessonOne';
+import { useLessonOne } from '@hooks/useLessonOne';
 import { checkDevice } from '@utils/device';
 import { Container } from './styles';
 

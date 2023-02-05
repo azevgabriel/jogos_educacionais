@@ -18,5 +18,6 @@ export const Container = styled.div`
   justify-content: space-evenly;
   align-items: center;
 
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 `;

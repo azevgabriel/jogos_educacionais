@@ -1,4 +1,4 @@
-import { useLessonOne } from '@hooks/UseLessonOne';
+import { useLessonOne } from '@hooks/useLessonOne';
 import { useCallback, useEffect, useState } from 'react';
 import { Container } from './styles';
 
@@ -15,11 +15,11 @@ export const EmptyHouse = ({ secondClass, solution }: EmptyHouseProps) => {
 
   const checkHouse = useCallback(
     (el: Element, solution: string) => {
-      if (!el.children[0]?.children[0]?.innerHTML) {
+      if (!el.children[0]?.children[0]?.className) {
         setIsCorrect('null');
         return;
       }
-      if (el.children[0]?.children[0]?.innerHTML === solution) {
+      if (el.children[0]?.children[0]?.className === solution) {
         setIsCorrect('true');
         verifyIfAllHousesAreFilled();
       } else {

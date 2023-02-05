@@ -16,8 +16,9 @@ export const Container = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
-  height: 70vh;
-  width: 70vh;
+  height: 55vh;
+  width: 55vh;
+  margin-top: 7.5vh;
 
   display: flex;
   flex-direction: column;
@@ -42,13 +43,13 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
   justify-content: space-evenly;
 
   height: 70vh;
-  width: 80vh;
+  width: 102.5vh;
 
   .nameContent {
     width: 97%;
     height: 35%;
 
-    border: 4px solid #aeb0b5;
+    border: 2px solid #aeb0b5;
     border-radius: 10px;
 
     background-color: #fefefe;
@@ -89,7 +90,7 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
       justify-content: center;
       align-items: center;
 
-      border: 4px solid #aeb0b5;
+      border: 2px solid #aeb0b5;
       border-radius: 10px;
 
       .letter {
@@ -102,6 +103,10 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
         justify-content: center;
         align-items: center;
         cursor: move;
+
+        img {
+          height: 9vh;
+        }
 
         p {
           font-size: 7vh;
@@ -117,11 +122,11 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
     }
 
     .not-over {
-      border: 4px solid #bb0000;
+      border: 2px solid #bb0000;
     }
 
     .over {
-      border: 4px solid #589e4a;
+      border: 2px solid #589e4a;
     }
   }
 `;
