@@ -70,7 +70,6 @@ export const ContentGame = styled.div`
   h2 {
     font-size: 1.8rem;
     line-height: 1.6rem;
-    font-family: 'Patrick Hand SC', cursive;
     margin: 0;
     margin-bottom: 8px;
     color: #000;

@@ -47,7 +47,6 @@ export const Container = styled.div<IContainer>`
       text-align: center;
       margin: 0;
       margin-bottom: 2rem;
-      font-family: 'Patrick Hand SC', cursive;
     }
 
     button {

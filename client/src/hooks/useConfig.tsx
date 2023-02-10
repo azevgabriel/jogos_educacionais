@@ -25,6 +25,7 @@ const initialValue: ConfigModal = {
   acessibility: {
     libras: true,
   },
+  user: undefined,
 };
 
 const ConfigProvider = ({ children }: ConfigProviderProps) => {

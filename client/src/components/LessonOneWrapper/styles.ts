@@ -60,7 +60,6 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
     align-items: center;
 
     h1 {
-      font-family: 'Patrick Hand SC', cursive;
       font-size: 16vh;
       letter-spacing: 0.75vh;
       line-height: 13.5vh;
@@ -110,7 +109,6 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
 
         p {
           font-size: 7vh;
-          font-family: 'Patrick Hand SC', cursive;
           user-select: none;
         }
       }

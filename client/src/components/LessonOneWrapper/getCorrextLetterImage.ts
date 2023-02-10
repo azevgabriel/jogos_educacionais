@@ -28,6 +28,7 @@ import Z from '@assets/images/acessibility/Z.png';
 const getCorrectLetterImage = (letter: string) => {
   switch (letter) {
     case 'A':
+    case 'Ã':
       return A;
     case 'B':
       return B;
