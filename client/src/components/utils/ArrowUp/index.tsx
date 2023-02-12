@@ -5,5 +5,5 @@ interface ArrowUpProps {
 }
 
 export const ArrowUp = ({ color }: ArrowUpProps) => {
-  return <Container color={color ?? '#fff'} />;
+  return <Container color={color ?? '#ccc'} />;
 };

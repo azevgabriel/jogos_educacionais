@@ -1,5 +1,5 @@
-import { WordsKey } from '../components/LessonOneWrapper';
-import { ReportProps } from '../interfaces/reports';
+import { ReportProps } from '@interfaces/reports';
+import { WordsKey } from '@pages/Games/LessonOneWrapper';
 
 const saveAs = (blob: Blob, fileName: string) => {
   const link = document.createElement('a');

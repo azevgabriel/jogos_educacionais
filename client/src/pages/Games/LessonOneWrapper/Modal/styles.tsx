@@ -10,7 +10,7 @@ export const Container = styled.div<IContainer>`
   left: calc(50% - 350px);
   width: 700px;
   height: 400px;
-  background-color: rgb(249, 253, 223);
+  background: #fefefe;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   z-index: 10;

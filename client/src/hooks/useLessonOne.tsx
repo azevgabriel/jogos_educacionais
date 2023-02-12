@@ -8,8 +8,8 @@ import {
 } from 'react';
 
 import { words } from '@assets/words';
-import { WordsKey } from '@components/LessonOneWrapper';
 import { ReportProps } from '@interfaces/reports';
+import { WordsKey } from '@pages/Games/LessonOneWrapper';
 
 interface LessonOneContextData {
   dropzoneModifier: string | null;
@@ -163,14 +163,10 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
         const dropzone = document.querySelector(`.${className}`) as HTMLElement;
         const letter = dropzone?.children[0]?.children[0].className;
 
-        console.log(letter, nameProps.solutions[index]);
-
         if (letter === nameProps.solutions[index]) {
           countCorrectsHouses += 1;
         }
       });
-
-      console.log(countCorrectsHouses, animal.length);
 
       if (countCorrectsHouses === animal.length) {
         setModalOpen(true);

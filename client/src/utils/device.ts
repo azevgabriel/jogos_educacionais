@@ -1,4 +1,4 @@
-import { EventTypes } from '../interfaces/device';
+import { EventTypes } from '@interfaces/device';
 
 function checkDevice(): EventTypes {
   if (
@@ -16,4 +16,20 @@ function checkDevice(): EventTypes {
   }
 }
 
-export { checkDevice };
+async function getUserIp(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://api.ipify.org?format=json', true);
+    xhr.send();
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const json = JSON.parse(xhr.responseText);
+        resolve(json.ip);
+      } else {
+        reject(xhr.statusText);
+      }
+    };
+  });
+}
+
+export { checkDevice, getUserIp };

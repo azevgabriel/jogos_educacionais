@@ -2,10 +2,10 @@ import { useCallback } from 'react';
 
 import { Container } from './styles';
 
-import trophyImage from '../../../assets/images/trophy.png';
+import trophyImage from '@assets/images/trophy.png';
 
-import { useLessonOne } from '../../../hooks/useLessonOne';
-import { convertToCsv } from '../../../utils/csv';
+import { useLessonOne } from '@hooks/useLessonOne';
+import { convertToCsv } from '@utils/csv';
 
 import { useNavigate } from 'react-router-dom';
 
