@@ -36,8 +36,9 @@ export const RegisterWrapper = styled.div`
 
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
+  padding-right: 3rem;
 
   .registerButton {
     width: 150px;
@@ -55,4 +56,14 @@ export const RegisterWrapper = styled.div`
       color: #327dc6;
     }
   }
+`;
+
+export const LoggedWrapper = styled.div`
+  height: 100%;
+  width: 30%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 3rem;
 `;

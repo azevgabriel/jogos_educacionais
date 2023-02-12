@@ -1,13 +1,17 @@
 import { PopOverWrapper } from '@components/PopOver';
 import { Button } from '@components/utils';
+import { useConfig } from '@hooks/useConfig';
 import { FormError } from '@interfaces/components';
 import { UserModel } from '@interfaces/user';
 import { getUserIp } from '@utils/device';
 import { useCallback, useState } from 'react';
 import { RegisterForm } from './RegisterForm';
-import { Container, Logo, RegisterWrapper } from './styles';
+import { Container, LoggedWrapper, Logo, RegisterWrapper } from './styles';
 
 export const HeaderBar = () => {
+  const { setUser, getUser } = useConfig();
+  const user = getUser();
+
   const initialFormValues: UserModel = {
     type: 'single',
     name: '',
@@ -67,7 +71,8 @@ export const HeaderBar = () => {
     if (!isCorrect) return;
 
     const ip = await getUserIp();
-    setFormValues((oldValue) => ({ ...oldValue, ip }));
+    setUser({ ...formValues, ip });
+    onCloseLogin();
   };
 
   return (
@@ -76,47 +81,53 @@ export const HeaderBar = () => {
         <h1>Jogos Inclusivos</h1>
       </Logo>
       <div className="contentWrapper"></div>
-      <RegisterWrapper>
-        <PopOverWrapper
-          visible={popOverVisible}
-          body={{
-            children: (
-              <RegisterForm
-                errors={errors}
-                setFormValues={setFormValues}
-                values={formValues}
-                key="header-register-form"
-              />
-            ),
-            height: '85%',
-          }}
-          footer={{
-            children: (
-              <>
-                <Button
-                  width="40%"
-                  height="90%"
-                  onClick={onCloseLogin}
-                  type="reset"
-                  text="Cancelar"
+      {user ? (
+        <LoggedWrapper>
+          <h2>Olá, {user.name}</h2>
+        </LoggedWrapper>
+      ) : (
+        <RegisterWrapper>
+          <PopOverWrapper
+            visible={popOverVisible}
+            body={{
+              children: (
+                <RegisterForm
+                  errors={errors}
+                  setFormValues={setFormValues}
+                  values={formValues}
+                  key="header-register-form"
                 />
-                <Button
-                  width="40%"
-                  height="90%"
-                  onClick={onSubmitLogin}
-                  type="submit"
-                  text="Salvar"
-                />
-              </>
-            ),
-            height: '18%',
-          }}
-        >
-          <button className="registerButton" onClick={handlePopOver}>
-            Cadastrar
-          </button>
-        </PopOverWrapper>
-      </RegisterWrapper>
+              ),
+              height: '85%',
+            }}
+            footer={{
+              children: (
+                <>
+                  <Button
+                    width="40%"
+                    height="90%"
+                    onClick={onCloseLogin}
+                    type="reset"
+                    text="Cancelar"
+                  />
+                  <Button
+                    width="40%"
+                    height="90%"
+                    onClick={onSubmitLogin}
+                    type="submit"
+                    text="Salvar"
+                  />
+                </>
+              ),
+              height: '18%',
+            }}
+          >
+            <button className="registerButton" onClick={handlePopOver}>
+              Cadastrar
+            </button>
+          </PopOverWrapper>
+        </RegisterWrapper>
+      )}
     </Container>
   );
 };

@@ -1,4 +1,5 @@
 import { ConfigModal } from '@interfaces/config';
+import { UserModel } from '@interfaces/user';
 import {
   createContext,
   ReactNode,
@@ -8,8 +9,8 @@ import {
 } from 'react';
 
 interface ConfigContextData {
-  config?: ConfigModal;
-  setConfig: (config: ConfigModal) => void;
+  setUser: (user: UserModel) => void;
+  getUser: () => UserModel | undefined;
   getAcessibility: () => ConfigModal['acessibility'];
 }
 
@@ -42,8 +43,16 @@ const ConfigProvider = ({ children }: ConfigProviderProps) => {
     return config.acessibility;
   };
 
+  const setUser = (user: ConfigModal['user']) => {
+    setConfig({ ...config, user });
+  };
+
+  const getUser = () => {
+    return config.user;
+  };
+
   return (
-    <ConfigContext.Provider value={{ config, setConfig, getAcessibility }}>
+    <ConfigContext.Provider value={{ setUser, getAcessibility, getUser }}>
       {children}
     </ConfigContext.Provider>
   );

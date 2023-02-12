@@ -7,6 +7,7 @@ import trophyImage from '@assets/images/trophy.png';
 import { useLessonOne } from '@hooks/useLessonOne';
 import { convertToCsv } from '@utils/csv';
 
+import { useConfig } from '@hooks/useConfig';
 import { useNavigate } from 'react-router-dom';
 
 export const Modal = () => {
@@ -20,6 +21,7 @@ export const Modal = () => {
     animal,
     getReport,
   } = useLessonOne();
+  const { getUser } = useConfig();
 
   const restartLesson = useCallback(() => {
     closeMenu();
@@ -33,7 +35,7 @@ export const Modal = () => {
 
   const handlePrint = useCallback(() => {
     const reports = getReport();
-    convertToCsv(reports, animal);
+    convertToCsv(reports, animal, getUser());
   }, [animal]);
 
   return (
