@@ -1,6 +1,8 @@
 :root {
   --1th-layer: 0;
   --2th-layer: 10;
+
+  --primary-color: #b384ff;
 }
 
 body {

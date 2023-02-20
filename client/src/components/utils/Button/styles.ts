@@ -14,6 +14,7 @@ const buttonTypes = {
     &:hover {
       background-color: #27ae60;
     }
+    transition: background-color 0.3s;
   `,
   reset: css`
     background-color: #e74c3c;
@@ -21,13 +22,26 @@ const buttonTypes = {
     &:hover {
       background-color: #c0392b;
     }
+    transition: background-color 0.3s;
   `,
   link: css`
     background-color: transparent;
-    color: #3498db;
+    color: var(--primary-color);
     &:hover {
-      color: #2980b9;
+      color: var(--primary-color);
     }
+    p {
+      font-family: 'Patrick Hand SC', cursive;
+      font-size: 1.3rem;
+      line-height: 1.2rem;
+    }
+    .iconWrapper + p {
+      padding-left: 0.2rem;
+    }
+    &:hover {
+      filter: brightness(0.9);
+    }
+    transition: filter 0.3s;
   `,
 };
 
@@ -37,7 +51,7 @@ export const Container = styled.button<ContainerProps>`
   align-items: center;
 
   width: ${({ width }) => width ?? '100px'};
-  height: ${({ height }) => height ?? '40px'};
+  height: ${({ height }) => height ?? 'max-content'};
   border-radius: 4px;
   background-color: #3498db;
 
@@ -53,7 +67,9 @@ export const Container = styled.button<ContainerProps>`
     padding-top: 4px;
   }
 
-  transition: background-color 0.3s;
+  .iconWrapper + p {
+    padding-left: 0.1rem;
+  }
 
   ${({ typeOfButton }) => buttonTypes[typeOfButton]}
 `;

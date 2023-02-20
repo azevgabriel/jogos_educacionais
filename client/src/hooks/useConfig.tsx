@@ -12,7 +12,8 @@ interface ConfigContextData {
   setUser: (user: UserModel) => void;
   unsetUser: () => void;
   user?: UserModel;
-  getAcessibility: () => ConfigModal['acessibility'];
+  getLibras: () => boolean;
+  setLibras: (value: boolean) => void;
 }
 
 interface ConfigProviderProps {
@@ -25,7 +26,7 @@ const CONFIG_KEY = '@JOGOS_INCLUSIVOS:config';
 
 const initialValue: ConfigModal = {
   acessibility: {
-    libras: true,
+    libras: false,
   },
   user: undefined,
   users: [],
@@ -47,10 +48,6 @@ const ConfigProvider = ({ children }: ConfigProviderProps) => {
     );
   };
 
-  const getAcessibility = () => {
-    return config.acessibility;
-  };
-
   const setUser = (user: UserModel) => {
     const existsUser = verifyIsUserExists(user);
     if (existsUser) {
@@ -67,9 +64,17 @@ const ConfigProvider = ({ children }: ConfigProviderProps) => {
     setConfig({ ...config, user: undefined });
   };
 
+  const getLibras = () => {
+    return config?.acessibility?.libras ?? false;
+  };
+
+  const setLibras = (value: boolean) => {
+    setConfig({ ...config, acessibility: { libras: value } });
+  };
+
   return (
     <ConfigContext.Provider
-      value={{ setUser, unsetUser, getAcessibility, user: config?.user }}
+      value={{ setUser, unsetUser, getLibras, setLibras, user: config?.user }}
     >
       {children}
     </ConfigContext.Provider>

@@ -23,7 +23,7 @@ export const LessonOneWrapper = ({
   typeOfEvent,
 }: LessonOneWrapperProps) => {
   const { catchDropzoneModifier, catchMousePosition } = useLessonOne();
-  const { getAcessibility } = useConfig();
+  const { getLibras } = useConfig();
 
   const [housesWithLetters, setHousesWithLetters] = useState<
     JSX.Element[] | null
@@ -31,7 +31,7 @@ export const LessonOneWrapper = ({
   const [freeHouses, setFreeHouses] = useState<JSX.Element[] | null>(null);
   const [auxAnimal, setAuxAnimal] = useState<WordsKey | null>(null);
 
-  const libras = getAcessibility().libras;
+  const libras = getLibras();
 
   const houses = useMemo(() => {
     if (animal === auxAnimal) {
