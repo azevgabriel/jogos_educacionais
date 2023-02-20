@@ -21,7 +21,7 @@ export const Modal = () => {
     animal,
     getReport,
   } = useLessonOne();
-  const { getUser } = useConfig();
+  const { user } = useConfig();
 
   const restartLesson = useCallback(() => {
     closeMenu();
@@ -35,7 +35,7 @@ export const Modal = () => {
 
   const handlePrint = useCallback(() => {
     const reports = getReport();
-    convertToCsv(reports, animal, getUser());
+    convertToCsv(reports, animal, user);
   }, [animal]);
 
   return (
