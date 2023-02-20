@@ -41,3 +41,5 @@ export interface FormError {
   message: string;
   label: string;
 }
+
+export type CommonBodyBackground = 'menu' | 'farm';

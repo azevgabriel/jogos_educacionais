@@ -74,7 +74,13 @@ const ConfigProvider = ({ children }: ConfigProviderProps) => {
 
   return (
     <ConfigContext.Provider
-      value={{ setUser, unsetUser, getLibras, setLibras, user: config?.user }}
+      value={{
+        setUser,
+        unsetUser,
+        getLibras,
+        setLibras,
+        user: config?.user,
+      }}
     >
       {children}
     </ConfigContext.Provider>

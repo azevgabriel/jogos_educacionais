@@ -5,9 +5,12 @@
   --primary-color: #b384ff;
 }
 
-body {
+* {
   margin: 0;
   padding: 0;
+}
+
+body {
   font-family: 'Patrick Hand SC', cursive;
 }
 

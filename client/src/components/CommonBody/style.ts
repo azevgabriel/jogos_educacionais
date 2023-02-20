@@ -1,13 +1,29 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
+import farmBackground from '@assets/images/background.jpg';
 import menuBackground from '@assets/images/background_menu.png';
+import { CommonBodyBackground } from '@interfaces/components';
 
-export const Container = styled.div`
+interface ContainerProps {
+  background: CommonBodyBackground;
+}
+
+const backgroundTypes = {
+  menu: css`
+    background-image: url(${menuBackground});
+  `,
+  farm: css`
+    background-image: url(${farmBackground});
+  `,
+};
+
+export const Container = styled.div<ContainerProps>`
   width: 100%;
   height: calc(100vh - 60px);
   display: flex;
 
-  background-image: url(${menuBackground});
+  ${(props) => backgroundTypes[props.background]}
+
   background-size: cover;
   background-position: center;
 

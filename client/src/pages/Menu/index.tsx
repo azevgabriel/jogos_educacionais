@@ -8,7 +8,7 @@ export const Menu = () => {
   return (
     <Container>
       <HeaderBar />
-      <CommonBody>
+      <CommonBody background="menu">
         {Object.entries(games).map(([key, value]) => (
           <GamePreview
             key={`game-${key}`}

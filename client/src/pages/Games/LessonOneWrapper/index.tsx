@@ -7,7 +7,7 @@ import { dragLeave, dragOver, drop } from '@utils/dropzoneEvents';
 import { dragEndTouch, dragStartTouch, dragTouch } from '@utils/touchEvents';
 import { useEffect, useMemo, useState } from 'react';
 import { EmptyHouse } from './EmptyHouse';
-import { getCorrectLetterImage } from './getCorrextLetterImage';
+import { getCorrectLetterImage } from './getLibrasAlphabet';
 import { Modal } from './Modal';
 import { Container, ImageWrapper, LessonLettersContentWrapper } from './styles';
 
@@ -22,19 +22,23 @@ export const LessonOneWrapper = ({
   animal,
   typeOfEvent,
 }: LessonOneWrapperProps) => {
-  const { catchDropzoneModifier, catchMousePosition } = useLessonOne();
   const { getLibras } = useConfig();
+  const { catchDropzoneModifier, catchMousePosition } = useLessonOne();
 
   const [housesWithLetters, setHousesWithLetters] = useState<
     JSX.Element[] | null
   >(null);
   const [freeHouses, setFreeHouses] = useState<JSX.Element[] | null>(null);
   const [auxAnimal, setAuxAnimal] = useState<WordsKey | null>(null);
-
+  const [reset, setReset] = useState(false);
   const libras = getLibras();
 
+  useEffect(() => {
+    setReset(true);
+  }, [libras]);
+
   const houses = useMemo(() => {
-    if (animal === auxAnimal) {
+    if (animal === auxAnimal && !reset) {
       return housesWithLetters;
     }
 
@@ -68,8 +72,9 @@ export const LessonOneWrapper = ({
     }
 
     setHousesWithLetters(houses);
+    setReset(false);
     return houses;
-  }, [animal, auxAnimal]);
+  }, [animal, auxAnimal, reset, libras]);
 
   const emptyHouses = useMemo(() => {
     if (animal === auxAnimal) {
