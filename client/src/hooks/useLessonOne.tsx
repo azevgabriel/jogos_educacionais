@@ -3,13 +3,15 @@ import {
   ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
 
 import { words } from '@assets/words';
-import { WordsKey } from '@components/LessonOneWrapper';
 import { ReportProps } from '@interfaces/reports';
+import { WordsKey } from '@pages/Games/LessonOneWrapper';
+import { useConfig } from './useConfig';
 
 interface LessonOneContextData {
   dropzoneModifier: string | null;
@@ -38,12 +40,16 @@ const LessonOneContext = createContext<LessonOneContextData>(
 );
 
 const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
-  const wordList = Object.keys(words) as WordsKey[];
-  const word = wordList[Math.floor(Math.random() * wordList.length)];
+  const libras = useConfig();
+
+  const [index, setIndex] = useState<number>(0);
+  const wordList = Object.keys(words).sort(
+    () => Math.random() - 0.5
+  ) as WordsKey[];
+  const word = wordList[index];
 
   const [dropzoneModifier, setDropzoneModifier] = useState<string | null>(null);
   const [animal, setAnimal] = useState(word);
-  const [index, setIndex] = useState<number>(0);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   var report: ReportProps | undefined;
@@ -80,7 +86,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
     e: DragEvent | TouchEvent,
     element: Element | null
   ) => {
-    const letter = element?.children[0].textContent ?? '';
+    const letter = element?.children[0].className ?? '';
     let x: number;
     let y: number;
 
@@ -151,7 +157,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
 
     classNames.forEach((className) => {
       const dropzone = document.querySelector(`.${className}`) as HTMLElement;
-      if (dropzone?.children[0]?.textContent) {
+      if (dropzone?.children[0]) {
         countFullHouses += 1;
       }
     });
@@ -161,9 +167,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
 
       classNames.forEach((className, index) => {
         const dropzone = document.querySelector(`.${className}`) as HTMLElement;
-        const letter = dropzone?.children[0]?.textContent;
-
-        console.log(letter, nameProps.solutions[index]);
+        const letter = dropzone?.children[0]?.children[0].className;
 
         if (letter === nameProps.solutions[index]) {
           countCorrectsHouses += 1;
@@ -175,6 +179,14 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
       }
     }
   }, [animal]);
+
+  useEffect(() => {
+    if (index < wordList.length - 1) {
+      nextAnimal();
+    } else {
+      restart();
+    }
+  }, [libras]);
 
   return (
     <LessonOneContext.Provider

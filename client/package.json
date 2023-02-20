@@ -1,13 +1,14 @@
 {
   "name": "special-education",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-icons/all-files": "^4.1.0",
     "@types/node": "^17.0.33",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

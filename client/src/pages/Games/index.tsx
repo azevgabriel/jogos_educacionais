@@ -1,9 +1,13 @@
 import { Navigate, useParams } from 'react-router-dom';
 
 import notAvailable from '@assets/images/notAvailable.png';
-import { LessonOneWrapper } from '@components/LessonOneWrapper';
-import { useLessonOne } from '@hooks/UseLessonOne';
+import { CommonBody } from '@components/CommonBody';
+import { HeaderBar } from '@components/HeaderBar';
+import { useLessonOne } from '@hooks/useLessonOne';
+import { EventTypes } from '@interfaces/device';
 import { checkDevice } from '@utils/device';
+import { useEffect, useState } from 'react';
+import { LessonOneWrapper } from './LessonOneWrapper';
 import { Container } from './styles';
 
 interface GamesProps {}
@@ -11,14 +15,24 @@ interface GamesProps {}
 export const Game = ({}: GamesProps) => {
   const { animal } = useLessonOne();
   const { nome } = useParams();
+  const [typeOfEvent, setTypeOfEvent] = useState<EventTypes | undefined>(
+    undefined
+  );
 
-  const typeOfEvent = checkDevice();
+  useEffect(() => {
+    setTypeOfEvent(checkDevice());
+  }, [navigator.userAgent]);
+
+  if (!typeOfEvent) return null;
 
   switch (nome) {
     case 'letras':
       return (
         <Container>
-          <LessonOneWrapper animal={animal} typeOfEvent={typeOfEvent} />
+          <HeaderBar />
+          <CommonBody background="farm">
+            <LessonOneWrapper animal={animal} typeOfEvent={typeOfEvent} />
+          </CommonBody>
         </Container>
       );
     case 'ligar':

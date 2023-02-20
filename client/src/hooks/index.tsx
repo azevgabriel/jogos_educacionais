@@ -1,12 +1,17 @@
 import { ReactNode } from 'react';
-import { LessonOneProvider } from './UseLessonOne';
+import { ConfigProvider } from './useConfig';
+import { LessonOneProvider } from './useLessonOne';
 
 interface AppProviderProps {
   children: ReactNode;
 }
 
 const AppProvider = ({ children }: AppProviderProps) => {
-  return <LessonOneProvider>{children}</LessonOneProvider>;
+  return (
+    <ConfigProvider>
+      <LessonOneProvider>{children}</LessonOneProvider>
+    </ConfigProvider>
+  );
 };
 
 export default AppProvider;

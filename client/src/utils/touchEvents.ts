@@ -45,17 +45,28 @@ function dragEndTouch(
     const dropzoneSize = dropzone.getBoundingClientRect();
 
     if (dropzone.children.length === 0)
-      if (el.parentElement && el.parentElement.className !== dropzone.className)
+      if (
+        el.parentElement &&
+        el.parentElement.className !== dropzone.className
+      ) {
+        const posXCentralized =
+          cardBeingDraggedSize.left +
+          (cardBeingDraggedSize.right - cardBeingDraggedSize.left) / 2;
+        const posYCentralized =
+          cardBeingDraggedSize.top +
+          (cardBeingDraggedSize.bottom - cardBeingDraggedSize.top) / 2;
+
         if (
-          cardBeingDraggedSize.left >= dropzoneSize.left &&
-          cardBeingDraggedSize.right <= dropzoneSize.right &&
-          cardBeingDraggedSize.top <= dropzoneSize.top &&
-          cardBeingDraggedSize.bottom >= dropzoneSize.bottom
+          posXCentralized >= dropzoneSize.left &&
+          posXCentralized <= dropzoneSize.right &&
+          posYCentralized >= dropzoneSize.top &&
+          posYCentralized <= dropzoneSize.bottom
         ) {
           dropzone.appendChild(el);
           catchDropzoneModifier(dropzone.className);
           break;
         }
+      }
   }
 
   setTranslate(0, 0, el);

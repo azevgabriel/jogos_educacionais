@@ -1,5 +1,6 @@
-import { WordsKey } from '../components/LessonOneWrapper';
-import { ReportProps } from '../interfaces/reports';
+import { ReportProps } from '@interfaces/reports';
+import { UserModel } from '@interfaces/user';
+import { WordsKey } from '@pages/Games/LessonOneWrapper';
 
 const saveAs = (blob: Blob, fileName: string) => {
   const link = document.createElement('a');
@@ -9,13 +10,31 @@ const saveAs = (blob: Blob, fileName: string) => {
   link.click();
 };
 
-const convertToCsv = (reports: ReportProps[], animal: WordsKey) => {
+const convertToCsv = (
+  reports: ReportProps[],
+  animal: WordsKey,
+  user: UserModel | undefined
+) => {
   const delimiter = ';';
   const breakLine = '\n';
 
   let allText: string = '';
 
   const animalStr = animal as string;
+
+  if (user) {
+    const header = [
+      `Nome: ${user.name}`,
+      delimiter,
+      `Idade: ${user.age}`,
+      delimiter,
+      `Tipo: ${user.type}`,
+      delimiter,
+      `IP: ${user.ip}`,
+      breakLine,
+    ];
+    allText += header.join('');
+  }
 
   reports.forEach((report) => {
     const headerOne = [
