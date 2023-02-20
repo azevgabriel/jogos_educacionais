@@ -28,6 +28,10 @@ export const Logo = styled.div`
     line-height: 2.5rem;
     margin: 0;
   }
+
+  button + h1 {
+    margin-left: 2rem;
+  }
 `;
 
 export const RegisterWrapper = styled.div`

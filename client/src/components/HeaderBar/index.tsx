@@ -1,15 +1,18 @@
+import { TiArrowBack } from '@components/Icons';
 import { PopOverWrapper } from '@components/PopOver';
 import { Button } from '@components/utils';
 import { useConfig } from '@hooks/useConfig';
 import { FormError } from '@interfaces/components';
 import { UserModel } from '@interfaces/user';
 import { getUserIp } from '@utils/device';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { RegisterForm } from './RegisterForm';
 import { Session } from './Session';
 import { Container, Logo, RegisterWrapper } from './styles';
 
 export const HeaderBar = () => {
+  const navigation = useNavigate();
   const { setUser, user } = useConfig();
 
   const initialFormValues: UserModel = {
@@ -75,11 +78,30 @@ export const HeaderBar = () => {
     onCloseLogin();
   };
 
+  const headerTitle = useMemo(() => {
+    const path = window.location.pathname;
+
+    if (path === '/jogos/letras')
+      return (
+        <>
+          <Button
+            onClick={() => navigation('/jogos')}
+            type="link"
+            width="40px"
+            icon={<TiArrowBack size={40} />}
+          />
+          <h1>Escreva o nome do animal!</h1>
+        </>
+      );
+
+    return <h1>Jogos Inclusivos</h1>;
+  }, [window.location.pathname]);
+
+  console.log(window.location.pathname);
+
   return (
     <Container>
-      <Logo>
-        <h1>Jogos Inclusivos</h1>
-      </Logo>
+      <Logo>{headerTitle}</Logo>
       <div className="contentWrapper"></div>
       {user ? (
         <Session />

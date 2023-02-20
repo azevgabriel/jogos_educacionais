@@ -57,7 +57,7 @@ export const Session = () => {
         <Button
           type="link"
           onClick={handlePopOver}
-          icon={<BsFillGearFill size={20} />}
+          icon={<BsFillGearFill size={25} />}
         />
       </PopOverWrapper>
     </LoggedWrapper>

@@ -30,15 +30,10 @@ export const LessonOneWrapper = ({
   >(null);
   const [freeHouses, setFreeHouses] = useState<JSX.Element[] | null>(null);
   const [auxAnimal, setAuxAnimal] = useState<WordsKey | null>(null);
-  const [reset, setReset] = useState(false);
   const libras = getLibras();
 
-  useEffect(() => {
-    setReset(true);
-  }, [libras]);
-
   const houses = useMemo(() => {
-    if (animal === auxAnimal && !reset) {
+    if (animal === auxAnimal) {
       return housesWithLetters;
     }
 
@@ -72,9 +67,8 @@ export const LessonOneWrapper = ({
     }
 
     setHousesWithLetters(houses);
-    setReset(false);
     return houses;
-  }, [animal, auxAnimal, reset, libras]);
+  }, [animal, auxAnimal]);
 
   const emptyHouses = useMemo(() => {
     if (animal === auxAnimal) {

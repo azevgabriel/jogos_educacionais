@@ -3,6 +3,7 @@ import {
   ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -10,6 +11,7 @@ import {
 import { words } from '@assets/words';
 import { ReportProps } from '@interfaces/reports';
 import { WordsKey } from '@pages/Games/LessonOneWrapper';
+import { useConfig } from './useConfig';
 
 interface LessonOneContextData {
   dropzoneModifier: string | null;
@@ -38,12 +40,16 @@ const LessonOneContext = createContext<LessonOneContextData>(
 );
 
 const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
-  const wordList = Object.keys(words) as WordsKey[];
-  const word = wordList[Math.floor(Math.random() * wordList.length)];
+  const libras = useConfig();
+
+  const [index, setIndex] = useState<number>(0);
+  const wordList = Object.keys(words).sort(
+    () => Math.random() - 0.5
+  ) as WordsKey[];
+  const word = wordList[index];
 
   const [dropzoneModifier, setDropzoneModifier] = useState<string | null>(null);
   const [animal, setAnimal] = useState(word);
-  const [index, setIndex] = useState<number>(0);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   var report: ReportProps | undefined;
@@ -173,6 +179,14 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
       }
     }
   }, [animal]);
+
+  useEffect(() => {
+    if (index < wordList.length - 1) {
+      nextAnimal();
+    } else {
+      restart();
+    }
+  }, [libras]);
 
   return (
     <LessonOneContext.Provider
