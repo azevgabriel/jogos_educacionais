@@ -1,6 +1,7 @@
 import { ArrowUp } from '@components/utils';
 import {
   PopOverBodyProps,
+  PopOverContainerProps,
   PopOverFooterProps,
   PopOverHeaderProps,
 } from '@interfaces/components';
@@ -13,6 +14,7 @@ interface PopOverProps {
   header?: PopOverHeaderProps;
   body: PopOverBodyProps;
   footer?: PopOverFooterProps;
+  container?: PopOverContainerProps;
 }
 
 export const PopOverWrapper = ({
@@ -21,6 +23,7 @@ export const PopOverWrapper = ({
   header,
   body,
   footer,
+  container,
 }: PopOverProps) => {
   const [firstVisible, setFirstVisible] = useState(true);
 
@@ -33,14 +36,37 @@ export const PopOverWrapper = ({
   return (
     <Container>
       {children}
-      <PopOver visible={visible} firstRender={firstVisible}>
+      <PopOver
+        visible={visible}
+        firstRender={firstVisible}
+        colors={container?.colors}
+        sizes={container?.sizes}
+      >
         <ArrowUp />
         {header?.children ? (
-          <Header height={header?.height}>{header?.children}</Header>
+          <Header
+            height={header?.height}
+            alignHorizontal={header?.alignHorizontal}
+            alignVertical={header?.alignVertical}
+          >
+            {header?.children}
+          </Header>
         ) : null}
-        <Body height={body?.height}>{body.children}</Body>
+        <Body
+          height={body?.height}
+          alignHorizontal={body?.alignHorizontal}
+          alignVertical={body?.alignVertical}
+        >
+          {body.children}
+        </Body>
         {footer?.children ? (
-          <Footer height={footer?.height}>{footer?.children}</Footer>
+          <Footer
+            height={footer?.height}
+            alignHorizontal={footer?.alignHorizontal}
+            alignVertical={footer?.alignVertical}
+          >
+            {footer?.children}
+          </Footer>
         ) : null}
       </PopOver>
     </Container>

@@ -132,7 +132,7 @@ export const LessonOneWrapper = ({
           drop(dropzone, catchDropzoneModifier)
         );
       });
-  }, [animal]);
+  }, [animal, typeOfEvent]);
 
   return (
     <>

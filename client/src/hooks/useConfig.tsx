@@ -10,7 +10,8 @@ import {
 
 interface ConfigContextData {
   setUser: (user: UserModel) => void;
-  getUser: () => UserModel | undefined;
+  unsetUser: () => void;
+  user?: UserModel;
   getAcessibility: () => ConfigModal['acessibility'];
 }
 
@@ -27,6 +28,7 @@ const initialValue: ConfigModal = {
     libras: true,
   },
   user: undefined,
+  users: [],
 };
 
 const ConfigProvider = ({ children }: ConfigProviderProps) => {
@@ -39,20 +41,36 @@ const ConfigProvider = ({ children }: ConfigProviderProps) => {
     localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
   }, [config]);
 
+  const verifyIsUserExists = (user: UserModel) => {
+    return config.users?.find(
+      (u) => u.name === user.name && u.age === user.age
+    );
+  };
+
   const getAcessibility = () => {
     return config.acessibility;
   };
 
-  const setUser = (user: ConfigModal['user']) => {
-    setConfig({ ...config, user });
+  const setUser = (user: UserModel) => {
+    const existsUser = verifyIsUserExists(user);
+    if (existsUser) {
+      setConfig({ ...config, user });
+      return;
+    }
+
+    const oldUsers = config?.users ?? [];
+    const users = [...oldUsers, user];
+    setConfig({ ...config, user, users });
   };
 
-  const getUser = () => {
-    return config.user;
+  const unsetUser = () => {
+    setConfig({ ...config, user: undefined });
   };
 
   return (
-    <ConfigContext.Provider value={{ setUser, getAcessibility, getUser }}>
+    <ConfigContext.Provider
+      value={{ setUser, unsetUser, getAcessibility, user: config?.user }}
+    >
       {children}
     </ConfigContext.Provider>
   );

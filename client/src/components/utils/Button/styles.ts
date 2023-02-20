@@ -2,10 +2,34 @@ import { ButtonTypes } from '@interfaces/components';
 import styled, { css } from 'styled-components';
 
 interface ContainerProps {
-  type: ButtonTypes;
+  typeOfButton: ButtonTypes;
   width?: string;
   height?: string;
 }
+
+const buttonTypes = {
+  submit: css`
+    background-color: #2ecc71;
+    color: #fff;
+    &:hover {
+      background-color: #27ae60;
+    }
+  `,
+  reset: css`
+    background-color: #e74c3c;
+    color: #fff;
+    &:hover {
+      background-color: #c0392b;
+    }
+  `,
+  link: css`
+    background-color: transparent;
+    color: #3498db;
+    &:hover {
+      color: #2980b9;
+    }
+  `,
+};
 
 export const Container = styled.button<ContainerProps>`
   display: flex;
@@ -25,31 +49,11 @@ export const Container = styled.button<ContainerProps>`
     font-family: cursive;
   }
 
-  ${({ type }) =>
-    type === 'submit' &&
-    css`
-      background-color: #2ecc71;
-      color: #fff;
-    `}
-  ${({ type }) =>
-    type === 'reset' &&
-    css`
-      background-color: #e74c3c;
-      color: #fff;
-    `}
-
-    transition: background-color 0.3s;
-
-  &:hover {
-    ${({ type }) =>
-      type === 'submit' &&
-      css`
-        background-color: #27ae60;
-      `}
-    ${({ type }) =>
-      type === 'reset' &&
-      css`
-        background-color: #c0392b;
-      `}
+  .iconWrapper {
+    padding-top: 4px;
   }
+
+  transition: background-color 0.3s;
+
+  ${({ typeOfButton }) => buttonTypes[typeOfButton]}
 `;

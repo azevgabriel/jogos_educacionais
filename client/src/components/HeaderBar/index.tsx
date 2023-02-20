@@ -6,11 +6,11 @@ import { UserModel } from '@interfaces/user';
 import { getUserIp } from '@utils/device';
 import { useCallback, useState } from 'react';
 import { RegisterForm } from './RegisterForm';
-import { Container, LoggedWrapper, Logo, RegisterWrapper } from './styles';
+import { Session } from './Session';
+import { Container, Logo, RegisterWrapper } from './styles';
 
 export const HeaderBar = () => {
-  const { setUser, getUser } = useConfig();
-  const user = getUser();
+  const { setUser, user } = useConfig();
 
   const initialFormValues: UserModel = {
     type: 'single',
@@ -71,7 +71,7 @@ export const HeaderBar = () => {
     if (!isCorrect) return;
 
     const ip = await getUserIp();
-    setUser({ ...formValues, ip });
+    setUser({ ...formValues, name: formValues.name.trim(), ip });
     onCloseLogin();
   };
 
@@ -82,9 +82,7 @@ export const HeaderBar = () => {
       </Logo>
       <div className="contentWrapper"></div>
       {user ? (
-        <LoggedWrapper>
-          <h2>Olá, {user.name}</h2>
-        </LoggedWrapper>
+        <Session />
       ) : (
         <RegisterWrapper>
           <PopOverWrapper
@@ -120,6 +118,8 @@ export const HeaderBar = () => {
                 </>
               ),
               height: '18%',
+              alignHorizontal: 'space-evenly',
+              alignVertical: 'center',
             }}
           >
             <button className="registerButton" onClick={handlePopOver}>
