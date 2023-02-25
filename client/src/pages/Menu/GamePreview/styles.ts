@@ -38,6 +38,11 @@ export const StyledLink = styled(Link)<StyledLinkProps>`
       filter: brightness(0.7);
     }
   `}
+
+  @media (max-width: 500px) and (orientation: portrait) {
+    height: 200px;
+    margin: 10px 15px;
+  }
 `;
 
 interface ImageWrapperStyleProps {
@@ -82,5 +87,12 @@ export const ContentGame = styled.div`
     font-weight: bold;
     margin: 0;
     font-family: cursive;
+  }
+
+  @media (max-width: 500px) and (orientation: portrait) {
+    justify-content: center;
+    p {
+      display: none;
+    }
   }
 `;

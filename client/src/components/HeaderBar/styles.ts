@@ -11,9 +11,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
-  .contentWrapper {
-  }
 `;
 
 export const Logo = styled.div`
@@ -32,6 +29,10 @@ export const Logo = styled.div`
   button + h1 {
     margin-left: 2rem;
   }
+
+  @media (max-width: 600px) and (orientation: portrait) {
+    padding-left: 2.5rem;
+  }
 `;
 
 export const RegisterWrapper = styled.div`
@@ -43,6 +44,10 @@ export const RegisterWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   padding-right: 3rem;
+
+  @media (max-width: 600px) and (orientation: portrait) {
+    padding-right: 1.5rem;
+  }
 
   .registerButton {
     width: 150px;

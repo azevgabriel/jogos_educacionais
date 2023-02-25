@@ -7,6 +7,20 @@ export const Container = styled.div`
   height: 70vh;
   width: 160vh;
 
+  @media (max-width: 1000px) and (orientation: portrait) {
+    width: 90vw;
+    height: 70vh;
+    align-items: center;
+    padding: 0 2.5vw;
+  }
+
+  @media (max-width: 1200px) and (orientation: landscape) {
+    height: 70vh;
+    width: 70vw;
+    padding: 0 2.5vw;
+    align-items: center;
+  }
+
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
 
@@ -27,7 +41,11 @@ export const ImageWrapper = styled.div`
 
   img {
     height: 70%;
-    width: 70%;
+    width: auto;
+  }
+
+  @media (max-width: 1000px) and (orientation: portrait) {
+    display: none;
   }
 `;
 

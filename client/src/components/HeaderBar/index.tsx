@@ -80,6 +80,8 @@ export const HeaderBar = () => {
 
   const headerTitle = useMemo(() => {
     const path = window.location.pathname;
+    const width = window.innerWidth;
+    const resume = width < 800;
 
     if (path === '/jogos/letras')
       return (
@@ -90,14 +92,12 @@ export const HeaderBar = () => {
             width="40px"
             icon={<TiArrowBack size={40} />}
           />
-          <h1>Escreva o nome do animal!</h1>
+          <h1>{resume ? '' : 'Escreva o nome do animal!'}</h1>
         </>
       );
 
-    return <h1>Jogos Inclusivos</h1>;
-  }, [window.location.pathname]);
-
-  console.log(window.location.pathname);
+    return <h1>{resume ? 'JI' : 'Jogos Inclusivos'}</h1>;
+  }, [window.location.pathname, window.innerWidth]);
 
   return (
     <Container>
