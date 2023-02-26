@@ -5,24 +5,14 @@ import { Container } from './styles';
 import trophyImage from '@assets/images/trophy.png';
 
 import { useLessonOne } from '@hooks/useLessonOne';
-import { convertToCsv } from '@utils/csv';
 
 import { Button } from '@components/utils';
-import { useConfig } from '@hooks/useConfig';
 import { useNavigate } from 'react-router-dom';
 
 export const Modal = () => {
   const navigate = useNavigate();
-  const {
-    nextAnimal,
-    modalOpen,
-    closeMenu,
-    index,
-    restart,
-    animal,
-    getReport,
-  } = useLessonOne();
-  const { user } = useConfig();
+  const { nextAnimal, modalOpen, closeMenu, index, restart } = useLessonOne();
+  // const { user } = useConfig();
 
   const restartLesson = useCallback(() => {
     closeMenu();
@@ -34,10 +24,10 @@ export const Modal = () => {
     nextAnimal();
   }, [nextAnimal]);
 
-  const handlePrint = useCallback(() => {
-    const reports = getReport();
-    convertToCsv(reports, animal, user);
-  }, [animal]);
+  // const handlePrint = useCallback(() => {
+  //   const reports = getReport();
+  //   convertToCsv(reports, animal, user);
+  // }, [animal]);
 
   return (
     <Container isVisibility={modalOpen}>

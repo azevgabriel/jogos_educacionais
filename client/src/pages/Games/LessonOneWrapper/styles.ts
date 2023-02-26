@@ -83,6 +83,14 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
       line-height: 13.5vh;
       user-select: none;
     }
+
+    @media (max-width: 600px) and (orientation: portrait) {
+      h1 {
+        font-size: 12vh;
+        letter-spacing: 0.5vh;
+        line-height: 10vh;
+      }
+    }
   }
 
   .line {
@@ -128,6 +136,19 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
         p {
           font-size: 7vh;
           user-select: none;
+          padding: 1vh 2vh;
+        }
+      }
+
+      @media (max-width: 600px) and (orientation: portrait) {
+        .letter {
+          p {
+            font-size: 5.5vh;
+            padding: 1vh 2vh;
+          }
+          img {
+            height: 6.5vh;
+          }
         }
       }
 
