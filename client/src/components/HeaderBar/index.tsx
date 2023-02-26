@@ -91,6 +91,7 @@ export const HeaderBar = () => {
             type="link"
             width="40px"
             icon={<TiArrowBack size={40} />}
+            ariaLabel="Voltar para a página de jogos"
           />
           <h1>{resume ? '' : 'Escreva o nome do animal!'}</h1>
         </>
@@ -129,6 +130,7 @@ export const HeaderBar = () => {
                     onClick={onCloseLogin}
                     type="reset"
                     text="Cancelar"
+                    ariaLabel="Cancelar cadastro e fechar modal"
                   />
                   <Button
                     width="40%"
@@ -136,6 +138,7 @@ export const HeaderBar = () => {
                     onClick={onSubmitLogin}
                     type="submit"
                     text="Salvar"
+                    ariaLabel="Salvar cadastro e fechar modal"
                   />
                 </>
               ),
@@ -144,9 +147,15 @@ export const HeaderBar = () => {
               alignVertical: 'center',
             }}
           >
-            <button className="registerButton" onClick={handlePopOver}>
-              Cadastrar
-            </button>
+            <Button
+              type="link"
+              className="registerButton"
+              width="150px"
+              height="40px"
+              onClick={handlePopOver}
+              text="Cadastrar"
+              ariaLabel="Cadastrar usuário"
+            />
           </PopOverWrapper>
         </RegisterWrapper>
       )}

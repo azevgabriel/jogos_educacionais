@@ -9,6 +9,8 @@ interface ButtonProps {
   text?: string;
   icon?: ReactNode;
   onClick: () => void;
+  ariaLabel: string;
+  className?: string;
 }
 
 export const Button = ({
@@ -18,6 +20,8 @@ export const Button = ({
   text,
   onClick,
   icon,
+  ariaLabel,
+  className,
 }: ButtonProps) => {
   return (
     <Container
@@ -25,6 +29,8 @@ export const Button = ({
       height={height}
       onClick={onClick}
       typeOfButton={type}
+      aria-label={ariaLabel}
+      className={className}
     >
       {icon ? <div className="iconWrapper">{icon}</div> : null}
       {text ? <p>{text}</p> : null}

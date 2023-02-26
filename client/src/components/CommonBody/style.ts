@@ -17,7 +17,7 @@ const backgroundTypes = {
   `,
 };
 
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.main<ContainerProps>`
   width: 100%;
   height: calc(100vh - 60px);
   display: flex;

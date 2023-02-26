@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface StyledLinkProps {
-  available: boolean;
+  available: string;
 }
 
 export const StyledLink = styled(Link)<StyledLinkProps>`
@@ -30,7 +30,7 @@ export const StyledLink = styled(Link)<StyledLinkProps>`
   }
 
   ${(props) =>
-    !props.available &&
+    props.available === 'false' &&
     `
     filter: brightness(0.7);
     cursor: not-allowed;

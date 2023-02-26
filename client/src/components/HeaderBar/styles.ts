@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.header`
   position: relative;
   top: 0;
 
@@ -50,19 +50,10 @@ export const RegisterWrapper = styled.div`
   }
 
   .registerButton {
-    width: 150px;
-    height: 40px;
-    font-size: 1.5rem;
-    line-height: 1rem;
-    font-weight: 600;
-
-    background-color: transparent;
-    border: 0;
-
-    transition: all 0.4s;
-
-    &:hover {
-      color: #327dc6;
+    p {
+      font-size: 1.5rem;
+      line-height: 1rem;
+      font-weight: 600;
     }
   }
 `;

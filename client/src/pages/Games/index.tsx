@@ -10,9 +10,7 @@ import { useEffect, useState } from 'react';
 import { LessonOneWrapper } from './LessonOneWrapper';
 import { Container } from './styles';
 
-interface GamesProps {}
-
-export const Game = ({}: GamesProps) => {
+export const Game = () => {
   const { animal } = useLessonOne();
   const { nome } = useParams();
   const [typeOfEvent, setTypeOfEvent] = useState<EventTypes | undefined>(

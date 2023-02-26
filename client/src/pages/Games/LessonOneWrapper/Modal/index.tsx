@@ -7,6 +7,7 @@ import trophyImage from '@assets/images/trophy.png';
 import { useLessonOne } from '@hooks/useLessonOne';
 import { convertToCsv } from '@utils/csv';
 
+import { Button } from '@components/utils';
 import { useConfig } from '@hooks/useConfig';
 import { useNavigate } from 'react-router-dom';
 
@@ -43,26 +44,36 @@ export const Modal = () => {
       <img src={trophyImage} alt="Imagem de um troféu" />
       <div className="rightWrapper">
         <h1>Parabéns, você completou a palavra!</h1>
-        <button
+        <Button
           onClick={() => {
             closeMenu();
             navigate('/');
           }}
-        >
-          <p>Voltar para a página inicial</p>
-        </button>
+          text="Voltar para a página inicial"
+          ariaLabel="Voltar para a página inicial"
+          type="default"
+          width="100%"
+          height="50px"
+        />
         {index === 10 ? (
-          <button onClick={restartLesson}>
-            <p>Recomeçar!</p>
-          </button>
+          <Button
+            onClick={restartLesson}
+            text="Recomeçar!"
+            ariaLabel="Recomeçar o jogo: Escrever o nome do animal."
+            type="default"
+            width="100%"
+            height="50px"
+          />
         ) : (
-          <button onClick={handleNextAnimal}>
-            <p>Próxima palavra!</p>
-          </button>
+          <Button
+            onClick={handleNextAnimal}
+            text="Próxima palavra!"
+            ariaLabel="Ir para a próxima palavra do jogo: Escrever o nome do animal."
+            type="default"
+            width="100%"
+            height="50px"
+          />
         )}
-        <button onClick={handlePrint}>
-          <p>Imprimir dados</p>
-        </button>
       </div>
     </Container>
   );
