@@ -10,7 +10,7 @@ export const Container = styled.div<IContainer>`
   left: calc(50% - 350px);
   width: 700px;
   height: 400px;
-  background: #fefefe;
+  background: #f3f3f3;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   z-index: 10;
@@ -49,29 +49,42 @@ export const Container = styled.div<IContainer>`
       margin-bottom: 2rem;
     }
 
-    button {
-      width: 80%;
-      height: 3.5rem;
-      border-radius: 10px;
-      background-color: #f5f5f5;
-      border: none;
-      margin-bottom: 1rem;
+    button + button {
+      margin-top: 1rem;
+    }
+  }
 
-      box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5);
-      transition: all 0.3s;
+  @media (max-width: 1200px) and (orientation: landscape) {
+    width: 100vw;
+    height: 100vh;
+    left: calc(50% - 50vw);
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    ${({ isVisibility }) =>
+      isVisibility &&
+      css`
+        top: calc(50% - 50vh);
+      `}
 
-      p {
-        font-family: cursive;
-        font-size: 1.2rem;
-      }
+    border-radius: 0;
+  }
 
-      &:hover {
-        filter: brightness(0.9);
-      }
+  @media (max-width: 600px) and (orientation: portrait) {
+    left: calc(50% - 40vw);
+    width: 80vw;
+    height: 60vh;
+
+    ${({ isVisibility }) =>
+      isVisibility &&
+      css`
+        top: calc(50% - 30vh);
+      `}
+
+    img {
+      display: none;
+    }
+
+    .rightWrapper {
+      width: 90%;
     }
   }
 `;

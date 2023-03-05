@@ -16,7 +16,11 @@ export const GamePreview = ({
   available,
 }: GamePreviewProps) => {
   return (
-    <StyledLink to={available ? link : ''} available={available}>
+    <StyledLink
+      tabIndex={available ? 0 : -1}
+      to={available ? link : ''}
+      available={available.toString()}
+    >
       <ImageWrapper source={src} />
       <ContentGame>
         <h2>{title}</h2>

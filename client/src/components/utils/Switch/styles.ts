@@ -11,6 +11,10 @@ export const SwitchContainer = styled.label<SwitchContainer>`
     props.height ? Math.round((props.height * 60) / 34) : 60}px;
   height: ${(props) => props.height || 34}px;
   margin: 0 0.5rem;
+
+  &:focus-within {
+    outline: 2px solid #000;
+  }
 `;
 
 interface CheckboxProps {

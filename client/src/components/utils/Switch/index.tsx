@@ -13,8 +13,6 @@ export const Switch = ({
   rounded,
   height,
 }: SwitchProps) => {
-  console.log('checked', checked);
-
   return (
     <SwitchContainer height={height}>
       <Checkbox

@@ -43,6 +43,21 @@ const buttonTypes = {
     }
     transition: filter 0.3s;
   `,
+  default: css`
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5);
+
+    p {
+      font-family: cursive;
+      font-size: 1.2rem;
+    }
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+    transition: filter 0.3s;
+  `,
 };
 
 export const Container = styled.button<ContainerProps>`

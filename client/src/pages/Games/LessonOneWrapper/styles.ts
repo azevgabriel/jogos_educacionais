@@ -7,6 +7,20 @@ export const Container = styled.div`
   height: 70vh;
   width: 160vh;
 
+  @media (max-width: 1000px) and (orientation: portrait) {
+    width: 90vw;
+    height: 70vh;
+    align-items: center;
+    padding: 0 2.5vw;
+  }
+
+  @media (max-width: 1200px) and (orientation: landscape) {
+    height: 70vh;
+    width: 70vw;
+    padding: 0 2.5vw;
+    align-items: center;
+  }
+
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
 
@@ -27,7 +41,11 @@ export const ImageWrapper = styled.div`
 
   img {
     height: 70%;
-    width: 70%;
+    width: auto;
+  }
+
+  @media (max-width: 1000px) and (orientation: portrait) {
+    display: none;
   }
 `;
 
@@ -64,6 +82,14 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
       letter-spacing: 0.75vh;
       line-height: 13.5vh;
       user-select: none;
+    }
+
+    @media (max-width: 600px) and (orientation: portrait) {
+      h1 {
+        font-size: 12vh;
+        letter-spacing: 0.5vh;
+        line-height: 10vh;
+      }
     }
   }
 
@@ -110,6 +136,19 @@ export const LessonLettersContentWrapper = styled.div<LessonLettersContentWrappe
         p {
           font-size: 7vh;
           user-select: none;
+          padding: 1vh 2vh;
+        }
+      }
+
+      @media (max-width: 600px) and (orientation: portrait) {
+        .letter {
+          p {
+            font-size: 5.5vh;
+            padding: 1vh 2vh;
+          }
+          img {
+            height: 6.5vh;
+          }
         }
       }
 

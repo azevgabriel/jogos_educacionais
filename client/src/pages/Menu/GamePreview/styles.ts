@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface StyledLinkProps {
-  available: boolean;
+  available: string;
 }
 
 export const StyledLink = styled(Link)<StyledLinkProps>`
@@ -30,7 +30,7 @@ export const StyledLink = styled(Link)<StyledLinkProps>`
   }
 
   ${(props) =>
-    !props.available &&
+    props.available === 'false' &&
     `
     filter: brightness(0.7);
     cursor: not-allowed;
@@ -38,6 +38,11 @@ export const StyledLink = styled(Link)<StyledLinkProps>`
       filter: brightness(0.7);
     }
   `}
+
+  @media (max-width: 500px) and (orientation: portrait) {
+    height: 200px;
+    margin: 10px 15px;
+  }
 `;
 
 interface ImageWrapperStyleProps {
@@ -82,5 +87,12 @@ export const ContentGame = styled.div`
     font-weight: bold;
     margin: 0;
     font-family: cursive;
+  }
+
+  @media (max-width: 500px) and (orientation: portrait) {
+    justify-content: center;
+    p {
+      display: none;
+    }
   }
 `;

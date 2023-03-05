@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { FlexTypes } from './styles';
 
-export type ButtonTypes = 'link' | 'submit' | 'reset';
+export type ButtonTypes = 'link' | 'submit' | 'reset' | 'default';
 
 export interface PopOverContainerProps {
   colors?: {

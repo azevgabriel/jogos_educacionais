@@ -40,6 +40,7 @@ export const Session = () => {
                 text="Sair"
                 icon={<ImExit size={18} />}
                 onClick={unsetUser}
+                ariaLabel="Encerrar sessão"
               />
             </>
           ),
@@ -58,6 +59,7 @@ export const Session = () => {
           type="link"
           onClick={handlePopOver}
           icon={<BsFillGearFill size={25} />}
+          ariaLabel="Abrir menu de configurações"
         />
       </PopOverWrapper>
     </LoggedWrapper>

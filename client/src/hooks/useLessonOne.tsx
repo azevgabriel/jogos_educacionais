@@ -43,6 +43,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   const libras = useConfig();
 
   const [index, setIndex] = useState<number>(0);
+
   const wordList = Object.keys(words).sort(
     () => Math.random() - 0.5
   ) as WordsKey[];
@@ -127,6 +128,27 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   const nextAnimal = useCallback(() => {
     const animals = Object.keys(words);
     const nextIndex = index + 1;
+
+    const width = window.innerWidth;
+
+    if (width < 400) {
+      let nextAnimal = animals[nextIndex];
+
+      const smaller = width < 300;
+      const letters = smaller ? 5 : 6;
+
+      if (nextAnimal.length > letters) {
+        let nextNextIndex = nextIndex + 1;
+        if (nextNextIndex < animals.length) {
+          nextNextIndex = 0;
+        }
+
+        nextAnimal = animals[nextNextIndex];
+        setAnimal(nextAnimal as WordsKey);
+        setIndex(nextNextIndex);
+        return;
+      }
+    }
 
     if (nextIndex < animals.length) {
       let nextAnimal = animals[nextIndex];
