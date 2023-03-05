@@ -5,7 +5,7 @@ export const Container = styled.header`
   top: 0;
 
   width: 100%;
-  height: 70px;
+  height: var(--header-height);
   background: #fefefe;
 
   display: flex;

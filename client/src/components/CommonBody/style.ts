@@ -6,6 +6,7 @@ import { CommonBodyBackground } from '@interfaces/components';
 
 interface ContainerProps {
   background: CommonBodyBackground;
+  isHeader: boolean;
 }
 
 const backgroundTypes = {
@@ -19,7 +20,14 @@ const backgroundTypes = {
 
 export const Container = styled.main<ContainerProps>`
   width: 100%;
-  height: calc(100vh - 60px);
+  height: 100vh;
+
+  ${(props) =>
+    props.isHeader &&
+    css`
+      height: calc(100vh - var(--header-height));
+    `};
+
   display: flex;
 
   ${(props) => backgroundTypes[props.background]}

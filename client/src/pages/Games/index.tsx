@@ -2,7 +2,6 @@ import { Navigate, useParams } from 'react-router-dom';
 
 import notAvailable from '@assets/images/notAvailable.png';
 import { CommonBody } from '@components/CommonBody';
-import { HeaderBar } from '@components/HeaderBar';
 import { useLessonOne } from '@hooks/useLessonOne';
 import { EventTypes } from '@interfaces/device';
 import { checkDevice } from '@utils/device';
@@ -27,8 +26,7 @@ export const Game = () => {
     case 'letras':
       return (
         <Container>
-          <HeaderBar />
-          <CommonBody background="farm">
+          <CommonBody isHeader={false} background="farm">
             <LessonOneWrapper animal={animal} typeOfEvent={typeOfEvent} />
           </CommonBody>
         </Container>

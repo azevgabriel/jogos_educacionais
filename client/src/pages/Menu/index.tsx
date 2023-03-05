@@ -1,14 +1,12 @@
 import { games } from '@assets/games';
 import { CommonBody } from '@components/CommonBody';
-import { HeaderBar } from '@components/HeaderBar';
 import { GamePreview } from './GamePreview';
 import { Container } from './styles';
 
 export const Menu = () => {
   return (
     <Container>
-      <HeaderBar />
-      <CommonBody background="menu">
+      <CommonBody isHeader={false} background="menu">
         {Object.entries(games).map(([key, value]) => (
           <GamePreview
             key={`game-${key}`}
