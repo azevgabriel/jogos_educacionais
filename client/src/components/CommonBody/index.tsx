@@ -1,7 +1,7 @@
 import { HeaderBar } from '@components/HeaderBar';
 import { CommonBodyBackground } from '@interfaces/components';
 import { ReactNode } from 'react';
-import { Container } from './style';
+import { Container } from './styles';
 
 interface CommonBodyProps {
   children: ReactNode;

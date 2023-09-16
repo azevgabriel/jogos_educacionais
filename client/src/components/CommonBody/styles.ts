@@ -22,13 +22,8 @@ export const Container = styled.main<ContainerProps>`
   width: 100%;
   height: 100vh;
 
-  ${(props) =>
-    props.isHeader &&
-    css`
-      height: calc(100vh - var(--header-height));
-    `};
-
   display: flex;
+  flex-direction: column;
 
   ${(props) => backgroundTypes[props.background]}
 
@@ -37,7 +32,14 @@ export const Container = styled.main<ContainerProps>`
 
   .scrollable {
     width: 100%;
-    height: 100%;
+    height: calc(100% - var(--header-height));
+
+    ${(props) =>
+      !props.isHeader &&
+      css`
+        height: calc(100vh);
+      `};
+
     background-color: rgba(0, 0, 0, 0.2);
 
     overflow-y: auto;
