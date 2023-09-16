@@ -32,7 +32,7 @@ export const Logo = styled.div`
   }
 `;
 
-export const Button = styled.button`
+export const HeaderBarButton = styled.button`
   width: 60px;
   height: 100%;
 
