@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import notAvailable from '@assets/images/notAvailable.png';
 import { CommonBody } from '@components/CommonBody';
@@ -7,6 +7,7 @@ import { EventTypes } from '@interfaces/device';
 import { checkDevice } from '@utils/device';
 import { useEffect, useState } from 'react';
 import { LessonOneWrapper } from './LessonOneWrapper';
+import MemoryGame from './MemoryGame';
 import { Container } from './styles';
 
 export const Game = () => {
@@ -26,7 +27,7 @@ export const Game = () => {
     case 'letras':
       return (
         <Container>
-          <CommonBody isHeader={false} background="farm">
+          <CommonBody isHeader={true} background="farm">
             <LessonOneWrapper animal={animal} typeOfEvent={typeOfEvent} />
           </CommonBody>
         </Container>
@@ -46,10 +47,16 @@ export const Game = () => {
     case 'memoria':
       return (
         <Container>
-          <img className="notAvailable" src={notAvailable} />
+          <MemoryGame />
         </Container>
       );
     default:
-      return <Navigate to="/" replace={true} />;
+      return (
+        <Container>
+          <CommonBody isHeader={true} background="farm">
+            <LessonOneWrapper animal={animal} typeOfEvent={typeOfEvent} />
+          </CommonBody>
+        </Container>
+      );
   }
 };

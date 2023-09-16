@@ -33,6 +33,6 @@ export const games = {
     src: notAvailableCard,
     alt: 'Imagem do jogo da memória',
     link: '/jogos/memoria',
-    available: false,
+    available: true,
   },
 };
