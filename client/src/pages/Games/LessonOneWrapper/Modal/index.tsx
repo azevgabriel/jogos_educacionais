@@ -7,8 +7,6 @@ import trophyImage from '@assets/images/trophy.png';
 import { useLessonOne } from '@hooks/useLessonOne';
 
 import { Button } from '@components/utils';
-import { useConfig } from '@hooks/useConfig';
-import { convertToCsv } from '@utils/csv';
 import { useNavigate } from 'react-router-dom';
 
 export const Modal = () => {
@@ -22,7 +20,6 @@ export const Modal = () => {
     animal,
     getReport,
   } = useLessonOne();
-  const { user } = useConfig();
 
   const restartLesson = useCallback(() => {
     closeMenu();
@@ -33,11 +30,6 @@ export const Modal = () => {
     closeMenu();
     nextAnimal();
   }, [nextAnimal]);
-
-  const handlePrint = useCallback(() => {
-    const reports = getReport();
-    convertToCsv(reports, animal, user);
-  }, [animal]);
 
   return (
     <Container isVisibility={modalOpen}>
@@ -55,7 +47,7 @@ export const Modal = () => {
           width="100%"
           height="50px"
         />
-        {index === 10 ? (
+        {index === 10 ? ( //Lógica de bosta, vai quebrar algum momento. Arruma isso depois. XD
           <Button
             onClick={restartLesson}
             text="Recomeçar!"
@@ -74,15 +66,6 @@ export const Modal = () => {
             height="50px"
           />
         )}
-
-        <Button
-          onClick={handlePrint}
-          text="Imprimir dados!"
-          ariaLabel="Imprimir dados do jogo: Escrever o nome do animal."
-          type="default"
-          width="100%"
-          height="50px"
-        />
       </div>
     </Container>
   );
