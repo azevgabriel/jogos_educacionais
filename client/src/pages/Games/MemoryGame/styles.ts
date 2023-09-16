@@ -1,52 +1,40 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  overflow-y: scroll;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
+  flex-direction: row;
+  padding: 10px;
 
-  .topo {
-    display: flex;
-    width: 60%;
+  height: 70vh;
+  width: 160vh;
+
+  @media (max-width: 1000px) and (orientation: portrait) {
+    width: 90vw;
+    height: 70vh;
     align-items: center;
-    justify-content: space-between;
+    padding: 0 2.5vw;
   }
 
-  button {
-    background: var(--color-purple);
-    width: 100px;
-    border: 2px solid var(--color-white);
-    padding: 6px 12px;
-    border-radius: 4px;
-    color: var(--color-white);
-    letter-spacing: 0.8px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 1em;
+  @media (max-width: 1200px) and (orientation: landscape) {
+    height: 70vh;
+    width: 70vw;
+    padding: 0 2.5vw;
+    align-items: center;
+  }
 
-    &:hover {
-      filter: brightness(78%);
-    }
-  }
-  p {
-    background: var(--color-blue-dark);
-    width: 120px;
-    border: 2px solid var(--color-white);
-    padding: 6px 12px;
-    border-radius: 4px;
-    color: var(--color-white);
-    letter-spacing: 0.8px;
-    font-weight: bold;
-    font-size: 1em;
-  }
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.4);
+
+  content: '';
 `;
 
 export const CardGrid = styled.div`
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-gap: 24px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  gap: 10px;
 `;

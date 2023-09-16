@@ -1,6 +1,11 @@
 export interface CardImage {
-  id: number;
   src: string;
   matched: boolean;
-  cor: string;
+  title: string;
+  description: string;
+}
+export interface MemoryGameParams {
+  choices: [CardImage | undefined, CardImage | undefined];
+  turns: number;
+  hits: number;
 }

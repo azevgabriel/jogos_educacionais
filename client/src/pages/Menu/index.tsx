@@ -6,7 +6,7 @@ import { Container } from './styles';
 export const Menu = () => {
   return (
     <Container>
-      <CommonBody isHeader={false} background="menu">
+      <CommonBody background="menu">
         {Object.entries(games).map(([key, value]) => (
           <GamePreview
             key={`game-${key}`}

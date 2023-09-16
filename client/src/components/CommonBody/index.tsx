@@ -1,4 +1,3 @@
-import { HeaderBar } from '@components/HeaderBar';
 import { CommonBodyBackground } from '@interfaces/components';
 import { ReactNode } from 'react';
 import { Container } from './styles';
@@ -6,17 +5,17 @@ import { Container } from './styles';
 interface CommonBodyProps {
   children: ReactNode;
   background: CommonBodyBackground;
-  isHeader: boolean;
+  header?: ReactNode;
 }
 
 export const CommonBody = ({
   children,
   background,
-  isHeader,
+  header,
 }: CommonBodyProps) => {
   return (
-    <Container background={background} isHeader={isHeader}>
-      {isHeader ? <HeaderBar /> : null}
+    <Container background={background} isHeader={!!header}>
+      {header}
       <div className="scrollable">{children}</div>
     </Container>
   );
