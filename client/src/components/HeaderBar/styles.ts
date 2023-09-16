@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-  position: relative;
-  top: 0;
-
   width: 100%;
   height: var(--header-height);
   background: #fefefe;
@@ -35,25 +32,16 @@ export const Logo = styled.div`
   }
 `;
 
-export const RegisterWrapper = styled.div`
+export const Button = styled.button`
+  width: 60px;
   height: 100%;
-  width: 20%;
 
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
   align-items: center;
-  padding-right: 3rem;
+  justify-content: center;
 
-  @media (max-width: 600px) and (orientation: portrait) {
-    padding-right: 1.5rem;
-  }
-
-  .registerButton {
-    p {
-      font-size: 1.5rem;
-      line-height: 1rem;
-      font-weight: 600;
-    }
+  img {
+    width: 90%;
+    height: auto;
   }
 `;

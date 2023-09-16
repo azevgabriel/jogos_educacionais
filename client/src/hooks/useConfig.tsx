@@ -1,5 +1,4 @@
 import { ConfigModal } from '@interfaces/config';
-import { UserModel } from '@interfaces/user';
 import {
   createContext,
   ReactNode,
@@ -9,9 +8,6 @@ import {
 } from 'react';
 
 interface ConfigContextData {
-  setUser: (user: UserModel) => void;
-  unsetUser: () => void;
-  user?: UserModel;
   getLibras: () => boolean;
   setLibras: (value: boolean) => void;
 }
@@ -28,8 +24,6 @@ const initialValue: ConfigModal = {
   acessibility: {
     libras: false,
   },
-  user: undefined,
-  users: [],
 };
 
 const ConfigProvider = ({ children }: ConfigProviderProps) => {
@@ -42,28 +36,6 @@ const ConfigProvider = ({ children }: ConfigProviderProps) => {
     localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
   }, [config]);
 
-  const verifyIsUserExists = (user: UserModel) => {
-    return config.users?.find(
-      (u) => u.name === user.name && u.age === user.age
-    );
-  };
-
-  const setUser = (user: UserModel) => {
-    const existsUser = verifyIsUserExists(user);
-    if (existsUser) {
-      setConfig({ ...config, user });
-      return;
-    }
-
-    const oldUsers = config?.users ?? [];
-    const users = [...oldUsers, user];
-    setConfig({ ...config, user, users });
-  };
-
-  const unsetUser = () => {
-    setConfig({ ...config, user: undefined });
-  };
-
   const getLibras = () => {
     return config?.acessibility?.libras ?? false;
   };
@@ -75,11 +47,8 @@ const ConfigProvider = ({ children }: ConfigProviderProps) => {
   return (
     <ConfigContext.Provider
       value={{
-        setUser,
-        unsetUser,
         getLibras,
         setLibras,
-        user: config?.user,
       }}
     >
       {children}
@@ -91,7 +60,7 @@ function useConfig(): ConfigContextData {
   const context = useContext(ConfigContext);
 
   if (!context) {
-    throw new Error('useLessonOne must be used within an LessonOneProvider');
+    throw new Error('useConfig must be used within an ConfigContextProvider');
   }
 
   return context;
