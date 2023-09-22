@@ -1,7 +1,7 @@
 <img src="./client/src/assets/images/screenshot.png">
 
 <h1 align="center">
-   Jogos inclusivos.
+   Jogos educacionais.
 </h1>
 
 <p align="center">
@@ -13,7 +13,7 @@
 </p>
 
 <h4 align="center">
-  <i>"Site de jogos simples voltados para educação especial. Esse trabalho faz parte de um TCC que visa estudar o movimento de crianças com distúrbio do movimento nas mãos."</i>
+  <i>"Site de jogos simples voltados para educação. Esse trabalho faz parte de um TCC inclui educação através de jogos."</i>
 </h4>
 
 ### FRONT-END `.\client`
@@ -21,19 +21,18 @@
 #### 🤩 Features
 
 - [x] Tela inicial com multi jogos.
-- [ ] LGPD e criação de um termo de condição.
-- [ ] Um login super simplista, paga coletar a idade e o apelido do usuário.
-- [ ] Jogo #01 - Jogo das Letras.
-  - [x] Relátorio
+- [ ] Incluir várias temáticas nos jogos propostos.
+- [x] Jogo #01 - Jogo das Letras.
+  - [x] Responsividade
   - [x] Funcionalidades
-  - [ ] Acessibilidade
-    - [ ] Libras
+  - [x] Acessibilidade
+    - [x] Libras
 - [ ] Jogo #02 - Jogo das Sílabas.
 - [ ] Jogo #03 - Jogo de ligar o ponto.
 - [ ] Jogo #04 - Jogo da Memória.
-- [ ] Área de relatórios
-  - [ ] Histórico do aluno
-  - [ ] Link para Impressão dos jogos jogados no dia.
+   - [ ] Responsividade
+   - [x] Funcionalidades
+   - [ ] Acessibilidade
 
 #### 🗻 Pré-requisitos
 
