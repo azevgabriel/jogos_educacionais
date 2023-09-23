@@ -19,7 +19,7 @@ export function Card({ card, params, setParams }: CardProps) {
 
   const disabled = useMemo(
     () => (!!choices[0] && !!choices[1]) || visible,
-    [card, params.choices[0], params.choices[1]]
+    [params.choices[0], params.choices[1], visible]
   );
 
   const handleChoice = useCallback(
@@ -36,7 +36,7 @@ export function Card({ card, params, setParams }: CardProps) {
             choices: [oldParams.choices[0], card],
           }));
     },
-    [params.choices[0]]
+    [params.choices[0], params.choices[1]]
   );
 
   return (
