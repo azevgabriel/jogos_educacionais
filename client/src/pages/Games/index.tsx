@@ -13,6 +13,7 @@ import { checkDevice } from '@utils/device';
 import { useEffect, useState } from 'react';
 import { LessonOneWrapper } from './LessonOneWrapper';
 import MemoryGame from './MemoryGame';
+import { Quiz } from './Quiz';
 import { Container } from './styles';
 
 export const Game = () => {
@@ -78,10 +79,10 @@ export const Game = () => {
           <img className="notAvailable" src={notAvailable} />
         </Container>
       );
-    case 'silabas':
+    case 'quiz':
       return (
         <Container>
-          <img className="notAvailable" src={notAvailable} />
+          <Quiz />
         </Container>
       );
     case 'memoria':
