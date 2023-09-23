@@ -1,11 +1,12 @@
 import notAvailableCard from './images/notAvailableCard.png';
-import letterLesson from './images/screenshot.png';
+import letterLesson from './images/screenshots/anagram.png';
+import memoryGame from './images/screenshots/memoryGame.png';
 
 export const games = {
   letras: {
-    name: 'Escreva o nome do animal!',
+    name: 'Anagrama',
     description:
-      'Nos ajude a completar o nome de cada um dos animais, conforme a imagem que aparece no jogo.',
+      ' Este jogo desafiador propõe que você rearranje letras para formar palavras válidas.',
     src: letterLesson,
     alt: 'Imagem do jogo das letras',
     link: '/jogos/letras',
@@ -19,18 +20,19 @@ export const games = {
     link: '/jogos/silabas',
     available: false,
   },
-  ligar: {
-    name: 'Relacione os animais',
+  quiz: {
+    name: 'Quiz',
     description: 'Em breve!',
     src: notAvailableCard,
     alt: 'Imagem do jogo da ligação',
-    link: '/jogos/ligar',
-    available: false,
+    link: '/jogos/quiz',
+    available: true,
   },
   memoria: {
     name: 'Jogo da memória',
-    description: 'Em breve!',
-    src: notAvailableCard,
+    description:
+      'Este jogo clássico envolve virar cartas e encontrar pares idênticos. Divirta-se enquanto treina seu cérebro!',
+    src: memoryGame,
     alt: 'Imagem do jogo da memória',
     link: '/jogos/memoria',
     available: true,
