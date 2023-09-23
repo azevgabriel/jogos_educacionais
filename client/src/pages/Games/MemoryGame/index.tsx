@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { CardGrid, Container } from './styles';
+import { CardGrid, Container, HeaderBarChildren, ScoreWrapper } from './styles';
 
 import { cardImages } from '@assets/memoryGame';
 import { CommonBody } from '@components/CommonBody';
 import { HeaderBar } from '@components/HeaderBar';
+import { GiOnTarget, GiTargetDummy } from '@components/Icons';
 import { CardImage, MemoryGameParams } from '@interfaces/memoryGame';
 import { shuffleArray } from '@utils/array';
 import { Card } from './Card';
@@ -70,6 +71,7 @@ function MemoryGame() {
 
   return (
     <CommonBody
+      background="adventureTime"
       header={
         <HeaderBar
           title={{
@@ -77,15 +79,32 @@ function MemoryGame() {
             resume: '',
           }}
           children={
-            <>
-              <p>ACERTOS: {params.hits}</p>
-              <p>TURNOS: {params.turns}</p>
-              <button onClick={randomizeCards}>NOVO JOGO</button>
-            </>
+            <HeaderBarChildren>
+              <ScoreWrapper>
+                <div className="content">
+                  <div className="content-title">
+                    <h4>ACERTOS</h4>
+                  </div>
+                  <div className="content-score">
+                    <GiOnTarget size={30} />
+                    <span>{params.hits}</span>
+                  </div>
+                </div>
+                <div className="content">
+                  <div className="content-title">
+                    <h4>TURNOS</h4>
+                  </div>
+                  <div className="content-score">
+                    <GiTargetDummy size={30} />
+                    <span>{params.turns}</span>
+                  </div>
+                </div>
+              </ScoreWrapper>
+              <button onClick={randomizeCards}>REINICIAR</button>
+            </HeaderBarChildren>
           }
         />
       }
-      background="farm"
     >
       <Container>
         <CardGrid>
