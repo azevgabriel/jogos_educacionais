@@ -42,4 +42,4 @@ export interface FormError {
   label: string;
 }
 
-export type CommonBodyBackground = 'menu' | 'farm';
+export type CommonBodyBackground = 'menu' | 'farm' | 'adventureTime';

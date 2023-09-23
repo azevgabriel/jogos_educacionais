@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import farmBackground from '@assets/images/background.jpg';
+import adventureTimeBackground from '@assets/images/background_adventure_time.jpg';
 import menuBackground from '@assets/images/background_menu.png';
 import { CommonBodyBackground } from '@interfaces/components';
 
@@ -15,6 +16,9 @@ const backgroundTypes = {
   `,
   farm: css`
     background-image: url(${farmBackground});
+  `,
+  adventureTime: css`
+    background-image: url(${adventureTimeBackground});
   `,
 };
 

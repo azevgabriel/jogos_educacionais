@@ -1,4 +1,4 @@
-<img src="./client/src/assets/images/screenshot.png">
+<img src="./client/src/assets/images/screenshots/anagram.png">
 
 <h1 align="center">
    Jogos inclusivos.
