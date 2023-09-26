@@ -1,18 +1,20 @@
 import React, { useMemo, useState } from 'react';
 
-import { Button, Container, ScoreWrapper } from './styles';
+import { Container, ScoreWrapper } from './styles';
 
 import { quizzes } from '@assets/quizzes';
 import { CommonBody } from '@components/CommonBody';
 import { HeaderBar } from '@components/HeaderBar';
 import { GiOnTarget } from '@react-icons/all-files/gi/GiOnTarget';
+import { QuizOption } from './Option';
 
 export const Quiz: React.FC = () => {
-  const [index, setIndex] = useState<number>(0);
+  const [index, setIndex] = useState<number>(9);
 
-  const { image, alternatives, indexCorrectAnswer, question } = useMemo(() => {
-    return quizzes[index];
-  }, [index]);
+  const { id, image, alternatives, indexCorrectAnswer, question } =
+    useMemo(() => {
+      return quizzes[index];
+    }, [index]);
 
   return (
     <CommonBody
@@ -41,29 +43,25 @@ export const Quiz: React.FC = () => {
         />
       }
     >
-      <Container src={image}>
-        <div className="image" />
+      <Container src={image?.src ?? ''}>
+        <div className="image">
+          <a href={image?.credits}>{image?.author}</a>
+        </div>
         <div className="content">
           <h1 className="content-title">{question}</h1>
           <div className="content-options">
             {alternatives.map((alternative, alternativeIndex) => (
-              <Button
-                onClick={() => {
-                  if (
-                    index + 1 === quizzes.length &&
-                    alternativeIndex === indexCorrectAnswer
-                  ) {
-                    setIndex(0);
-                    return;
-                  }
-                  if (alternativeIndex === indexCorrectAnswer) {
-                    setIndex(index + 1);
-                  }
+              <QuizOption
+                key={id + alternative}
+                alternative={{
+                  index: alternativeIndex,
+                  text: alternative,
                 }}
-              >
-                <p className="alternative">{alternativeIndex + 1}.</p>
-                <p>{alternative}</p>
-              </Button>
+                index={index}
+                indexCorrectAnswer={indexCorrectAnswer}
+                quizzesLength={quizzes.length}
+                setIndex={setIndex}
+              />
             ))}
           </div>
           <div />

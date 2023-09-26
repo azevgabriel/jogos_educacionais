@@ -1,6 +1,7 @@
 import notAvailableCard from './images/notAvailableCard.png';
 import letterLesson from './images/screenshots/anagram.png';
 import memoryGame from './images/screenshots/memoryGame.png';
+import quiz from './images/screenshots/quiz.png';
 
 export const games = {
   letras: {
@@ -12,19 +13,20 @@ export const games = {
     link: '/jogos/letras',
     available: true,
   },
-  silabas: {
-    name: 'Separando por sílabas',
+  'caça-palavras': {
+    name: 'Caça-palavras',
     description: 'Em breve!',
     src: notAvailableCard,
-    alt: 'Imagem do jogo das silabas',
-    link: '/jogos/silabas',
-    available: false,
+    alt: 'Imagem do jogo do caça-palavras',
+    link: '/jogos/caça',
+    available: true,
   },
   quiz: {
     name: 'Quiz',
-    description: 'Em breve!',
-    src: notAvailableCard,
-    alt: 'Imagem do jogo da ligação',
+    description:
+      'Um quiz é uma forma lúdica e interativa de aprender e testar conhecimentos, por meio de perguntas e respostas.',
+    src: quiz,
+    alt: 'Imagem do jogo do quiz',
     link: '/jogos/quiz',
     available: true,
   },

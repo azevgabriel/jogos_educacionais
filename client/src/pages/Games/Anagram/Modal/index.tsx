@@ -11,15 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const Modal = () => {
   const navigate = useNavigate();
-  const {
-    nextAnimal,
-    modalOpen,
-    closeMenu,
-    index,
-    restart,
-    animal,
-    getReport,
-  } = useLessonOne();
+  const { nextAnimal, modalOpen, closeMenu, index, restart } = useLessonOne();
 
   const restartLesson = useCallback(() => {
     closeMenu();

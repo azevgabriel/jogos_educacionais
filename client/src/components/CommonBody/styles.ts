@@ -31,7 +31,7 @@ export const Container = styled.main<ContainerProps>`
 
   ${(props) => backgroundTypes[props.background]}
 
-  background-size: cover;
+  background-size: contain;
   background-position: center;
 
   .scrollable {

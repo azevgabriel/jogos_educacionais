@@ -1,4 +1,5 @@
 import { words } from '@assets/words';
+import { HeaderBarButton } from '@components/HeaderBar/styles';
 import { useConfig } from '@hooks/useConfig';
 import { useLessonOne } from '@hooks/useLessonOne';
 import { EventTypes } from '@interfaces/device';
@@ -7,22 +8,25 @@ import { dragLeave, dragOver, drop } from '@utils/dropzoneEvents';
 import { dragEndTouch, dragStartTouch, dragTouch } from '@utils/touchEvents';
 import { useEffect, useMemo, useState } from 'react';
 import { EmptyHouse } from './EmptyHouse';
-import { getCorrectLetterImage } from './getLibrasAlphabet';
 import { Modal } from './Modal';
+import { getCorrectLetterImage } from './getLibrasAlphabet';
 import { Container, ImageWrapper, LessonLettersContentWrapper } from './styles';
+
+import librasPng from '@assets/images/libras.png';
+import { CommonBody } from '@components/CommonBody';
+import { HeaderBar } from '@components/HeaderBar';
+import { IoContrastOutline } from '@components/Icons';
 
 export type WordsKey = keyof typeof words;
 
-interface LessonOneWrapperProps {
-  animal: WordsKey;
+interface AnagramProps {
   typeOfEvent: EventTypes;
 }
 
-export const LessonOneWrapper = ({
-  animal,
-  typeOfEvent,
-}: LessonOneWrapperProps) => {
-  const { getLibras } = useConfig();
+export const Anagram = ({ typeOfEvent }: AnagramProps) => {
+  const { getLibras, setLibras } = useConfig();
+  const { animal } = useLessonOne();
+
   const { catchDropzoneModifier, catchMousePosition } = useLessonOne();
 
   const [housesWithLetters, setHousesWithLetters] = useState<
@@ -134,7 +138,40 @@ export const LessonOneWrapper = ({
   }, [animal, typeOfEvent]);
 
   return (
-    <>
+    <CommonBody
+      header={
+        <HeaderBar
+          title={{
+            complete: 'Jogo das Letras',
+            resume: '',
+          }}
+          children={
+            <>
+              <HeaderBarButton
+                onClick={() => {
+                  const libras = getLibras();
+                  setLibras(!libras);
+                }}
+              >
+                <img
+                  src={librasPng}
+                  alt="Ícone com duas mãos dizendo em libras: Libras. Clique para ativar ou desativar a visualização em libras."
+                />
+              </HeaderBarButton>
+              <HeaderBarButton
+                onClick={() => {
+                  const libras = getLibras();
+                  setLibras(!libras);
+                }}
+              >
+                <IoContrastOutline />
+              </HeaderBarButton>
+            </>
+          }
+        />
+      }
+      background="farm"
+    >
       <Modal />
       <Container>
         <ImageWrapper>
@@ -148,6 +185,6 @@ export const LessonOneWrapper = ({
           <div className="line">{emptyHouses}</div>
         </LessonLettersContentWrapper>
       </Container>
-    </>
+    </CommonBody>
   );
 };

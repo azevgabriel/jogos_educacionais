@@ -10,7 +10,7 @@ import {
 
 import { words } from '@assets/words';
 import { ReportProps } from '@interfaces/reports';
-import { WordsKey } from '@pages/Games/LessonOneWrapper';
+import { WordsKey } from '@pages/Games/Anagram';
 import { useConfig } from './useConfig';
 
 interface LessonOneContextData {
@@ -50,7 +50,7 @@ const LessonOneProvider = ({ children }: LessonOneProviderProps) => {
   const word = wordList[index];
 
   const [dropzoneModifier, setDropzoneModifier] = useState<string | null>(null);
-  const [animal, setAnimal] = useState(word);
+  const [animal, setAnimal] = useState<WordsKey>(word);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   var report: ReportProps | undefined;

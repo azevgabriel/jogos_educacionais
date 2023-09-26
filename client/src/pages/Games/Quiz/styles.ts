@@ -7,7 +7,8 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   padding: 10px;
 
   height: 70vh;
@@ -21,18 +22,24 @@ export const Container = styled.div<ContainerProps>`
   content: '';
 
   .image {
-    width: 60%;
-    height: 100%;
-    border-radius: 10px;
+    width: 45%;
+    height: 90%;
 
     background-image: url(${(props) => props.src});
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    filter: drop-shadow(0.2rem 0.2rem 0.4rem rgba(0, 0, 0, 0.4));
+
+    a {
+      position: absolute;
+      bottom: -5%;
+      left: 0;
+    }
   }
 
   .content {
-    width: 40%;
+    width: 45%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -41,9 +48,11 @@ export const Container = styled.div<ContainerProps>`
 
     &-title {
       display: inline-block;
-      padding: 0 0.25em;
+      padding: 0.2em 1.5rem;
       border-radius: 3px;
       background-color: #fcbfc6;
+
+      text-align: justify;
     }
 
     &-options {
@@ -93,42 +102,5 @@ export const ScoreWrapper = styled.div`
         font-size: 1.5rem;
       }
     }
-  }
-`;
-
-export const Button = styled.button`
-  background: transparent;
-  margin: 0.75rem 0 0;
-  height: 3rem;
-  width: 20rem;
-  background: #fafafa;
-  box-shadow: 0.1rem 0.1rem 0.5rem -0.1rem;
-
-  position: relative;
-
-  transition: all linear 0.3s;
-
-  &:hover {
-    transform: scale(1.1);
-    background: #7f4788;
-
-    p {
-      color: #fff;
-    }
-  }
-
-  p {
-    margin: 0;
-    font-size: 1.25rem;
-    color: #000;
-  }
-
-  .alternative {
-    position: absolute;
-    left: 1rem;
-  }
-
-  @media (max-width: 996px) {
-    width: calc(100% - 4rem);
   }
 `;

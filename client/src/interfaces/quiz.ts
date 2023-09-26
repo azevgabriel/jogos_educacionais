@@ -1,5 +1,12 @@
+export interface ImageModel {
+  src: string;
+  credits: string;
+  author: string;
+}
+
 export interface QuizModel {
-  image: string;
+  id: string;
+  image?: ImageModel;
   question: string;
   alternatives: string[];
   indexCorrectAnswer: number;

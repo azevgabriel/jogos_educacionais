@@ -1,4 +1,3 @@
-import backOfCardImage from '@assets/images/backOfCard.png';
 import { CardImage, MemoryGameParams } from '@interfaces/memoryGame';
 import { useCallback, useMemo } from 'react';
 import { Container } from './styles';
@@ -40,14 +39,14 @@ export function Card({ card, params, setParams }: CardProps) {
   );
 
   return (
-    <Container visible={visible} disabled={disabled}>
-      <img className="frontOfCard" src={card.src} alt="Card Front" />
-      <img
-        className="backOfCard"
-        src={backOfCardImage}
-        alt="Lado de trás do carta."
-        onClick={() => handleChoice(card)}
-      />
+    <Container
+      visible={visible}
+      disabled={disabled}
+      sizes={card.sizes}
+      src={card.src}
+    >
+      <div className="frontOfCard" />
+      <div className="backOfCard" onClick={() => handleChoice(card)} />
     </Container>
   );
 }

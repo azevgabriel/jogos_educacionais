@@ -1,32 +1,41 @@
-import { useEffect, useState } from 'react';
-
-import { CardGrid, Container, HeaderBarChildren, ScoreWrapper } from './styles';
-
-import { cardImages } from '@assets/memoryGame';
+import { memoryGameContextData } from '@assets/memoryGame';
 import { CommonBody } from '@components/CommonBody';
 import { HeaderBar } from '@components/HeaderBar';
 import { GiOnTarget, GiTargetDummy } from '@components/Icons';
+import { Modal } from '@components/Modal';
+import { Button } from '@components/utils';
 import { CardImage, MemoryGameParams } from '@interfaces/memoryGame';
 import { shuffleArray } from '@utils/array';
+import { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { Card } from './Card';
+import { CardGrid, Container, HeaderBarChildren, ScoreWrapper } from './styles';
 
-function MemoryGame() {
+export const MemoryGame = () => {
+  const [modalOpen, setModalOpen] = useState(false);
   const [cards, setCards] = useState<CardImage[]>([]);
   const [params, setParams] = useState<MemoryGameParams>({
     choices: [undefined, undefined],
     turns: 0,
     hits: 0,
+    progress: 0,
   });
 
-  const randomizeCards = () => {
-    const resetCards = cardImages.map((card) => ({ ...card, matched: false }));
-    const shuffledCards = shuffleArray(resetCards);
+  const randomizeCards = (progress: number) => {
+    const cards = memoryGameContextData[progress].cards;
 
     setParams({
       choices: [undefined, undefined],
       turns: 0,
       hits: 0,
+      progress,
     });
+
+    const resetCards = cards.map((card) => ({
+      ...card,
+      matched: false,
+    }));
+    const shuffledCards = shuffleArray(resetCards);
 
     setCards(shuffledCards);
   };
@@ -43,20 +52,21 @@ function MemoryGame() {
         choiceTwo.matched = true;
 
         setParams((oldParams) => ({
+          ...oldParams,
           choices: [undefined, undefined],
           hits: oldParams.hits + 1,
           turns: oldParams.turns + 1,
         }));
 
         if (cards.every((card) => card.matched)) {
-          // Abro o modal
+          setModalOpen(true);
         }
       } else {
         setTimeout(
           () =>
             setParams((oldParams) => ({
+              ...oldParams,
               choices: [undefined, undefined],
-              hits: oldParams.hits,
               turns: oldParams.turns + 1,
             })),
           1000
@@ -66,7 +76,7 @@ function MemoryGame() {
   }, [params.choices[0], params.choices[1]]);
 
   useEffect(() => {
-    randomizeCards();
+    randomizeCards(0);
   }, []);
 
   return (
@@ -100,17 +110,49 @@ function MemoryGame() {
                   </div>
                 </div>
               </ScoreWrapper>
-              <button onClick={randomizeCards}>REINICIAR</button>
+              <button onClick={() => randomizeCards(0)}>REINICIAR</button>
             </HeaderBarChildren>
           }
         />
       }
     >
+      <Modal
+        open={modalOpen}
+        headerText="Parabéns, você completou o jogo da mémoria."
+        bodyElement={
+          <ReactMarkdown>
+            {memoryGameContextData[params.progress].content}
+          </ReactMarkdown>
+        }
+        footerElement={
+          <Button
+            width="90%"
+            height="50%"
+            onClick={() => {
+              setModalOpen(false);
+              if (params.progress < memoryGameContextData.length - 1)
+                randomizeCards(params.progress + 1);
+              else randomizeCards(0);
+            }}
+            type="default"
+            ariaLabel={
+              params.progress === memoryGameContextData.length - 1
+                ? 'Reiniciar'
+                : 'Ir para o próximo nível'
+            }
+            text={
+              params.progress === memoryGameContextData.length - 1
+                ? 'Reiniciar'
+                : 'Ir para o próximo nível'
+            }
+          />
+        }
+      />
       <Container>
         <CardGrid>
-          {cards.map((card, index) => (
+          {cards.map((card) => (
             <Card
-              key={index}
+              key={card.id}
               card={card}
               params={params}
               setParams={setParams}
@@ -120,6 +162,4 @@ function MemoryGame() {
       </Container>
     </CommonBody>
   );
-}
-
-export default MemoryGame;
+};
