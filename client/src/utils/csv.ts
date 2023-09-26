@@ -1,6 +1,6 @@
 import { ReportProps } from '@interfaces/reports';
 import { UserModel } from '@interfaces/user';
-import { WordsKey } from '@pages/Games/LessonOneWrapper';
+import { WordsKey } from '@pages/Games/Anagram';
 
 const saveAs = (blob: Blob, fileName: string) => {
   const link = document.createElement('a');
