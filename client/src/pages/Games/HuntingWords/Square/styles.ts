@@ -1,6 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+interface ContainerProps {
+  selected: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -12,8 +16,15 @@ export const Container = styled.div`
   border: 0;
 
   span {
-    height: max-content;
     font-size: 2rem;
     line-height: 2.5rem;
+    font-family: cursive;
+    user-select: none;
   }
+
+  ${(props) =>
+    props.selected &&
+    css`
+      background-color: #aeb0b5;
+    `}
 `;
