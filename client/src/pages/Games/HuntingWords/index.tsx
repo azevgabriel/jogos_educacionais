@@ -53,9 +53,14 @@ export const HuntingWords = () => {
 
     const newRow = [];
 
-    for (let i = firstCell.col; i <= lastCell.col; i++) {
-      newRow.push({ row: firstCell.row, col: i });
-    }
+    if (firstCell.col <= lastCell.col)
+      for (let i = firstCell.col; i <= lastCell.col; i++) {
+        newRow.push({ row: firstCell.row, col: i });
+      }
+    else
+      for (let i = firstCell.col; i >= lastCell.col; i--) {
+        newRow.push({ row: firstCell.row, col: i });
+      }
 
     return newRow;
   };
@@ -66,23 +71,43 @@ export const HuntingWords = () => {
 
     const newCol = [];
 
-    for (let i = firstCell.row; i <= lastCell.row; i++) {
-      newCol.push({ row: i, col: firstCell.col });
-    }
+    if (firstCell.row <= lastCell.row)
+      for (let i = firstCell.row; i <= lastCell.row; i++) {
+        newCol.push({ row: i, col: firstCell.col });
+      }
+    else
+      for (let i = firstCell.row; i >= lastCell.row; i--) {
+        newCol.push({ row: i, col: firstCell.col });
+      }
 
     return newCol;
   };
 
-  const completeIncompletedDiagonal = (
-    diagonal: { row: number; col: number }[]
-  ) => {
-    const firstCell = diagonal[0];
-    const lastCell = diagonal[diagonal.length - 1];
+  const completeIncompletedDiagonal = (col: { row: number; col: number }[]) => {
+    const firstCell = col[0];
+    const lastCell = col[col.length - 1];
 
     const newDiagonal = [];
 
-    for (let i = firstCell.row; i <= lastCell.row; i++) {
-      newDiagonal.push({ row: i, col: i });
+    const toRight = firstCell.col < lastCell.col;
+    const toDown = firstCell.row < lastCell.row;
+
+    if (toRight && toDown) {
+      for (let i = 0; i <= lastCell.row - firstCell.row; i++) {
+        newDiagonal.push({ row: firstCell.row + i, col: firstCell.col + i });
+      }
+    } else if (!toRight && toDown) {
+      for (let i = 0; i <= lastCell.row - firstCell.row; i++) {
+        newDiagonal.push({ row: firstCell.row + i, col: firstCell.col - i });
+      }
+    } else if (toRight && !toDown) {
+      for (let i = 0; i <= firstCell.row - lastCell.row; i++) {
+        newDiagonal.push({ row: firstCell.row - i, col: firstCell.col + i });
+      }
+    } else {
+      for (let i = 0; i <= firstCell.row - lastCell.row; i++) {
+        newDiagonal.push({ row: firstCell.row - i, col: firstCell.col - i });
+      }
     }
 
     return newDiagonal;
@@ -109,7 +134,9 @@ export const HuntingWords = () => {
       if (direction === 'Diagonal') {
         const firstCell = selectedCells[0];
         const diagonal = selectedCells.filter(
-          (cell) => cell.col - cell.row === firstCell.col - firstCell.row
+          (cell) =>
+            Math.abs(cell.col - cell.row) ===
+            Math.abs(firstCell.col - firstCell.row)
         );
         const newDiagonal = completeIncompletedDiagonal(diagonal);
         setCorrectSelectedCells(newDiagonal);
