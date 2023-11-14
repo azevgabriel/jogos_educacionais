@@ -15,7 +15,6 @@ import { Container, ImageWrapper, LessonLettersContentWrapper } from './styles';
 import librasPng from '@assets/images/libras.png';
 import { CommonBody } from '@components/CommonBody';
 import { HeaderBar } from '@components/HeaderBar';
-import { IoContrastOutline } from '@components/Icons';
 
 export type WordsKey = keyof typeof words;
 
@@ -146,27 +145,17 @@ export const Anagram = ({ typeOfEvent }: AnagramProps) => {
             resume: '',
           }}
           children={
-            <>
-              <HeaderBarButton
-                onClick={() => {
-                  const libras = getLibras();
-                  setLibras(!libras);
-                }}
-              >
-                <img
-                  src={librasPng}
-                  alt="Ícone com duas mãos dizendo em libras: Libras. Clique para ativar ou desativar a visualização em libras."
-                />
-              </HeaderBarButton>
-              <HeaderBarButton
-                onClick={() => {
-                  const libras = getLibras();
-                  setLibras(!libras);
-                }}
-              >
-                <IoContrastOutline />
-              </HeaderBarButton>
-            </>
+            <HeaderBarButton
+              onClick={() => {
+                const libras = getLibras();
+                setLibras(!libras);
+              }}
+            >
+              <img
+                src={librasPng}
+                alt="Ícone com duas mãos dizendo em libras: Libras. Clique para ativar ou desativar a visualização em libras."
+              />
+            </HeaderBarButton>
           }
         />
       }

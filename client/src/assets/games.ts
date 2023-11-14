@@ -1,5 +1,5 @@
-import notAvailableCard from './images/notAvailableCard.png';
-import letterLesson from './images/screenshots/anagram.png';
+import anagram from './images/screenshots/anagram.png';
+import huntingWords from './images/screenshots/huntingWords.png';
 import memoryGame from './images/screenshots/memoryGame.png';
 import quiz from './images/screenshots/quiz.png';
 
@@ -8,15 +8,16 @@ export const games = {
     name: 'Anagrama',
     description:
       ' Este jogo desafiador propõe que você rearranje letras para formar palavras válidas.',
-    src: letterLesson,
+    src: anagram,
     alt: 'Imagem do jogo das letras',
     link: '/jogos/letras',
     available: true,
   },
   'caça-palavras': {
     name: 'Caça-palavras',
-    description: 'Em breve!',
-    src: notAvailableCard,
+    description:
+      'Um passatempo com uma grade de letras onde se busca palavras escondidas horizontal, vertical e diagonalmente.',
+    src: huntingWords,
     alt: 'Imagem do jogo do caça-palavras',
     link: '/jogos/caça',
     available: true,
