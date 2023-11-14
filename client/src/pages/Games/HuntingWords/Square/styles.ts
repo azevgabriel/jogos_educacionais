@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 
 interface ContainerProps {
   selected: boolean;
+  correct?: string;
+  diagonalBorder?: string;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -9,22 +11,33 @@ export const Container = styled.div<ContainerProps>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   background-color: #fff;
+  margin: 2px;
 
   border: 0;
 
   span {
-    font-size: 2rem;
-    line-height: 2.5rem;
+    font-size: 1.7rem;
+    line-height: 2rem;
     font-family: cursive;
     user-select: none;
   }
 
-  ${(props) =>
+  ${({ diagonalBorder }) =>
+    diagonalBorder &&
+    css`
+      border-radius: ${diagonalBorder};
+    `}
+  ${({ correct }) =>
+    correct &&
+    css`
+      background-color: ${correct};
+    `}
+    ${(props) =>
     props.selected &&
     css`
       background-color: #aeb0b5;
-    `}
+    `};
 `;

@@ -8,7 +8,8 @@ interface SquareProps {
   setSelectedCells: (selectedCells: { row: number; col: number }[]) => void;
   isDragging: boolean;
   selectedCells: { row: number; col: number }[];
-  correctSelectedCells: { row: number; col: number }[];
+  filteredSelectedCells: { row: number; col: number }[];
+  correctCells: { row: number; col: number; color: string }[];
 }
 
 export const Square = ({
@@ -19,7 +20,8 @@ export const Square = ({
   setIsDragging,
   setSelectedCells,
   selectedCells,
-  correctSelectedCells,
+  filteredSelectedCells,
+  correctCells,
 }: SquareProps) => {
   const handleMouseDown = (row: number, col: number) => {
     setIsDragging(true);
@@ -34,13 +36,35 @@ export const Square = ({
     }
   };
 
+  const isSelected = filteredSelectedCells.find(
+    (cell) => cell.row === x && cell.col === y
+  );
+  const isCorrect = correctCells.find(
+    (cell) => cell.row === x && cell.col === y
+  );
+
+  const borderRadius = () => {
+    if (x === 0 && y === 0) {
+      return '10px 0 0 0';
+    }
+    if (x === 0 && y === 10) {
+      return '0 10px 0 0';
+    }
+    if (x === 10 && y === 0) {
+      return '0 0 0 10px';
+    }
+    if (x === 10 && y === 10) {
+      return '0 0 10px 0';
+    }
+  };
+
   return (
     <Container
       onMouseDown={() => handleMouseDown(x, y)}
       onMouseMove={() => handleMouseMove(x, y)}
-      selected={
-        !!correctSelectedCells.find((cell) => cell.row === x && cell.col === y)
-      }
+      selected={!!isSelected}
+      correct={!!isCorrect ? isCorrect.color : undefined}
+      diagonalBorder={borderRadius()}
     >
       <span>{letter}</span>
     </Container>
