@@ -31,7 +31,7 @@ export const Container = styled.div`
 
 export const ImageWrapper = styled.div`
   height: 55vh;
-  width: 55vh;
+  width: 50vh;
   margin-top: 7.5vh;
 
   display: flex;
@@ -39,9 +39,10 @@ export const ImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  img {
-    height: 70%;
-    width: auto;
+  padding: 0 2.5vw;
+
+  h1 {
+    text-align: center;
   }
 
   @media (max-width: 1000px) and (orientation: portrait) {

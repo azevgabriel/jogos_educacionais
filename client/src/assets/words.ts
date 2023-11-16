@@ -1,4 +1,46 @@
 export const words = {
+  Investimento: {
+    question:
+      'Que ação representa aplicar dinheiro com expectativa de lucro futuro?',
+  },
+  Orçamento: {
+    question: 'Qual ferramenta ajuda a gerenciar receitas e despesas pessoais?',
+  },
+  Passiva: {
+    question:
+      'Que tipo de renda é obtida sem trabalho ativo, geralmente através de investimentos?',
+  },
+  Poupança: {
+    question:
+      'Qual é o termo para guardar uma parte do salário mensalmente para uso futuro?',
+  },
+  Renda: {
+    question:
+      'Qual termo descreve o ganho financeiro regular, como salário ou lucros?',
+  },
+  Valor: {
+    question:
+      'Qual termo descreve um investimento focado em ações de empresas subvalorizadas?',
+  },
+  Banco: {
+    question:
+      'Qual instituição cuida de depósitos, saques e empréstimos de dinheiro?',
+  },
+  Liquidez: {
+    question:
+      'Qual é o termo para a facilidade de converter um ativo em dinheiro?',
+  },
+  Lucro: {
+    question:
+      'Qual é o termo para o ganho obtido após subtrair despesas dos rendimentos?',
+  },
+  Juros: {
+    question:
+      'Qual é o custo cobrado pelo empréstimo de dinheiro ou o ganho em aplicações financeiras?',
+  },
+};
+
+export const oldWords = {
   Bode: {
     src: 'https://hamburgueria.s3.us-east-2.amazonaws.com/educacao-especial/Bode.png',
     alt: 'Imagem de um bode',

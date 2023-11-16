@@ -33,6 +33,7 @@ const getCorrectLetterImage = (letter: string) => {
     case 'B':
       return B;
     case 'C':
+    case 'Ç':
       return C;
     case 'D':
       return D;

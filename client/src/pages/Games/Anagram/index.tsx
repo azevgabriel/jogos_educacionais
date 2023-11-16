@@ -136,6 +136,8 @@ export const Anagram = ({ typeOfEvent }: AnagramProps) => {
       });
   }, [animal, typeOfEvent]);
 
+  const { question } = words[animal];
+
   return (
     <CommonBody
       header={
@@ -164,7 +166,7 @@ export const Anagram = ({ typeOfEvent }: AnagramProps) => {
       <Modal />
       <Container>
         <ImageWrapper>
-          <img src={words[animal].src} alt={words[animal].alt} />
+          <h1>{question}</h1>
         </ImageWrapper>
         <LessonLettersContentWrapper numberOfLetters={animal.length}>
           <div className="nameContent">
